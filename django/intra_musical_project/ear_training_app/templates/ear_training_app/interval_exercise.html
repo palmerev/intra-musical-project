@@ -22,18 +22,9 @@
   <div id="both-notes-button" class="play-button">both notes</div>
 
   <p>Select an interval:</p>
-  {% for i in possible_answers %}
-      {% if "correct" in i %}
-        <div id="correct-answer" class="interval-button">{{ i.interval_name }}</div>
-      {% else %}
-        <div class="interval-button">{{ i.interval_name }}</div>
-      {% endif %}
-    {% endfor %}
+        <div id="correct-answer" class="interval-button">correct interval name</div>
+        <div class="interval-button">interval name</div>
   <p id="answer-result"></p>
-  <!-- <div id="maj-second" class="interval-button">major second</div>
-  <div id="maj-third" class="interval-button">major third</div>
-  <div id="per-fourth" class="interval-button">perfect fourth</div>
-  <div id="per-fifth" class="interval-button">perfect fifth</div> -->
 
 <nav>
   <div id="courses"><a href="courses.html">Back to courses page</a></div>
