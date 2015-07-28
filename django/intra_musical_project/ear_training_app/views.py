@@ -36,21 +36,15 @@ def progress_page(request):
 # def exercise_page(request, course_type, exercise_id):
 #     return HttpResponse("Exercise Page")
 
+num_intervals = 4
+
 def exercise_page(request):
-    possible_answers = get_interval_set(request)
-    num_intervals = 4
-    #mark a random interval as the correct answer
-    answer_index = randint(0, num_intervals - 1)
-    answer = possible_answers[answer_index]
-    answer["correct"] = "1"
-    context = {"possible_answers": possible_answers, "answer": answer }
+    context = { "possible_answers": answer_json }
     return render(request, 'ear_training_app/interval_exercise.html', context)
-    #return HttpResponse(get_interval_set(request))
 
 #helper function for exercise_page
 def get_interval_set(request):
     interval_list = Interval.objects.all()
-    num_intervals = 4
     interval_set = sample(interval_list, num_intervals)
     interval_obj = [
         {
@@ -65,29 +59,13 @@ def get_interval_set(request):
             }
 
         } for interval in interval_set]
-    #output = json.dumps(interval_obj)
-    return interval_obj
 
-    # name = interval.name.quality
-    # top_name = interval.top_note.name
-    # top_octave = interval.top_note.octave
-    # bottom_name = interval.bottom_note.name
-    # bottom_octave = interval.bottom_note.octave
-    # data_item = {
-    #     "interval_name": name,
-    #     "top_note": {
-    #     "name": top_name,
-    #     "octave": top_octave
-    #     },
-    #     "bottom_note": {
-    #     "name": bottom_name,
-    #     "octave": bottom_octave
-    #     }
-    # }
-    # output = json.dumps(data_item)
-    # print "interval set:", interval_set
-    # print "interval:", interval
-    #return HttpResponse(output)
+    #mark a random interval as the correct answer
+    answer_index = randint(0, num_intervals - 1)
+    answer = interval_obj[answer_index]
+    answer["correct"] = "1"
+    answer_json = json.dumps(interval_obj)
+    return HttpResponse(answer_json, content_type="application/json")
 
 # def index(request):
 #     note_list = Note.objects.order_by('-frequency')
