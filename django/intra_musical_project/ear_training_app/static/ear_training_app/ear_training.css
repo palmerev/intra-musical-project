@@ -15,9 +15,8 @@ div {
   text-align: center;
 }
 
-body > div,
-section > div {
-  border-radius: 10%;
+body > div > div {
+  border-radius: 7px;
   display: inline-block;
   font-weight: bold;
   color: white;
@@ -50,6 +49,10 @@ nav > div > a {
   font-size: 0.8em;
   font-weight: bold;
   color: white;
+}
+
+div#play-button-container {
+  width: 50%;
 }
 
 /*

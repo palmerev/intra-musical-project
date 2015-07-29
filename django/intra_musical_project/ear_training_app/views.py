@@ -39,8 +39,8 @@ def progress_page(request):
 num_intervals = 4
 
 def exercise_page(request):
-    context = { "possible_answers": answer_json }
-    return render(request, 'ear_training_app/interval_exercise.html', context)
+    #context = { "possible_answers": answer_json }
+    return render(request, 'ear_training_app/interval_exercise.html')
 
 #helper function for exercise_page
 def get_interval_set(request):
@@ -60,10 +60,6 @@ def get_interval_set(request):
 
         } for interval in interval_set]
 
-    #mark a random interval as the correct answer
-    answer_index = randint(0, num_intervals - 1)
-    answer = interval_obj[answer_index]
-    answer["correct"] = "1"
     answer_json = json.dumps(interval_obj)
     return HttpResponse(answer_json, content_type="application/json")
 
