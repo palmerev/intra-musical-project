@@ -15,7 +15,7 @@ div {
   text-align: center;
 }
 
-body > div > div {
+div > div {
   border-radius: 7px;
   display: inline-block;
   font-weight: bold;
@@ -23,15 +23,20 @@ body > div > div {
   height: 30px;
   line-height: 30px;
   width: 130px;
-  margin: 3px;
+  margin-left: 1%;
+  margin-right: 1%;
 }
 
-body > div > a {
+#answer-button-container > div {
+  background-color: #2222CC;
+    width: 140px;
+}
+div > a {
   color: white;
   text-decoration: none;
 }
 
-nav {
+footer {
   position: absolute;
   top: 100%;
   border: 1px solid green;
@@ -40,19 +45,24 @@ nav {
   background-color: #000055;
 }
 
-nav > div {
+footer > div {
   position: absolute;
   bottom: 3%;
 }
 
-nav > div > a {
+footer > div > a {
   font-size: 0.8em;
   font-weight: bold;
+  text-decoration: underline;
   color: white;
 }
 
 div#play-button-container {
   width: 50%;
+}
+
+div#answer-button-container {
+  width: 55%;
 }
 
 /*
@@ -72,7 +82,7 @@ div#play-button-container {
   background-color: #112266
 }
 
-.interval-button {
+.answer-button {
   background-color: #111155;
 }
 

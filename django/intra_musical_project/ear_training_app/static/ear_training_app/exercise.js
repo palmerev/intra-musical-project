@@ -17,10 +17,10 @@ function makeAnswerButtons(optionObject) {
     var AnswerBtns = document.getElementsByClassName("answer-button");
     var numBtns = AnswerBtns.length;
     if (numBtns <= 0) {
-        console.log("Error: no buttons!");
+        // console.log("Error: no buttons!");
         return false;
     }
-    console.log(numBtns);
+    // console.log(numBtns);
     //create / clone other buttons if there are fewer buttons than options
     answerBtnContainer = document.getElementById("answer-button-container");
     for (var i = 0; i < optionObject.length - numBtns; i++) {
@@ -29,20 +29,29 @@ function makeAnswerButtons(optionObject) {
     }
     //else buttons already there, skip creation step
     var numBtns = AnswerBtns.length;
-    console.log("numBtns after cloning:" + numBtns);
+    // console.log("numBtns after cloning:" + numBtns);
     if (numBtns != optionObject.length) {
-        console.log("wrong number of buttons");
+        // console.log("wrong number of buttons");
         return false;
     }
     for (var i = 0; i < numBtns; i++) {
         var currInterval = optionObject[i];
         var currBtn = AnswerBtns[i];
-        currBtn.innerHTML == currInterval["interval_name"];
+        currBtn.innerHTML = currInterval["interval_name"];
+        // console.log("currInterval:" + currInterval["interval_name"]);
+        // console.log(currBtn.innerHTML);
     }
 }
 
 function newExercise() {
-    var intervalSet = JSON.parse(this.responseText);
+    if(this.responseText) {
+        console.log(this.responseText);
+        var intervalSet = JSON.parse(this.responseText);
+    }
+    else {
+        console.log("No JSON data");
+        console.log(this.responseText);
+    }
     makeAnswerButtons(intervalSet);
     var topButton = document.getElementById("top-note-button");
     var bottomButton = document.getElementById("bottom-note-button");
@@ -73,7 +82,7 @@ function newExercise() {
     for(var i = 0; i < answers.length; i++){
         answers[i].addEventListener("click", checkAnswer);
     }
-    next.addEventListener("click", nextExercise);
+    next.addEventListener("click", getExercise);
 
     tones.type = "sine";
     tones.release = 200;
@@ -82,7 +91,7 @@ function newExercise() {
 function getExercise(){
     var request = new XMLHttpRequest();
     request.onload = newExercise;
-    request.open("GET", "/ear_training_app/get_interval_set", true);
+    request.open("GET", "/get-interval-set/", true);
     request.send();
 }
 
