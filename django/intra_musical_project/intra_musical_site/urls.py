@@ -19,7 +19,7 @@ from ear_training_app import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^admin/$', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^courses/$', views.course_selection, name='course_selection'),
     url(r'^courses/(?P<course_type>[A-Za-z]+)/$', views.course, name='course'),
     url(r'^courses/progress/$', views.progress_page, name='progress_page'),

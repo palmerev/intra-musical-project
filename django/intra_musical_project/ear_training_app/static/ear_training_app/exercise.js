@@ -43,49 +43,60 @@ function makeAnswerButtons(optionObject) {
     }
 }
 
+function setupListeners() {
+    var topButton = document.getElementById("top-note-button");
+    var bottomButton = document.getElementById("bottom-note-button");
+    var bothButton = document.getElementById("both-notes-button");
+
+    topButton.addEventListener("click", function() {
+        // console.log("playing note " + topNoteName + " " + topNoteOctave.toString());
+        tones.play(window.topNoteName, window.topNoteOctave);
+    });
+    bottomButton.addEventListener("click", function() {
+        // console.log("playing note " + bottomNoteName + " " + bottomNoteOctave.toString());
+        tones.play(window.bottomNoteName, window.bottomNoteOctave);
+    });
+    bothButton.addEventListener("click", function() {
+        // console.log("playing note " + topNoteName + " " + topNoteOctave.toString());
+        tones.play(window.topNoteName, window.topNoteOctave);
+        // setTimeout(function(){ return; }, 2000);
+        // console.log("playing note" + bottomNoteName + " " + bottomNoteOctave.toString());
+        tones.play(window.bottomNoteName, window.bottomNoteOctave);
+        // setTimeout(tones.play, 300, bottomNoteName, bottomNoteOctave);
+    });
+    // answers = document.getElementsByClassName("answer-button");
+    // for(var i = 0; i < answers.length; i++){
+    //     answers[i].addEventListener("click", checkAnswer);
+    // }
+
+    tones.type = "square";
+    tones.release = 200;
+
+    var next = document.getElementById("next");
+    next.addEventListener("click", getExercise);
+}
+
 function newExercise() {
     if(this.responseText) {
         console.log(this.responseText);
-        var intervalSet = JSON.parse(this.responseText);
+        window.intervalSet = JSON.parse(this.responseText);
     }
     else {
         console.log("No JSON data");
         console.log(this.responseText);
     }
     makeAnswerButtons(intervalSet);
-    var topButton = document.getElementById("top-note-button");
-    var bottomButton = document.getElementById("bottom-note-button");
-    var bothButton = document.getElementById("both-notes-button");
-    var next = document.getElementById("next");
-
     for(var i = 0; i < intervalSet.length; i++) {
-        var curr = intervalSet[i];
-        if(curr.hasOwnProperty("correct")) {
-          intervalName = curr.interval_name;
-          topNoteName = curr.top_note.name;
-          topNoteOctave = parseInt(curr.top_note.octave);
-          bottomNoteName = curr.bottom_note.name;
-          bottomNoteOctave = parseInt(curr.bottom_note.octave);
-        }
+        window.curr = intervalSet[i];
+        window.intervalName = curr.interval_name;
+        window.topNoteName = curr.top_note.name;
+        window.topNoteOctave = parseInt(curr.top_note.octave);
+        window.bottomNoteName = curr.bottom_note.name;
+        window.bottomNoteOctave = parseInt(curr.bottom_note.octave);
     }
-    topButton.addEventListener("click", function() {
-        tones.play(topNoteName, topNoteOctave);
-    });
-    bottomButton.addEventListener("click", function() {
-        tones.play(bottomNoteName, bottomNoteOctave);
-    });
-    bothButton.addEventListener("click", function() {
-        tones.play(topNoteName, topNoteOctave);
-        tones.play(bottomNoteName, bottomNoteOctave);
-    });
-    answers = document.getElementsByClassName("interval-button");
-    for(var i = 0; i < answers.length; i++){
-        answers[i].addEventListener("click", checkAnswer);
-    }
-    next.addEventListener("click", getExercise);
+    // var tClone = topButton.cloneNode(true);
+    // tClone.parentNode.replaceChild(tClone, topButton);
 
-    tones.type = "sine";
-    tones.release = 200;
 }
 
 function getExercise(){
@@ -96,3 +107,4 @@ function getExercise(){
 }
 
 document.addEventListener("DOMContentLoaded", getExercise);
+document.addEventListener("DOMContentLoaded", setupListeners);
