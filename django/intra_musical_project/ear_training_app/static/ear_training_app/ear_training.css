@@ -9,13 +9,14 @@ body {
   background-color: #AAAAFF;
   background-color: #0F52A2;
   font-family: sans-serif;
-  border: 1px solid red;
+  /*border: 1px solid red;*/
 }
 
 div {
   text-align: center;
 }
 
+section > div,
 div > div {
   border-radius: 7px;
   display: inline-block;
@@ -31,15 +32,23 @@ div > div {
 
 div > a {
   color: white;
+  font-weight: bold;
   text-decoration: none;
+}
+nav {
+  position: absolute;
+  bottom: 5%;
+  /*background-color: black;*/
+
+}
+nav div a {
+  color: white;
+  text-decoration: underline;
 }
 
 footer {
-  /*bottom: 5%;
-  position: absolute;*/
   height: 25px;
   width: 100%;
-  /*background-color: #000055;*/
 }
 
 footer > div {
@@ -62,19 +71,6 @@ footer > div > a {
   width: 55%;
 }
 
-/*
-#top-note-button {
-  background-color: #AA0000;
-}
-
-#bottom-note-button {
-  background-color: #00AA00;
-}
-
-#both-notes-button {
-  background-color: #0000AA;
-}
-*/
 .play-button {
   background: linear-gradient(to bottom, #112266, #091844);
   /*background-color: #112266;*/
@@ -95,8 +91,12 @@ footer > div > a {
   top: 10%;
 }
 
-.course:hover {
-  background-color: #334499;
+div#intervals:hover {
+  background-color: #554499;
+}
+
+.under-construction {
+  background-color: #333333;
 }
 
 #scales {

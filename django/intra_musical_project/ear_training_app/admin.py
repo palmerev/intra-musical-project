@@ -7,10 +7,12 @@ from .models import ScaleType
 from .models import Chord
 from .models import ChordType
 from .models import CourseSelection
-from .models import CourseContents
+from .models import Course
 from .models import CourseProgress
 from .models import ExercisePage
 from .models import Exercise
+from .models import Student
+from .models import CourseStats
 
 # Register your models here.
 admin.site.register(Note)
@@ -21,7 +23,9 @@ admin.site.register(ScaleType)
 admin.site.register(Chord)
 admin.site.register(ChordType)
 admin.site.register(CourseSelection)
-admin.site.register(CourseContents)
+admin.site.register(Course)
 admin.site.register(CourseProgress)
 admin.site.register(ExercisePage)
 admin.site.register(Exercise)
+admin.site.register(Student)
+admin.site.register(CourseStats)

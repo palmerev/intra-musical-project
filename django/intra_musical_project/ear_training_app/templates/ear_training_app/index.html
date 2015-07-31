@@ -1,22 +1,28 @@
-<p>Vote for your favorite note:</p>
-{% if note_list %}
-    <ul>
-    {% for note in note_list %}
-      <form>
-          {{ note.name }} has {{ note.votes }} votes --
-          &nbsp;
-          <a href="/note-list/results/{{ note.id }}/">
-            vote
-          </a>
-          &nbsp;
-          <a href="/note-list/{{ note.id }}/">
-            view
-          </a>
-        </li>
-      </form>
-    {% endfor %}
-        <!-- <li><a href="/note-list/">All notes</a></li> -->
-    </ul>
-{% else %}
-    <p>No notes are available.</p>
-{% endif %}
+{% load staticfiles %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href='{% static "ear_training_app/base_generic.css" %}'>
+</head>
+<body>
+  <h1>Welcome</h1>
+  <header>
+    {% if not user.is_authenticated %}
+    <p><a href="/register/">Register</a></p>
+    <p><a href="/login/">Login</a></p>
+    {% endif %}
+    <p><a href="/courses/">Ear Training Courses</a></p>
+    <p><a href="/admin/">Admin</a></p>
+  </header>
+  <nav>
+  </nav>
+  {% if user.is_authenticated %}
+  <div id="login-status-wrapper">
+    <p id="login-status">
+      Logged in as <span id=username>{{ user.username }}</span>
+    </p>
+    <a href="/logout/" id="logout">Logout</a>
+  </div>
+  {% endif %}
+</body>
+</html>

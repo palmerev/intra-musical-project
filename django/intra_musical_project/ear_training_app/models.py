@@ -1,9 +1,10 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
 class Note(models.Model):
     name = models.CharField(max_length=3, blank=True)
-    #frequency = models.FloatField(default=0.0, null=True, blank=True)
     octave = models.PositiveSmallIntegerField(default=0)
 
     def __unicode__(self): #__str__ in python3
@@ -49,7 +50,6 @@ class Scale(models.Model):
     '''A collection of notes organized by frequency.'''
     name = models.CharField(max_length=50, blank=True)
     tonic = models.ForeignKey(Note, null=True)
-    #quality = models.PositiveSmallIntegerField(default=1) #major, minor, other
     quality = models.ForeignKey(ScaleType, null=True)
     ascending = models.BooleanField(default=True)
 
@@ -88,9 +88,25 @@ class CourseProgress(models.Model):
     ''' Page where users can see their progress, exercises they've completed, learning stats, etc. '''
     pass
 
-class CourseContents(models.Model):
+class Course(models.Model):
     ''' Page showing a list of all exercises in a course. '''
-    pass
+    INTERVALS = "Intervals"
+    CHORDS = "Chords"
+    SCALES = "Scales"
+    COURSE_SUBJECTS = (
+        (INTERVALS, INTERVALS),
+        (CHORDS, CHORDS),
+        (SCALES, SCALES),
+    )
+    num_exercises = models.PositiveSmallIntegerField(default=0, null=True)
+    subject = models.CharField(max_length=15, choices=COURSE_SUBJECTS, default=INTERVALS)
+
+    def __unicode__(self): #__str__ in python3
+        return "course on " + str(self.subject)
+
+    def __str__(self): #__str__ in python3
+        return "course on " + str(self.subject)
+
 
 class Exercise(models.Model):
     name = models.CharField(max_length=30, null=True, blank=True)
@@ -113,3 +129,30 @@ class ExercisePage(models.Model):
 
     def __str__(self): #__str__ in python3
         return str(self.exercise)
+
+class Student(models.Model):
+    student = models.OneToOneField(User, primary_key=True)
+    #course_stats = models.ManyToManyField(CourseStats, blank=True)
+    total_exercises_completed = models.PositiveIntegerField(default=0, null=True, blank=True)
+    courses_completed = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+
+    def __unicode__(self): #__str__ in python3
+        return "student: " + str(self.student)
+
+    def __str__(self): #__str__ in python3
+        return "student: " + str(self.student)
+
+class CourseStats(models.Model):
+    student = models.ForeignKey(Student)
+    course = models.ForeignKey(Course)
+    exercises_complete = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+    #Boolean
+    course_complete = models.PositiveSmallIntegerField(null=True, blank=True)
+
+    def __unicode__(self): #__str__ in python3
+        return "CourseStats for " + str(self.course)
+
+    def __str__(self): #__str__ in python3
+        return "CourseStats for " + str(self.course)
+
+    # def percent_complete(self.course, self.exercises_complete)
