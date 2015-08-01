@@ -15,6 +15,7 @@ from .models import ChordType
 from .models import CourseSelection
 from .models import CourseProgress
 from .models import Exercise
+from .models import CourseStats
 from random import choice, sample, randint
 import json
 
@@ -38,6 +39,11 @@ def login_page(request):
 
     return render(request, 'ear_training_app/login_page.html')
 
+def logout_page(request):
+    logout(request)
+    return HttpResponseRedirect("ear_training_app/courses.html")
+    # return HttpResponse("logged out!")
+
 def registration_page(request):
     if request.POST:
         user = User()
@@ -49,9 +55,19 @@ def registration_page(request):
     return render(request, 'ear_training_app/registration_page.html')
 
 def course_selection(request):
-    #context = { "": , "":  }
-    return render(request, 'ear_training_app/courses.html')
-    #return HttpResponse("Course Selection Page")
+    print(request.user)
+    print(CourseStats.objects.all()[0])
+    stats = CourseStats.objects.filter(student__stuser=request.user)[0]
+    # stats = CourseStats.objects.filter(user=request.user.student)
+    completed = stats.exercises_complete
+    total = stats.course.num_exercises
+    percent_complete = completed / total
+    context = {
+        "completed": completed,
+        "total": total,
+        "percent_complete": percent_complete
+        }
+    return render(request, 'ear_training_app/courses.html', context)
 
 def course(request, course_type):
     # view logic

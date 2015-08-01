@@ -131,7 +131,7 @@ class ExercisePage(models.Model):
         return str(self.exercise)
 
 class Student(models.Model):
-    student = models.OneToOneField(User, primary_key=True)
+    stuser = models.OneToOneField(User, primary_key=True)
     #course_stats = models.ManyToManyField(CourseStats, blank=True)
     total_exercises_completed = models.PositiveIntegerField(default=0, null=True, blank=True)
     courses_completed = models.PositiveSmallIntegerField(default=0, null=True, blank=True)

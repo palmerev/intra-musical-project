@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'ear_training_app.views.login_page'),
+    url(r'^logout/$', 'ear_training_app.views.logout_page'),
     url(r'^register/$', 'ear_training_app.views.registration_page'),
     url(r'^courses/$', views.course_selection, name='course_selection'),
     url(r'^courses/(?P<course_type>[A-Za-z]+)/$', views.course, name='course'),

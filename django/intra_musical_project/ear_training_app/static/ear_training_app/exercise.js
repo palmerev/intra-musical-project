@@ -1,10 +1,15 @@
 //needs tones.js
+function randIndex(length) {
+    num = Math.floor(Math.random() * length);
+    return num;
+}
 
 function checkAnswer(event){
+    console.log(event.target);
     result = document.getElementById("answer-result");
     correctAnswer = document.getElementById("correct-answer");
-    if (event.target == correctAnswer) {
-        result.style.color = "green";
+    if (event.target.innerHTML === window.intervalName) {
+        result.style.color = "white";
         result.innerHTML = "Correct!";
     }
     else {
@@ -13,33 +18,28 @@ function checkAnswer(event){
     }
 }
 
-function makeAnswerButtons(optionObject) {
+function makeAnswerButtons(intervals) {
     var AnswerBtns = document.getElementsByClassName("answer-button");
     var numBtns = AnswerBtns.length;
     if (numBtns <= 0) {
-        // console.log("Error: no buttons!");
         return false;
     }
-    // console.log(numBtns);
     //create / clone other buttons if there are fewer buttons than options
     answerBtnContainer = document.getElementById("answer-button-container");
-    for (var i = 0; i < optionObject.length - numBtns; i++) {
+    for (var i = 0; i < intervals.length - numBtns; i++) {
         var newBtn = AnswerBtns[0].cloneNode(false);
         answerBtnContainer.appendChild(newBtn);
     }
     //else buttons already there, skip creation step
     var numBtns = AnswerBtns.length;
-    // console.log("numBtns after cloning:" + numBtns);
-    if (numBtns != optionObject.length) {
-        // console.log("wrong number of buttons");
+    if (numBtns !== intervals.length) {
         return false;
     }
+    // console.log("answerIndex: " + answerIndex);
     for (var i = 0; i < numBtns; i++) {
-        var currInterval = optionObject[i];
+        var currInterval = intervals[i];
         var currBtn = AnswerBtns[i];
         currBtn.innerHTML = currInterval["interval_name"];
-        // console.log("currInterval:" + currInterval["interval_name"]);
-        // console.log(currBtn.innerHTML);
     }
 }
 
@@ -48,28 +48,30 @@ function setupListeners() {
     var bottomButton = document.getElementById("bottom-note-button");
     var bothButton = document.getElementById("both-notes-button");
 
+    //global variables update each time a new exercise is generated
     topButton.addEventListener("click", function() {
         // console.log("playing note " + topNoteName + " " + topNoteOctave.toString());
         tones.play(window.topNoteName, window.topNoteOctave);
     });
     bottomButton.addEventListener("click", function() {
-        // console.log("playing note " + bottomNoteName + " " + bottomNoteOctave.toString());
         tones.play(window.bottomNoteName, window.bottomNoteOctave);
     });
     bothButton.addEventListener("click", function() {
-        // console.log("playing note " + topNoteName + " " + topNoteOctave.toString());
         tones.play(window.topNoteName, window.topNoteOctave);
-        // setTimeout(function(){ return; }, 2000);
-        // console.log("playing note" + bottomNoteName + " " + bottomNoteOctave.toString());
-        tones.play(window.bottomNoteName, window.bottomNoteOctave);
-        // setTimeout(tones.play, 300, bottomNoteName, bottomNoteOctave);
-    });
-    // answers = document.getElementsByClassName("answer-button");
-    // for(var i = 0; i < answers.length; i++){
-    //     answers[i].addEventListener("click", checkAnswer);
-    // }
+        setTimeout(function(){
+            tones.play(window.bottomNoteName, window.bottomNoteOctave);
+        }, 200);
 
-    tones.type = "square";
+    });
+    var answers = document.getElementsByClassName("answer-button");
+    console.log(answers.length);
+    for(var i = 0; i < answers.length; i++){
+        console.log("answer: " + i);
+        console.log(answers[i]);
+        answers[i].addEventListener("click", checkAnswer);
+    }
+
+    tones.type = "sine";
     tones.release = 200;
 
     var next = document.getElementById("next");
@@ -85,18 +87,22 @@ function newExercise() {
         console.log("No JSON data");
         console.log(this.responseText);
     }
+    var answerIndex = randIndex(intervalSet.length);
+    // for(var i = 0; i < window.intervalSet.length; i++) {
+    //choose a random interval to play
+    var curr = intervalSet[answerIndex];
+    window.intervalName = curr.interval_name;
+    window.topNoteName = curr.top_note.name;
+    window.topNoteOctave = parseInt(curr.top_note.octave);
+    window.bottomNoteName = curr.bottom_note.name;
+    window.bottomNoteOctave = parseInt(curr.bottom_note.octave);
+    // }
+    console.log(intervalSet.length);
+    var idx = randIndex(intervalSet.length);
+     console.log("idx: " + idx);
+    // var correctInterval = intervalSet[idx];
     makeAnswerButtons(intervalSet);
-    for(var i = 0; i < intervalSet.length; i++) {
-        window.curr = intervalSet[i];
-        window.intervalName = curr.interval_name;
-        window.topNoteName = curr.top_note.name;
-        window.topNoteOctave = parseInt(curr.top_note.octave);
-        window.bottomNoteName = curr.bottom_note.name;
-        window.bottomNoteOctave = parseInt(curr.bottom_note.octave);
-    }
-    // var tClone = topButton.cloneNode(true);
-    // tClone.parentNode.replaceChild(tClone, topButton);
-
+    setupListeners();
 }
 
 function getExercise(){
@@ -106,5 +112,7 @@ function getExercise(){
     request.send();
 }
 
-document.addEventListener("DOMContentLoaded", getExercise);
-document.addEventListener("DOMContentLoaded", setupListeners);
+document.addEventListener("DOMContentLoaded", function() {
+  getExercise();
+});
+// document.addEventListener("DOMContentLoaded", setupListeners);
