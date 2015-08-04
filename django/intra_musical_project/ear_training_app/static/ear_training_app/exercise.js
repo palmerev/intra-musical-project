@@ -1,21 +1,50 @@
 //needs tones.js
+
+//namespace for interval and note data
+var EP = {}
+
 function randIndex(length) {
     num = Math.floor(Math.random() * length);
     return num;
 }
 
+function recordAnswer(event){
+    console.log(event.target.innerHTML);
+    // result = document.getElementById("answer-result");
+    // correctAnswer = document.getElementById("correct-answer");
+    var data = new FormData()
+    var request = new XMLHttpRequest();
+    request.open('post', '/courses/intervals/exercises/complete-exercise/');
+    request.onload = function() {
+        var data = JSON.parse(this.responseText);
+        console.log(data);
+    }
+    if(event.target.innerHTML === EP.intervalName) {
+        data.append("result", "correct");
+    }
+    else{
+        data.append("result", "incorrect");
+    }
+    request.send(data);
+}
+
 function showResult(event){
-    console.log(event.target);
+    console.log(event.target.innerHTML);
     result = document.getElementById("answer-result");
     correctAnswer = document.getElementById("correct-answer");
-    if (event.target.innerHTML === window.intervalName) {
-        result.style.color = "white";
-        result.innerHTML = "Correct!";
+    if(result.innerHTML === ""){
+        if (event.target.innerHTML === EP.intervalName) {
+            result.style.color = "white";
+            result.innerHTML = "Correct!";
+        }
+        else {
+            result.style.color = "red";
+            result.innerHTML = "Incorrect. It's a " + EP.intervalName + ".";
+        }
     }
-    else {
-        result.style.color = "red";
-        result.innerHTML = "Incorrect...";
-    }
+    var next = document.getElementById("next");
+    var st = next.style;
+    st.fontSize = "1.5em";
 }
 
 function makeAnswerButtons(intervals) {
@@ -50,26 +79,23 @@ function setupListeners() {
     //global variables update each time a new exercise is generated
     topButton.addEventListener("click", function() {
         // console.log("playing note " + topNoteName + " " + topNoteOctave.toString());
-        tones.play(window.topNoteName, window.topNoteOctave);
+        tones.play(EP.topNoteName, EP.topNoteOctave);
     });
     bottomButton.addEventListener("click", function() {
-        tones.play(window.bottomNoteName, window.bottomNoteOctave);
+        tones.play(EP.bottomNoteName, EP.bottomNoteOctave);
     });
     bothButton.addEventListener("click", function() {
-        tones.play(window.topNoteName, window.topNoteOctave);
+        tones.play(EP.topNoteName, EP.topNoteOctave);
         setTimeout(function(){
-            tones.play(window.bottomNoteName, window.bottomNoteOctave);
+            tones.play(EP.bottomNoteName, EP.bottomNoteOctave);
         }, 200);
 
     });
     var answers = document.getElementsByClassName("answer-button");
-    console.log(answers.length);
     for(var i = 0; i < answers.length; i++){
         answers[i].addEventListener("click", showResult);
+        answers[i].addEventListener("click", recordAnswer);
     }
-
-    tones.type = "sine";
-    tones.release = 200;
 
     var next = document.getElementById("next");
     next.addEventListener("click", getExercise);
@@ -78,25 +104,31 @@ function setupListeners() {
 function newExercise() {
     if(this.responseText) {
         console.log(this.responseText);
-        window.intervalSet = JSON.parse(this.responseText);
+        EP.intervalSet = JSON.parse(this.responseText);
     }
     else {
         console.log("No JSON data");
         console.log(this.responseText);
     }
-    var answerIndex = randIndex(intervalSet.length);
+    var answerIndex = randIndex(EP.intervalSet.length);
     //choose a random interval to play
-    var curr = intervalSet[answerIndex];
-    window.intervalName = curr.interval_name;
-    window.topNoteName = curr.top_note.name;
-    window.topNoteOctave = parseInt(curr.top_note.octave);
-    window.bottomNoteName = curr.bottom_note.name;
-    window.bottomNoteOctave = parseInt(curr.bottom_note.octave);
+    var curr = EP.intervalSet[answerIndex];
+    EP.intervalName = curr.interval_name;
+    EP.topNoteName = curr.top_note.name;
+    EP.topNoteOctave = parseInt(curr.top_note.octave);
+    EP.bottomNoteName = curr.bottom_note.name;
+    EP.bottomNoteOctave = parseInt(curr.bottom_note.octave);
 
-    result = document.getElementById("answer-result");
+    //reset to normal styles
+    var result = document.getElementById("answer-result");
     result.innerHTML = "";
+    var next = document.getElementById("next");
+    next.style.fontSize = "1em";
+    //set sound quality
+    tones.type = "sine";
+    tones.release = 150;
 
-    makeAnswerButtons(intervalSet);
+    makeAnswerButtons(EP.intervalSet);
     setupListeners();
 }
 
