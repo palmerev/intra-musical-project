@@ -25,7 +25,7 @@ class IntervalType(models.Model):
 
 class Interval(models.Model):
     '''Two notes a specific distance (interval) apart.'''
-    #TODO: make function to generate name based on top_note and bottom_note values
+    #TODO:??? make function to generate name based on top_note and bottom_note values
     name = models.ForeignKey(IntervalType, null=True, blank=True)
     top_note = models.ForeignKey(Note, related_name="top_note", null=True, blank=True)
     bottom_note = models.ForeignKey(Note, related_name="bottom_note", null=True, blank=True)
@@ -145,7 +145,8 @@ class Student(models.Model):
 class CourseStats(models.Model):
     student = models.ForeignKey(Student)
     course = models.ForeignKey(Course)
-    exercises_complete = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+    num_correct = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+    num_incorrect = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
     #Boolean
     course_complete = models.PositiveSmallIntegerField(null=True, blank=True)
 
