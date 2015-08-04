@@ -4,7 +4,7 @@ function randIndex(length) {
     return num;
 }
 
-function checkAnswer(event){
+function showResult(event){
     console.log(event.target);
     result = document.getElementById("answer-result");
     correctAnswer = document.getElementById("correct-answer");
@@ -35,7 +35,6 @@ function makeAnswerButtons(intervals) {
     if (numBtns !== intervals.length) {
         return false;
     }
-    // console.log("answerIndex: " + answerIndex);
     for (var i = 0; i < numBtns; i++) {
         var currInterval = intervals[i];
         var currBtn = AnswerBtns[i];
@@ -66,9 +65,7 @@ function setupListeners() {
     var answers = document.getElementsByClassName("answer-button");
     console.log(answers.length);
     for(var i = 0; i < answers.length; i++){
-        console.log("answer: " + i);
-        console.log(answers[i]);
-        answers[i].addEventListener("click", checkAnswer);
+        answers[i].addEventListener("click", showResult);
     }
 
     tones.type = "sine";
@@ -88,7 +85,6 @@ function newExercise() {
         console.log(this.responseText);
     }
     var answerIndex = randIndex(intervalSet.length);
-    // for(var i = 0; i < window.intervalSet.length; i++) {
     //choose a random interval to play
     var curr = intervalSet[answerIndex];
     window.intervalName = curr.interval_name;
@@ -96,11 +92,10 @@ function newExercise() {
     window.topNoteOctave = parseInt(curr.top_note.octave);
     window.bottomNoteName = curr.bottom_note.name;
     window.bottomNoteOctave = parseInt(curr.bottom_note.octave);
-    // }
-    console.log(intervalSet.length);
-    var idx = randIndex(intervalSet.length);
-     console.log("idx: " + idx);
-    // var correctInterval = intervalSet[idx];
+
+    result = document.getElementById("answer-result");
+    result.innerHTML = "";
+
     makeAnswerButtons(intervalSet);
     setupListeners();
 }
@@ -112,7 +107,4 @@ function getExercise(){
     request.send();
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-  getExercise();
-});
-// document.addEventListener("DOMContentLoaded", setupListeners);
+document.addEventListener("DOMContentLoaded", getExercise);
