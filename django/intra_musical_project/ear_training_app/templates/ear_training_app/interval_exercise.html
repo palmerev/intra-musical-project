@@ -29,7 +29,14 @@
       <div class="answer-button"></div>
     </div>
   <p id="answer-result"></p>
-
+  {% if user.is_authenticated %}
+  <div id="login-status-wrapper">
+    <p id="login-status">
+      Logged in as <span id=username>{{ user.username }}</span>
+    </p>
+    <a href="/logout/" id="logout">Logout</a>
+  </div>
+  {% endif %}
 <footer>
   <div id="courses"><a href="{% url 'course_selection' %}">Back to courses page</a></div>
   <div id="next"><a href="#">Next Exercise</a></div>

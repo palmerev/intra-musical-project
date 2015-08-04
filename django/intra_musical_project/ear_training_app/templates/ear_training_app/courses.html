@@ -13,10 +13,6 @@
       <h2 class="course-title">
         Scales
       </h2>
-      <!-- <div id="scales-progress" class="course-progress">
-        <p>exercise 10 of 30</p>
-        <p>33% complete</p>
-      </div> -->
     </div>
 
     <div id="intervals" class="course">
@@ -25,8 +21,12 @@
         Intervals
       </h2>
       <div id="intervals-progress" class="course-progress">
-        <p>exercise {{ completed }} of {{ total }}</p>
-        <p>{{ percent_complete }}% complete</p>
+        {% if user.is_authenticated %}
+          <p>exercise {{ completed }} of {{ total }}</p>
+          <p>{{ percent_complete }}% complete</p>
+        {% else %}
+          <p>(login to track progress)</p>
+        {% endif %}
       </div>
       </a>
     </div>
@@ -38,15 +38,15 @@
       <h2 class="course-title">
         Chords
       </h2>
-      <!-- <div id="chords-progress" class="course-progress">
-        <p>exercise 10 of 30</p>
-        <p>33% complete</p>
-      </div> -->
     </div>
   </section>
-
-
+  {% if user.is_authenticated %}
+    <div id="login-status"><p>Logged in as {{ user.username }}</p></div>
+  {% endif %}
   <nav>
       <div><a href="/">Home</a></div>
+      {% if not user.is_authenticated %}
+        <div><a href="/login_page/">Login</a></div>
+      {% endif %}
   </nav>
 </body>
