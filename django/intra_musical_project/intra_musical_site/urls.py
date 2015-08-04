@@ -27,6 +27,10 @@ urlpatterns = [
     url(r'^courses/(?P<course_type>[A-Za-z]+)/$', views.course, name='course'),
     url(r'^courses/progress/$', views.progress_page, name='progress_page'),
     url(r'^courses/intervals/exercises/$', views.exercise_page, name='exercise_page'),
-    url(r'^courses/(?P<course_type>[A-Za-z]+)/exercises/(?P<exercise_id>)/$', views.exercise_page, name='exercise_page'),
+    url(r'^courses/intervals/exercises/complete-exercise/$',
+        views.complete_exercise, name='complete_exercise'),
+    url(r'^courses/(?P<course_type>[A-Za-z]+)/exercises/(?P<exercise_id>)/$',
+        views.exercise_page, name='exercise_page'),
+
     url(r'^get-interval-set/$', views.get_interval_set, name='get_interval_set'),
 ]

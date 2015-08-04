@@ -4,6 +4,7 @@ from django.template import RequestContext, loader
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 from .models import Note
 from .models import Interval
@@ -16,6 +17,7 @@ from .models import CourseSelection
 from .models import CourseProgress
 from .models import Exercise
 from .models import CourseStats
+from .models import Student
 from random import choice, sample, randint
 import json
 
@@ -45,8 +47,10 @@ def logout_page(request):
     # return HttpResponse("logged out!")
 
 def registration_page(request):
+    #TODO: validate registration against existing users
     if request.POST:
         user = User()
+        #all_users = User.objects.all()
         user.username = request.POST['username']
         user.set_password(request.POST['password'])
         user.save()
@@ -55,19 +59,45 @@ def registration_page(request):
     return render(request, 'ear_training_app/registration_page.html')
 
 def course_selection(request):
-    print(request.user)
-    print(CourseStats.objects.all()[0])
-    stats = CourseStats.objects.filter(student__stuser=request.user)[0]
-    # stats = CourseStats.objects.filter(user=request.user.student)
-    completed = stats.exercises_complete
-    total = stats.course.num_exercises
-    percent_complete = completed / total
-    context = {
-        "completed": completed,
-        "total": total,
-        "percent_complete": percent_complete
-        }
+    if(request.user.is_authenticated()):
+        print(request.user)
+        print(CourseStats.objects.all()[0])
+        stats = get_object_or_404(CourseStats, student__stuser=request.user)
+        # stats = CourseStats.objects.filter(stuser=request.user.student)[0]
+        completed = stats.exercises_complete
+        total = stats.course.num_exercises
+        percent_complete = completed / total
+        context = {
+            "completed": completed,
+            "total": total,
+            "percent_complete": percent_complete
+            }
+    else:
+        context = {}
     return render(request, 'ear_training_app/courses.html', context)
+
+@csrf_exempt
+def complete_exercise(request):
+    if request.POST:
+        print(request.POST)
+        result = request.POST["result"]
+        stats = get_object_or_404(CourseStats, student__stuser=request.user)
+        student = get_object_or_404(Student, pk=request.user.id)
+        if result == "correct":
+            stats.num_correct += 1
+            student.total_exercises_completed += 1
+        elif result == "incorrect":
+            stats.num_incorrect += 1
+            student.total_exercises_completed += 1
+        data = {
+            "num_correct": stats.num_correct,
+            "num_incorrect": stats.num_incorrect,
+            "total": stats.num_correct + stats.num_incorrect
+        }
+        json_data = json.dumps(data, indent=4)
+        return HttpResponse(json_data, content_type="application/json")
+    else:
+        return HttpResponse("error: please use POST", content_type="application/json")
 
 def course(request, course_type):
     # view logic
@@ -106,48 +136,3 @@ def get_interval_set(request):
 
     answer_json = json.dumps(interval_obj)
     return HttpResponse(answer_json, content_type="application/json")
-
-# def index(request):
-#     note_list = Note.objects.order_by('-frequency')
-#     template = loader.get_template('ear_training_app/index.html')
-#     context = RequestContext(request, {
-#         'note_list': note_list,
-#     })
-#     return HttpResponse(template.render(context))
-#
-# def note_list(request):
-#     notes = Note.objects.all()
-#     notes_data = [", ".join([x.name, str(x.frequency)]) for x in notes]
-#     output = "\t".join(notes_data)
-#     return HttpResponse(output)
-#
-# def detail(request, note_id):
-#     note = get_object_or_404(Note, id=note_id)
-#     context = { "note": note }
-#     return render(request, 'ear_training_app/detail.html', context)
-#
-# def results(request, note_id):
-#     note_list = Note.objects.order_by('-frequency')
-#     chosen_note = Note.objects.filter(id=note_id)[0]
-#     chosen_note.votes += 1
-#     chosen_note.save()
-#     context = { "note_list": note_list, "note": chosen_note }
-#     return render(request, 'ear_training_app/results.html', context)
-#
-# def edit(request, note_id):
-#     filtered_notes = Note.objects.filter(id=note_id)
-#     if filtered_notes:
-#         print "notes in edit"
-#         note = filtered_notes[0]
-#     else:
-#         #note = Note()
-#         print "NO NOTES!"
-#     if request.POST:
-#         print(request.POST)
-#         note.name = request.POST["name"]
-#         note.votes = request.POST["votes"]
-#         note.save()
-#         return HttpResponseRedirect("/")
-#
-#     context = { "note": note }
-#     return render(request, 'ear_training_app/edit.html', context)
