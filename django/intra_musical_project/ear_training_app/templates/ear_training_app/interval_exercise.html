@@ -10,9 +10,16 @@
   <link rel="stylesheet" href="{% static 'ear_training_app/ear_training.css' %}">
   <script src="{% static 'ear_training_app/tones.js' %}"></script>
   <script src="{% static 'ear_training_app/exercise.js' %}"></script>
+  <script src="{% static 'ear_training_app/course.js' %}"></script>
+
 </head>
 <body>
   <h2>Exercise Page</h2>
+  {% if user.is_authenticated %}
+    <p id="course-progress">
+      Exercise <span id="current">0</span>/<span id="course-total">0</span>
+    </p>
+  {% endif %}
     <p>
       To complete this exercise, identify the interval.
        You may play the top or bottom note alone, or both notes together, using the buttons below.
