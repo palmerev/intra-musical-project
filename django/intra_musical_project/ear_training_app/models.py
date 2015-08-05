@@ -80,39 +80,50 @@ class Chord(models.Model):
     def __str__(self): #__str__ in python3
         return "(root: " + str(self.root) + ", " + "quality: " + str(self.quality) + ")"
 
-class CourseSelection(models.Model):
-    ''' Page containing all courses '''
-    pass
+# class CourseSelection(models.Model):
+#     ''' Page containing all courses '''
+#     pass
+#
+# class CourseProgress(models.Model):
+#     ''' Page where users can see their progress, exercises they've completed, learning stats, etc. '''
+#     pass
 
-class CourseProgress(models.Model):
-    ''' Page where users can see their progress, exercises they've completed, learning stats, etc. '''
-    pass
+class CourseType(models.Model):
+    title = models.CharField(max_length=50, null=True, blank=True)
+
+    def __unicode__(self): #__str__ in python3
+        return str(self.title)
+
+    def __str__(self): #__str__ in python3
+        return str(self.title)
 
 class Course(models.Model):
     ''' Page showing a list of all exercises in a course. '''
-    INTERVALS = "Intervals"
-    CHORDS = "Chords"
-    SCALES = "Scales"
-    COURSE_SUBJECTS = (
-        (INTERVALS, INTERVALS),
-        (CHORDS, CHORDS),
-        (SCALES, SCALES),
-    )
+    # INTERVALS = "intervals"
+    # CHORDS = "chords"
+    # SCALES = "scales"
+    # COURSE_SUBJECTS = (
+    #     (INTERVALS, "Intervals"),
+    #     (CHORDS, "Chords"),
+    #     (SCALES, "Scales"),
+    # )
+    # subject = models.CharField(max_length=15, choices=COURSE_SUBJECTS, default=INTERVALS)
+    course_type = models.ForeignKey(CourseType, blank=True, null=True)
     num_exercises = models.PositiveSmallIntegerField(default=0, null=True)
-    subject = models.CharField(max_length=15, choices=COURSE_SUBJECTS, default=INTERVALS)
+    #exercises = models.ForeignKey(Exercise, null=True, blank=True)
 
     def __unicode__(self): #__str__ in python3
-        return "course on " + str(self.subject)
+        return "course on " + str(self.course_type)
 
     def __str__(self): #__str__ in python3
-        return "course on " + str(self.subject)
-
+        return "course on " + str(self.course_type)
 
 class Exercise(models.Model):
     name = models.CharField(max_length=30, null=True, blank=True)
     interval_answer = models.ForeignKey(Interval, null=True, blank=True)
     scale_answer = models.ForeignKey(Scale, null=True, blank=True)
     chord_answer = models.ForeignKey(Chord, null=True, blank=True)
+    course = models.ForeignKey(Course, null=True, blank=True)
 
     def __unicode__(self): #__str__ in python3
         return str(self.name)
@@ -120,15 +131,14 @@ class Exercise(models.Model):
     def __str__(self): #__str__ in python3
         return str(self.name)
 
-
-class ExercisePage(models.Model):
-    exercise = models.ForeignKey(Exercise, null=True, blank=True)
-
-    def __unicode__(self): #__str__ in python3
-        return str(self.exercise)
-
-    def __str__(self): #__str__ in python3
-        return str(self.exercise)
+# class ExercisePage(models.Model):
+#     exercise = models.ForeignKey(Exercise, null=True, blank=True)
+#
+#     def __unicode__(self): #__str__ in python3
+#         return str(self.exercise)
+#
+#     def __str__(self): #__str__ in python3
+#         return str(self.exercise)
 
 class Student(models.Model):
     stuser = models.OneToOneField(User, primary_key=True)
@@ -137,10 +147,10 @@ class Student(models.Model):
     courses_completed = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
 
     def __unicode__(self): #__str__ in python3
-        return "student: " + str(self.student)
+        return str(self.stuser)
 
     def __str__(self): #__str__ in python3
-        return "student: " + str(self.student)
+        return str(self.stuser)
 
 class CourseStats(models.Model):
     student = models.ForeignKey(Student)
