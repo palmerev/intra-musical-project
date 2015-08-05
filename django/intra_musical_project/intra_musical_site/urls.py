@@ -33,4 +33,5 @@ urlpatterns = [
         views.exercise_page, name='exercise_page'),
 
     url(r'^get-interval-set/$', views.get_interval_set, name='get_interval_set'),
+    url(r'^get-course-exercises/(?P<course_title>[A-Za-z]+)/$', views.get_course_exercises, name='get_course_exercises'),
 ]
