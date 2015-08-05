@@ -13,8 +13,8 @@ from .models import Scale
 from .models import ScaleType
 from .models import Chord
 from .models import ChordType
-from .models import CourseSelection
-from .models import CourseProgress
+# from .models import CourseSelection
+# from .models import CourseProgress
 from .models import Exercise
 from .models import CourseStats
 from .models import Student
@@ -107,17 +107,12 @@ def course(request, course_type):
 def progress_page(request):
     return HttpResponse("Course Progress Page")
 
-# def exercise_page(request, course_type, exercise_id):
-#     return HttpResponse("Exercise Page")
-
-num_intervals = 4
-
 def exercise_page(request):
-    #context = { "possible_answers": answer_json }
     return render(request, 'ear_training_app/interval_exercise.html')
 
 #helper function for exercise_page
 def get_interval_set(request):
+    num_intervals = 4
     interval_list = Interval.objects.all()
     interval_set = sample(interval_list, num_intervals)
     interval_obj = [
@@ -136,3 +131,22 @@ def get_interval_set(request):
 
     answer_json = json.dumps(interval_obj)
     return HttpResponse(answer_json, content_type="application/json")
+
+def get_course_exercises(request, course_title):
+    # print course_title
+    course_title = course_title.capitalize()
+    exercises = Exercise.objects.filter(course__course_type__title=course_title)
+    # print exercises
+    obj = [
+        {
+            "interval_name": exercise.interval_answer.name.quality.lower(),
+            "top_note": {
+                "octave": exercise.interval_answer.top_note.octave,
+                "name": exercise.interval_answer.top_note.name.lower()
+            },
+            "bottom_note": {
+                "octave": exercise.interval_answer.bottom_note.octave,
+                "name": exercise.interval_answer.bottom_note.name.lower()
+            }
+        } for exercise in exercises]
+    return HttpResponse(json.dumps(obj, indent=4), content_type="application/json")
