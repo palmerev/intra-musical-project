@@ -13,15 +13,12 @@ from .models import Scale
 from .models import ScaleType
 from .models import Chord
 from .models import ChordType
-# from .models import CourseSelection
-# from .models import CourseProgress
 from .models import Exercise
 from .models import CourseStats
 from .models import Student
 from random import choice, sample, randint
 import json
 
-# @login_required(login_url='/login/')
 def index(request):
     return render(request, 'ear_training_app/index.html')
 
@@ -43,7 +40,7 @@ def login_page(request):
 
 def logout_page(request):
     logout(request)
-    return HttpResponseRedirect("ear_training_app/courses.html")
+    return HttpResponseRedirect("/")
     # return HttpResponse("logged out!")
 
 def registration_page(request):
@@ -58,10 +55,11 @@ def registration_page(request):
 
     return render(request, 'ear_training_app/registration_page.html')
 
+@login_required(login_url="/login/")
 def course_selection(request):
     if(request.user.is_authenticated()):
-        print(request.user)
-        print(CourseStats.objects.all()[0])
+        # print(request.user)
+        # print(CourseStats.objects.all()[0])
         stats = get_object_or_404(CourseStats, student__stuser=request.user)
         # stats = CourseStats.objects.filter(stuser=request.user.student)[0]
         completed = stats.exercises_complete
@@ -89,15 +87,20 @@ def complete_exercise(request):
         elif result == "incorrect":
             stats.num_incorrect += 1
             student.total_exercises_completed += 1
+        elif result == "skipped":
+            stats.num_skipped += 1
+        stats.save()
+        student.save()
         data = {
             "num_correct": stats.num_correct,
             "num_incorrect": stats.num_incorrect,
-            "total": stats.num_correct + stats.num_incorrect
+            # "num_skipped": stats.num_skipped,
+            "total_answered": stats.num_correct + stats.num_incorrect
         }
         json_data = json.dumps(data, indent=4)
         return HttpResponse(json_data, content_type="application/json")
     else:
-        return HttpResponse("error: please use POST", content_type="application/json")
+        return HttpResponse(json.dumps("{ error: please use POST }"), content_type="application/json")
 
 def course(request, course_type):
     # view logic

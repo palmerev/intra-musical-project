@@ -157,8 +157,10 @@ class CourseStats(models.Model):
     course = models.ForeignKey(Course)
     num_correct = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
     num_incorrect = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+    # num_skipped = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
     #Boolean
     course_complete = models.PositiveSmallIntegerField(null=True, blank=True)
+    exercises_complete = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
 
     def __unicode__(self): #__str__ in python3
         return "CourseStats for " + str(self.course)

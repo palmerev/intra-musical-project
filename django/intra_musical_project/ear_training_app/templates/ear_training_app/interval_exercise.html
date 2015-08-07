@@ -8,7 +8,9 @@
       {% endblock %}
   </title>
   <link rel="stylesheet" href="{% static 'ear_training_app/ear_training.css' %}">
+  <link rel="stylesheet" href="{% static 'ear_training_app/dialogue.css' %}">
   <script src="{% static 'ear_training_app/tones.js' %}"></script>
+  <script src="{% static 'ear_training_app/dialogue.js' %}"></script>
   <script src="{% static 'ear_training_app/exercise.js' %}"></script>
   <script src="{% static 'ear_training_app/course.js' %}"></script>
 
@@ -17,7 +19,7 @@
   <h2>Exercise Page</h2>
   {% if user.is_authenticated %}
     <p id="course-progress">
-      Exercise <span id="current">0</span>/<span id="course-total">0</span>
+      Exercise <span id="current"></span>/<span id="course-total"></span>
     </p>
   {% endif %}
     <p>
@@ -47,6 +49,20 @@
 <footer>
   <div id="courses"><a href="{% url 'course_selection' %}">Back to courses page</a></div>
   <div id="next"><a href="#">Next Exercise</a></div>
-  <div id="previous"><a href="#">Previous Exercise</a></div>
 </footer>
+<!-- hidden dialogue box to show when course complete -->
+<div class="hidden" id="grayout">
+  <div class="hidden" id="dialogue">
+    <div class="content">
+      <h2 id="dialogue-title">Results</h2>
+      <p>Exercises completed: <span id="ex-completed">0</span></p>
+      <p>Exercises skipped: <span id="ex-skipped">0</span></p>
+      <p>Correct answers: <span id="ex-correct">0</span></p>
+      <p>Incorrect answers: <span id="ex-incorrect">0</span></p>
+      <!-- <button onclick="closeDialogue()">OK</button> -->
+      <button id="dialogue-ok">OK</button>
+    </div>
+  </div>
+</div>
+
 </body>
