@@ -126,10 +126,10 @@ class Exercise(models.Model):
     course = models.ForeignKey(Course, null=True, blank=True)
 
     def __unicode__(self): #__str__ in python3
-        return str(self.name)
+        return str(self.name) + ", " + str(self.id)
 
     def __str__(self): #__str__ in python3
-        return str(self.name)
+        return str(self.name) + ", " + str(self.id)
 
 # class ExercisePage(models.Model):
 #     exercise = models.ForeignKey(Exercise, null=True, blank=True)
@@ -151,6 +151,16 @@ class Student(models.Model):
 
     def __str__(self): #__str__ in python3
         return str(self.stuser)
+
+class StudentExercise(models.Model):
+    student = models.ForeignKey(Student)
+    exercise = models.ForeignKey(Exercise)
+
+    def __unicode__(self): #__str__ in python3
+        return str(self.student) + ", " + str(self.exercise)
+
+    def __str__(self): #__str__ in python3
+        return str(self.student) + ", " + str(self.exercise)
 
 class CourseStats(models.Model):
     student = models.ForeignKey(Student)
