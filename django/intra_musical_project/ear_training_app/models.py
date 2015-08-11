@@ -99,15 +99,6 @@ class CourseType(models.Model):
 
 class Course(models.Model):
     ''' Page showing a list of all exercises in a course. '''
-    # INTERVALS = "intervals"
-    # CHORDS = "chords"
-    # SCALES = "scales"
-    # COURSE_SUBJECTS = (
-    #     (INTERVALS, "Intervals"),
-    #     (CHORDS, "Chords"),
-    #     (SCALES, "Scales"),
-    # )
-    # subject = models.CharField(max_length=15, choices=COURSE_SUBJECTS, default=INTERVALS)
     course_type = models.ForeignKey(CourseType, blank=True, null=True)
     num_exercises = models.PositiveSmallIntegerField(default=0, null=True)
     #exercises = models.ForeignKey(Exercise, null=True, blank=True)
@@ -131,15 +122,6 @@ class Exercise(models.Model):
     def __str__(self): #__str__ in python3
         return str(self.name) + ", " + str(self.id)
 
-# class ExercisePage(models.Model):
-#     exercise = models.ForeignKey(Exercise, null=True, blank=True)
-#
-#     def __unicode__(self): #__str__ in python3
-#         return str(self.exercise)
-#
-#     def __str__(self): #__str__ in python3
-#         return str(self.exercise)
-
 class Student(models.Model):
     stuser = models.OneToOneField(User, primary_key=True)
     #course_stats = models.ManyToManyField(CourseStats, blank=True)
@@ -155,6 +137,15 @@ class Student(models.Model):
 class StudentExercise(models.Model):
     student = models.ForeignKey(Student)
     exercise = models.ForeignKey(Exercise)
+    CORRECT = "correct"
+    INCORRECT = "incorrect"
+    SKIPPED = "skipped"
+    EXERCISE_RESULT_CHOICES = (
+        (CORRECT, CORRECT),
+        (INCORRECT, INCORRECT),
+        (SKIPPED, SKIPPED),
+    )
+    exercise_result = models.CharField(max_length=9, choices=EXERCISE_RESULT_CHOICES, default=SKIPPED)
 
     def __unicode__(self): #__str__ in python3
         return str(self.student) + ", " + str(self.exercise)
@@ -165,9 +156,9 @@ class StudentExercise(models.Model):
 class CourseStats(models.Model):
     student = models.ForeignKey(Student)
     course = models.ForeignKey(Course)
-    num_correct = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
-    num_incorrect = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
-    # num_skipped = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+    # num_correct = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+    # num_incorrect = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+    # # num_skipped = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
     #Boolean
     course_complete = models.PositiveSmallIntegerField(null=True, blank=True)
     exercises_complete = models.PositiveSmallIntegerField(default=0, null=True, blank=True)

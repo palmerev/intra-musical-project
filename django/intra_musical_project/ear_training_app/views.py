@@ -16,6 +16,7 @@ from .models import ChordType
 from .models import Exercise
 from .models import CourseStats
 from .models import Student
+from .models import StudentExercise
 from random import choice, sample, randint
 import json
 
@@ -102,13 +103,33 @@ def complete_exercise(request):
     else:
         return HttpResponse(json.dumps("{ error: please use POST }"), content_type="application/json")
 
+def save_student_exercise(request):
+    if request.POST:
+        exercise_id = request.POST["exercise_id"]
+        # result should be formatted to match EXERCISE_RESULT_CHOICES in StudentExercise model
+        # e.g. all lowercase "correct", "incorrect", or "skipped"
+        result = request.POST["result"]
+        user_exercise = StudentExercise.objects.filter(student__stuser=request.user, exercise__id=exercise.id)[0]
+        if len(user_exercises) > 0:
+            student_exercise = user_exercise
+        else:
+            student_exercise = StudentExercise()
+            student_exercise.student = request.user
+            student_exercise.exercise = Exercise.objects.filter(id=exercise_id)[0]
+        # update result or if newly created, set it
+        student_exercise.result = result
+        student_exercise.save()
+        return HttpResponse(json.dumps('{ "id": ' + student_exercise.id + ' }'), content_type="application/json")
+    else:
+        return HttpResponse(json.dumps("{ error: please use POST }"), content_type="application/json")
+
 def course(request, course_type):
     # view logic
     #
     return HttpResponse("Course Content Page")
 
-def progress_page(request):
-    return HttpResponse("Course Progress Page")
+# def progress_page(request):
+#     return HttpResponse("Course Progress Page")
 
 def exercise_page(request):
     return render(request, 'ear_training_app/interval_exercise.html')
