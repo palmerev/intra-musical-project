@@ -103,6 +103,7 @@ def complete_exercise(request):
     else:
         return HttpResponse(json.dumps("{ error: please use POST }"), content_type="application/json")
 
+@csrf_exempt
 def save_student_exercise(request):
     if request.POST:
         exercise_id = request.POST["exercise_id"]
