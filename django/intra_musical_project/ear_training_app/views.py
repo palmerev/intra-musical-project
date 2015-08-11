@@ -75,33 +75,33 @@ def course_selection(request):
         context = {}
     return render(request, 'ear_training_app/courses.html', context)
 
-@csrf_exempt
-def complete_exercise(request):
-    if request.POST:
-        print(request.POST)
-        result = request.POST["result"]
-        stats = get_object_or_404(CourseStats, student__stuser=request.user)
-        student = get_object_or_404(Student, pk=request.user.id)
-        if result == "correct":
-            stats.num_correct += 1
-            student.total_exercises_completed += 1
-        elif result == "incorrect":
-            stats.num_incorrect += 1
-            student.total_exercises_completed += 1
-        elif result == "skipped":
-            stats.num_skipped += 1
-        stats.save()
-        student.save()
-        data = {
-            "num_correct": stats.num_correct,
-            "num_incorrect": stats.num_incorrect,
-            # "num_skipped": stats.num_skipped,
-            "total_answered": stats.num_correct + stats.num_incorrect
-        }
-        json_data = json.dumps(data, indent=4)
-        return HttpResponse(json_data, content_type="application/json")
-    else:
-        return HttpResponse(json.dumps("{ error: please use POST }"), content_type="application/json")
+# @csrf_exempt
+# def complete_exercise(request):
+#     if request.POST:
+#         print(request.POST)
+#         result = request.POST["result"]
+#         stats = get_object_or_404(CourseStats, student__stuser=request.user)
+#         student = get_object_or_404(Student, pk=request.user.id)
+#         if result == "correct":
+#             stats.num_correct += 1
+#             student.total_exercises_completed += 1
+#         elif result == "incorrect":
+#             stats.num_incorrect += 1
+#             student.total_exercises_completed += 1
+#         elif result == "skipped":
+#             stats.num_skipped += 1
+#         stats.save()
+#         student.save()
+#         data = {
+#             "num_correct": stats.num_correct,
+#             "num_incorrect": stats.num_incorrect,
+#             # "num_skipped": stats.num_skipped,
+#             "total_answered": stats.num_correct + stats.num_incorrect
+#         }
+#         json_data = json.dumps(data, indent=4)
+#         return HttpResponse(json_data, content_type="application/json")
+#     else:
+#         return HttpResponse(json.dumps("{ error: please use POST }"), content_type="application/json")
 
 @csrf_exempt
 def save_student_exercise(request):
