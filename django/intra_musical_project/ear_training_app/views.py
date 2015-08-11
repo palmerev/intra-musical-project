@@ -128,7 +128,7 @@ def get_interval_set(request):
             "bottom_note": {
                 "octave": interval.bottom_note.octave,
                 "name": interval.bottom_note.name.lower()
-            }
+            },
 
         } for interval in interval_set]
 
@@ -150,6 +150,7 @@ def get_course_exercises(request, course_title):
             "bottom_note": {
                 "octave": exercise.interval_answer.bottom_note.octave,
                 "name": exercise.interval_answer.bottom_note.name.lower()
-            }
+            },
+            "id": exercise.id
         } for exercise in exercises]
     return HttpResponse(json.dumps(obj, indent=4), content_type="application/json")
