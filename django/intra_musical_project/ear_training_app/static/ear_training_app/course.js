@@ -2,7 +2,7 @@
 
 //namespace for interval and note data
 var EP = {
-    exercise: {
+    currentExercise: {
         answerGiven: false,
         id: 0,
         intervalName: "",
@@ -10,9 +10,9 @@ var EP = {
         topNoteOctave: 0,
         bottomNoteName: "",
         bottomNoteOctave: 0,
-    }
+    },
     course: {
-        exercises = [],
+        exercises: [],
         //total number of exercises in course
         numExercises: 0,
         //number of exercises that the student(user) has touched (Django StudentExercise object created for each)
