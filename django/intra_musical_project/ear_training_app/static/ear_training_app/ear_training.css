@@ -103,6 +103,11 @@ div#intervals:hover {
   background-color: #333333;
 }
 
+.pushed {
+  background: "#FFCC00";
+  border: "1px solid blue";
+}
+
 #scales {
   left: 0%;
   transform: translateX(50%);

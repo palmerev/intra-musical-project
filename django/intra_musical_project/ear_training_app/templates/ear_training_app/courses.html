@@ -21,11 +21,12 @@
         Intervals
       </h2>
       <div id="intervals-progress" class="course-progress">
-        {% if user.is_authenticated %}
+        {% if course == "new" %}
+          <h3>click to begin</h3>
+        {% else %}
           <p>exercise {{ completed }} of {{ total }}</p>
           <p>{{ percent_complete }}% complete</p>
-        {% else %}
-          <p>(login to track progress)</p>
+          <h3>Resume Course</h3>
         {% endif %}
       </div>
       </a>
@@ -41,7 +42,7 @@
     </div>
   </section>
   {% if user.is_authenticated %}
-    <div id="login-status"><p>Logged in as {{ user.username }}</p></div>
+    <div id="login-status"><p>Logged in as: <span id="username">{{ user.username }}</span></p></div>
   {% endif %}
   <nav>
       <div><a href="/">Home</a></div>
