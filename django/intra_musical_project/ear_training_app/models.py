@@ -100,7 +100,7 @@ class CourseType(models.Model):
 class Course(models.Model):
     ''' Page showing a list of all exercises in a course. '''
     course_type = models.ForeignKey(CourseType, blank=True, null=True)
-    num_exercises = models.PositiveSmallIntegerField(default=0, null=True)
+    num_exercises = models.PositiveSmallIntegerField(default=10, null=True)
     #exercises = models.ForeignKey(Exercise, null=True, blank=True)
 
     def __unicode__(self): #__str__ in python3
