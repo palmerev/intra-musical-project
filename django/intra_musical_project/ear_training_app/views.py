@@ -52,6 +52,9 @@ def registration_page(request):
         user.username = request.POST['username']
         user.set_password(request.POST['password'])
         user.save()
+        student = Student()
+        student.stuser = request.user
+        student.save()
         return HttpResponseRedirect("/login/")
 
     return render(request, 'ear_training_app/registration_page.html')
@@ -59,18 +62,29 @@ def registration_page(request):
 @login_required(login_url="/login/")
 def course_selection(request):
     if(request.user.is_authenticated()):
-        # print(request.user)
-        # print(CourseStats.objects.all()[0])
-        stats = get_object_or_404(CourseStats, student__stuser=request.user)
-        # stats = CourseStats.objects.filter(stuser=request.user.student)[0]
-        completed = stats.exercises_complete
-        total = stats.course.num_exercises
-        percent_complete = completed / total
-        context = {
-            "completed": completed,
-            "total": total,
-            "percent_complete": percent_complete
-            }
+        context = {}
+        user_stats = CourseStats.objects.filter(student__stuser=request.user)
+        if len(user_stats) == 0:
+            context["course"] = "new"
+        else:
+            for stat in user_stats:
+                if stat.course == "Intervals":
+                    context["course"] = "intervals"
+                    context["intervals_completed"] = stat.exercises_complete
+                    context["intervals_total"] = stat.course.num_exercises
+                    context["intervals_percent_complete"] = stat.exercises_complete / stat.course.num_exercises
+                elif stat.course == "Scales":
+                    context["course"] = "scales"
+                    context["scales_completed"] = stat.exercises_complete
+                    context["scales_total"] = stat.course.num_exercises
+                    context["scales_percent_complete"] = stat.exercises_complete / stat.course.num_exercises
+                elif stat.course == "Chords":
+                    context["course"] = "chords"
+                    context["chords_completed"] = stat.exercises_complete
+                    context["chords_total"] = stat.course.num_exercises
+                    context["chords_percent_complete"] = stat.exercises_complete / stat.course.num_exercises
+                else:
+                    raise "ERROR: unknown course type in user_stats"
     else:
         context = {}
     return render(request, 'ear_training_app/courses.html', context)
@@ -139,7 +153,7 @@ def api_all_student_exercises(request):
             "exercise_result": se.exercise_result
         }
         for se in student_exercises]
-    print obj    
+    print obj
     return HttpResponse(json.dumps(obj), content_type="application/json")
 
 def course(request, course_type):
