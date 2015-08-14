@@ -15,6 +15,7 @@ from .models import Exercise
 from .models import Student
 from .models import CourseStats
 from .models import StudentExercise
+from .models import ExerciseStatus
 
 # Register your models here.
 admin.site.register(Note)
@@ -33,3 +34,4 @@ admin.site.register(Exercise)
 admin.site.register(Student)
 admin.site.register(CourseStats)
 admin.site.register(StudentExercise)
+admin.site.register(ExerciseStatus)

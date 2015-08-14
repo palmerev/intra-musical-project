@@ -124,7 +124,6 @@ class Exercise(models.Model):
 
 class Student(models.Model):
     stuser = models.OneToOneField(User, primary_key=True)
-    #course_stats = models.ManyToManyField(CourseStats, blank=True)
     total_exercises_completed = models.PositiveIntegerField(default=0, null=True, blank=True)
     courses_completed = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
 
@@ -134,18 +133,30 @@ class Student(models.Model):
     def __str__(self): #__str__ in python3
         return str(self.stuser)
 
+
+class ExerciseStatus(models.Model):
+    status = models.CharField(max_length=25, default="")
+
+    def __unicode__(self): #__str__ in python3
+        return str(self.status)
+
+    def __str__(self): #__str__ in python3
+        return str(self.status)
+
+
 class StudentExercise(models.Model):
     student = models.ForeignKey(Student)
     exercise = models.ForeignKey(Exercise)
-    CORRECT = "correct"
-    INCORRECT = "incorrect"
-    SKIPPED = "skipped"
-    EXERCISE_RESULT_CHOICES = (
-        (CORRECT, CORRECT),
-        (INCORRECT, INCORRECT),
-        (SKIPPED, SKIPPED),
-    )
-    exercise_result = models.CharField(max_length=9, choices=EXERCISE_RESULT_CHOICES, default=SKIPPED)
+    result = models.ForeignKey(ExerciseStatus, null=True, blank=True)
+    # CORRECT = "correct"
+    # INCORRECT = "incorrect"
+    # SKIPPED = "skipped"
+    # EXERCISE_RESULT_CHOICES = (
+    #     (CORRECT, CORRECT),
+    #     (INCORRECT, INCORRECT),
+    #     (SKIPPED, SKIPPED),
+    # )
+    # exercise_result = models.CharField(max_length=9, choices=EXERCISE_RESULT_CHOICES, default=SKIPPED)
 
     def __unicode__(self): #__str__ in python3
         return str(self.student) + ", " + str(self.exercise)
