@@ -17,6 +17,7 @@ from .models import Exercise
 from .models import CourseStats
 from .models import Student
 from .models import StudentExercise
+from .models import ExerciseStatus
 from random import choice, sample, randint
 import json
 
@@ -53,7 +54,7 @@ def registration_page(request):
         user.set_password(request.POST['password'])
         user.save()
         student = Student()
-        student.stuser = request.user
+        student.stuser = user
         student.save()
         return HttpResponseRedirect("/login/")
 
@@ -120,26 +121,32 @@ def course_selection(request):
 @csrf_exempt
 def save_student_exercise(request):
     if request.POST:
-        print request.POST
+        print "request.POST:", request.POST
         exercise_id = request.POST["exercise_id"]
         # result should be formatted to match EXERCISE_RESULT_CHOICES in StudentExercise model
         # e.g. all lowercase "correct", "incorrect", or "skipped"
         result = request.POST["result"]
-        print "RESULT: ", result
+        print "request.POST.exercise_id:", request.POST["exercise_id"]
+        print "request.POST.result:", request.POST["result"]
         # current_exercise = Exercise.objects.filter(id=exercise_id)[0]
         user_exercise = StudentExercise.objects.filter(student__stuser=request.user, exercise__id=exercise_id)
-        print user_exercise
+        print "user_exercise query:", user_exercise
         if len(user_exercise) > 0:
             print "UPDATING EXISTING EXERCISE"
             student_exercise = user_exercise[0]
+            student_exercise.save()
         else:
             print "CREATING NEW EXERCISE"
             student_exercise = StudentExercise()
             student_exercise.student = request.user.student
-            student_exercise.exercise = Exercise.objects.filter(id=exercise_id)[0]
-        # update result or if newly created, set it
-        student_exercise.result = result
-        student_exercise.save()
+            student_exercise.exercise = Exercise.objects.order_by('-id').filter(id=exercise_id)[0]
+            # update result or if newly created, set it
+            se_stat = ExerciseStatus()
+            se_stat.status = result
+            se_stat.save()
+            student_exercise.result = se_stat
+            print "student_exercise.result:", student_exercise.result
+            student_exercise.save()
         return HttpResponse('{ "id": ' + str(student_exercise.id) + ' }', content_type="application/json")
     else:
         return HttpResponse(json.dumps("{ error: please use POST }"), content_type="application/json")
@@ -150,7 +157,7 @@ def api_all_student_exercises(request):
         {
             "user": se.student.stuser.username,
             "exercise_id": se.exercise.id,
-            "exercise_result": se.exercise_result
+            "exercise_result": se.result.status
         }
         for se in student_exercises]
     print obj
