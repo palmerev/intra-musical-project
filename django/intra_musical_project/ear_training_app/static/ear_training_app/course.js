@@ -30,13 +30,15 @@ function showCourseResultsDialogue() {
   showDialogue();
 }
 
-function recordResult (event) {
+function saveResult (event) {
     var formdata = new FormData();
     var responseData;
     var request = new XMLHttpRequest();
     request.onload = function () {
         responseData = JSON.parse(this.responseText);
-        showResult(event);
+        if (EP.currentExercise.answerGiven) {
+            showResult(event);
+        }
         apiAllStudentExercises();
     }
     request.open('POST', '/courses/intervals/exercises/save-student-exercise/');
@@ -48,7 +50,7 @@ function recordResult (event) {
             formdata.append("result", "correct");
         }
         else {
-            formdata.append("result", "incorrect");
+          formdata.append("result", "incorrect");
         }
     }
     else {
@@ -186,7 +188,7 @@ function createAnswerButtons(intervals) {
 
 function doAnswer(event) {
     EP.currentExercise.answerGiven = true;
-    recordResult(event);
+    saveResult(event);
 }
 
 function apiAllStudentExercises() {
@@ -236,7 +238,7 @@ function goToNextExercise(e) {
         showCourseResultsDialogue();
     }
     if(!EP.currentExercise.answerGiven) {
-        recordResult(e);
+        saveResult(e);
     }
     setRandomIntervalExercise();
     resetStylesAndSound();
