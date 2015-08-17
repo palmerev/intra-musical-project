@@ -3,9 +3,9 @@
 //namespace for interval and note data
 var EP = {
     currentExercise: {
+        id: 0,
         answerGiven: false,
         answerResult: "",
-        id: 0,
         intervalName: "",
         topNoteName: "",
         topNoteOctave: 0,
@@ -53,8 +53,8 @@ function saveResult (event) {
             EP.answerResult = "correct";
         }
         else {
-          formdata.append("result", "incorrect");
-          EP.answerResult = "incorrect";
+            formdata.append("result", "incorrect");
+            EP.answerResult = "incorrect";
         }
     }
     else {
@@ -198,8 +198,8 @@ function doAnswer(event) {
 
 function apiAllStudentExercises() {
     var request = new XMLHttpRequest();
-    request.onload = function () {
-        var se = JSON.parse(this.responseText);
+    request.onload = function (e) {
+        var se = JSON.parse(e.target.responseText);
         console.log(se);
         EP.course.numStudentExercises = se.length;
         EP.course.studentExercises = se;
