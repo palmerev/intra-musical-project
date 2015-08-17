@@ -65,27 +65,28 @@ def course_selection(request):
     if(request.user.is_authenticated()):
         context = {}
         user_stats = CourseStats.objects.filter(student__stuser=request.user)
+        print user_stats
         if len(user_stats) == 0:
             context["course"] = "new"
         else:
             for stat in user_stats:
-                if stat.course == "Intervals":
+                if stat.course.course_type.title == "Intervals":
                     context["course"] = "intervals"
                     context["intervals_completed"] = stat.exercises_complete
                     context["intervals_total"] = stat.course.num_exercises
                     context["intervals_percent_complete"] = stat.exercises_complete / stat.course.num_exercises
-                elif stat.course == "Scales":
+                elif stat.course.course_type.title == "Scales":
                     context["course"] = "scales"
                     context["scales_completed"] = stat.exercises_complete
                     context["scales_total"] = stat.course.num_exercises
                     context["scales_percent_complete"] = stat.exercises_complete / stat.course.num_exercises
-                elif stat.course == "Chords":
+                elif stat.course.course_type.title == "Chords":
                     context["course"] = "chords"
                     context["chords_completed"] = stat.exercises_complete
                     context["chords_total"] = stat.course.num_exercises
                     context["chords_percent_complete"] = stat.exercises_complete / stat.course.num_exercises
                 else:
-                    raise "ERROR: unknown course type in user_stats"
+                    raise ValueError("Unknown course type in user_stats.")
     else:
         context = {}
     return render(request, 'ear_training_app/courses.html', context)
@@ -153,6 +154,7 @@ def save_student_exercise(request):
 
 def api_all_student_exercises(request):
     student_exercises = StudentExercise.objects.filter(student__stuser=request.user)
+    print "student_exerices for user:",student_exercises
     obj = [
         {
             "user": se.student.stuser.username,
