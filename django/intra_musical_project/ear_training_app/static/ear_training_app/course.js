@@ -4,6 +4,7 @@
 var EP = {
     currentExercise: {
         answerGiven: false,
+        answerResult: "",
         id: 0,
         intervalName: "",
         topNoteName: "",
@@ -15,6 +16,7 @@ var EP = {
         exercises: [],
         //total number of exercises in course
         numExercises: 0,
+        studentExercises: [],
         //number of exercises that the student(user) has touched (Django StudentExercise object created for each)
         numStudentExercises: 0
     }
@@ -48,13 +50,16 @@ function saveResult (event) {
     if (EP.currentExercise.answerGiven) {
         if(event.target.innerHTML === EP.currentExercise.intervalName) {
             formdata.append("result", "correct");
+            EP.answerResult = "correct";
         }
         else {
           formdata.append("result", "incorrect");
+          EP.answerResult = "incorrect";
         }
     }
     else {
         formdata.append("result", "skipped");
+        EP.answerResult = "skipped";
     }
     request.send(formdata);
 }
@@ -197,6 +202,7 @@ function apiAllStudentExercises() {
         var se = JSON.parse(this.responseText);
         console.log(se);
         EP.course.numStudentExercises = se.length;
+        EP.course.studentExercises = se;
     }
     request.open("GET", "/api/all-student-exercises/", true);
     request.send();
