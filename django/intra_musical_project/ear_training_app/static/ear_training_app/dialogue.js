@@ -49,6 +49,7 @@
     var btn = document.getElementById("dialogue-ok");
     if (btn) {
         console.log("added eventListener to ok-button");
+        console.log(btn);
         btn.addEventListener("click", hideDialogue);
     }
     else {

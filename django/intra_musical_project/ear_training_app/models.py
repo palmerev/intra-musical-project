@@ -80,14 +80,6 @@ class Chord(models.Model):
     def __str__(self): #__str__ in python3
         return "(root: " + str(self.root) + ", " + "quality: " + str(self.quality) + ")"
 
-# class CourseSelection(models.Model):
-#     ''' Page containing all courses '''
-#     pass
-#
-# class CourseProgress(models.Model):
-#     ''' Page where users can see their progress, exercises they've completed, learning stats, etc. '''
-#     pass
-
 class CourseType(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True)
 
@@ -133,7 +125,6 @@ class Student(models.Model):
     def __str__(self): #__str__ in python3
         return str(self.stuser)
 
-
 class ExerciseStatus(models.Model):
     status = models.CharField(max_length=25, default="")
 
@@ -143,20 +134,10 @@ class ExerciseStatus(models.Model):
     def __str__(self): #__str__ in python3
         return str(self.status)
 
-
 class StudentExercise(models.Model):
     student = models.ForeignKey(Student)
     exercise = models.ForeignKey(Exercise)
     result = models.ForeignKey(ExerciseStatus, null=True, blank=True)
-    # CORRECT = "correct"
-    # INCORRECT = "incorrect"
-    # SKIPPED = "skipped"
-    # EXERCISE_RESULT_CHOICES = (
-    #     (CORRECT, CORRECT),
-    #     (INCORRECT, INCORRECT),
-    #     (SKIPPED, SKIPPED),
-    # )
-    # exercise_result = models.CharField(max_length=9, choices=EXERCISE_RESULT_CHOICES, default=SKIPPED)
 
     def __unicode__(self): #__str__ in python3
         return str(self.student) + ", " + str(self.exercise)
@@ -167,9 +148,6 @@ class StudentExercise(models.Model):
 class CourseStats(models.Model):
     student = models.ForeignKey(Student)
     course = models.ForeignKey(Course)
-    # num_correct = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
-    # num_incorrect = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
-    # # num_skipped = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
     #Boolean
     course_complete = models.PositiveSmallIntegerField(null=True, blank=True)
     exercises_complete = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
@@ -179,5 +157,3 @@ class CourseStats(models.Model):
 
     def __str__(self): #__str__ in python3
         return "CourseStats for " + str(self.course)
-
-    # def percent_complete(self.course, self.exercises_complete)
