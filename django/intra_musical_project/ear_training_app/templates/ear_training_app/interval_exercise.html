@@ -9,10 +9,6 @@
   </title>
   <link rel="stylesheet" href="{% static 'ear_training_app/ear_training.css' %}">
   <link rel="stylesheet" href="{% static 'ear_training_app/dialogue.css' %}">
-  <script src="{% static 'ear_training_app/tones.js' %}"></script>
-  <script src="{% static 'ear_training_app/dialogue.js' %}"></script>
-  <script src="{% static 'ear_training_app/exercise.js' %}"></script>
-  <script src="{% static 'ear_training_app/course.js' %}"></script>
 
 </head>
 <body>
@@ -50,7 +46,7 @@
   <div id="courses"><a href="{% url 'course_selection' %}">Back to courses page</a></div>
   <div id="next">Next Exercise</div>
 </footer>
-<!-- hidden dialogue box to show when course complete -->
+<!-- DIALOGUE BOX (when course complete) ----------------------------------------------->
 <div class="hidden" id="grayout">
   <div class="hidden" id="dialogue">
     <div class="content">
@@ -59,10 +55,13 @@
       <p>Exercises skipped: <span id="ex-skipped">0</span></p>
       <p>Correct answers: <span id="ex-correct">0</span></p>
       <p>Incorrect answers: <span id="ex-incorrect">0</span></p>
-      <!-- <button onclick="closeDialogue()">OK</button> -->
       <button id="dialogue-ok">OK</button>
     </div>
   </div>
 </div>
 
 </body>
+<script src="{% static 'ear_training_app/tones.js' %}"></script>
+<script src="{% static 'ear_training_app/dialogue.js' %}"></script>
+<script src="{% static 'ear_training_app/exercise.js' %}"></script>
+<script src="{% static 'ear_training_app/course.js' %}"></script>
