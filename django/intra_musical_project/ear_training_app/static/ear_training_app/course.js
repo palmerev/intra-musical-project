@@ -6,6 +6,7 @@ var EP = {
         id: 0,
         answerGiven: false,
         answerResult: "",
+        answerIndex: -1,
         intervalName: "",
         topNoteName: "",
         topNoteOctave: 0,
@@ -128,8 +129,8 @@ function makeExercisesFromData() {
       console.log("No JSON data");
       return false;
   }
-  createAnswerButtons(EP.course.exercises);
   setRandomIntervalExercise();
+  createAnswerButtons(4); //param: number of buttons to create
   resetStylesAndSound();
   setupListeners();
   updateProgressCounter();
@@ -141,20 +142,18 @@ function setRandomIntervalExercise() {
   for the next exercise, then removes that exercise from the array
   */
   EP.currentExercise.answerGiven = false;
-  // EP.answerRecorded = false;
   if (EP.course.exercises.length > 0) {
-      EP.answerIndex = randIndex(EP.course.exercises.length);
-      var curr = EP.course.exercises[EP.answerIndex];
+      EP.currentExercise.answerIndex = randIndex(EP.course.exercises.length);
+      var curr = EP.course.exercises[EP.currentExercise.answerIndex];
       EP.currentExercise.id = curr.id;
       EP.currentExercise.intervalName = curr.interval_name;
       EP.currentExercise.topNoteName = curr.top_note.name;
       EP.currentExercise.topNoteOctave = parseInt(curr.top_note.octave);
       EP.currentExercise.bottomNoteName = curr.bottom_note.name;
       EP.currentExercise.bottomNoteOctave = parseInt(curr.bottom_note.octave);
-      EP.course.exercises.splice(EP.answerIndex, 1);
   }
   else {
-    console.log("out of exercises!");
+      console.log("out of exercises!");
   }
 }
 
@@ -178,17 +177,21 @@ function resetStylesAndSound() {
       tones.release = 150;
 }
 
-function createAnswerButtons(intervals) {
+//TODO: only works for intervals
+function createAnswerButtons(numButtonLimit) {
   var answerBtns = document.getElementsByClassName("answer-button");
   var templateAnswerBtn = answerBtns[0];
-  templateAnswerBtn.innerHTML = intervals[0]["interval_name"];
+  templateAnswerBtn.innerHTML = EP.course.exercises[EP.currentExercise.answerIndex]["interval_name"];
   //create / clone others
   var answerBtnContainer = document.getElementById("answer-button-container");
-  for (var i = 1; i < intervals.length; i++) {
-      var newBtn = templateAnswerBtn.cloneNode(false);
-      answerBtnContainer.appendChild(newBtn);
-      answerBtns[i].innerHTML = intervals[i]["interval_name"];
+  for (var i = 1; i < numButtonLimit; i++) {
+      if (i != EP.currentExercise.answerIndex) {
+          var newBtn = templateAnswerBtn.cloneNode(false);
+          answerBtnContainer.appendChild(newBtn);
+          answerBtns[i].innerHTML = EP.course.exercises[i]["interval_name"];
+      }
   }
+  EP.course.exercises.splice(EP.currentExercise.answerIndex, 1);
 }
 
 function doAnswer(event) {
