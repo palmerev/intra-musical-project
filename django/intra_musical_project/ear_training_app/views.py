@@ -43,13 +43,11 @@ def login_page(request):
 def logout_page(request):
     logout(request)
     return HttpResponseRedirect("/")
-    # return HttpResponse("logged out!")
 
 def registration_page(request):
-    #TODO: validate registration against existing users
+    #TODO: validate registration against existing users?
     if request.POST:
         user = User()
-        #all_users = User.objects.all()
         user.username = request.POST['username']
         user.set_password(request.POST['password'])
         user.save()
@@ -91,34 +89,6 @@ def course_selection(request):
         context = {}
     return render(request, 'ear_training_app/courses.html', context)
 
-# @csrf_exempt
-# def complete_exercise(request):
-#     if request.POST:
-#         print(request.POST)
-#         result = request.POST["result"]
-#         stats = get_object_or_404(CourseStats, student__stuser=request.user)
-#         student = get_object_or_404(Student, pk=request.user.id)
-#         if result == "correct":
-#             stats.num_correct += 1
-#             student.total_exercises_completed += 1
-#         elif result == "incorrect":
-#             stats.num_incorrect += 1
-#             student.total_exercises_completed += 1
-#         elif result == "skipped":
-#             stats.num_skipped += 1
-#         stats.save()
-#         student.save()
-#         data = {
-#             "num_correct": stats.num_correct,
-#             "num_incorrect": stats.num_incorrect,
-#             # "num_skipped": stats.num_skipped,
-#             "total_answered": stats.num_correct + stats.num_incorrect
-#         }
-#         json_data = json.dumps(data, indent=4)
-#         return HttpResponse(json_data, content_type="application/json")
-#     else:
-#         return HttpResponse(json.dumps("{ error: please use POST }"), content_type="application/json")
-
 @csrf_exempt
 def save_student_exercise(request):
     if request.POST:
@@ -127,17 +97,11 @@ def save_student_exercise(request):
         # result should be formatted to match EXERCISE_RESULT_CHOICES in StudentExercise model
         # e.g. all lowercase "correct", "incorrect", or "skipped"
         result = request.POST["result"]
-        print "request.POST.exercise_id:", request.POST["exercise_id"]
-        print "request.POST.result:", request.POST["result"]
-        # current_exercise = Exercise.objects.filter(id=exercise_id)[0]
         user_exercise = StudentExercise.objects.filter(student__stuser=request.user, exercise__id=exercise_id)
-        print "user_exercise query:", user_exercise
         if len(user_exercise) > 0:
-            print "UPDATING EXISTING EXERCISE"
             student_exercise = user_exercise[0]
             student_exercise.save()
         else:
-            print "CREATING NEW EXERCISE"
             student_exercise = StudentExercise()
             student_exercise.student = request.user.student
             student_exercise.exercise = Exercise.objects.order_by('-id').filter(id=exercise_id)[0]
@@ -146,7 +110,6 @@ def save_student_exercise(request):
             se_stat.status = result
             se_stat.save()
             student_exercise.result = se_stat
-            print "student_exercise.result:", student_exercise.result
             student_exercise.save()
         return HttpResponse('{ "id": ' + str(student_exercise.id) + ' }', content_type="application/json")
     else:
@@ -154,7 +117,6 @@ def save_student_exercise(request):
 
 def api_all_student_exercises(request):
     student_exercises = StudentExercise.objects.filter(student__stuser=request.user)
-    print "student_exerices for user:",student_exercises
     obj = [
         {
             "user": se.student.stuser.username,
@@ -162,7 +124,6 @@ def api_all_student_exercises(request):
             "exercise_result": se.result.status
         }
         for se in student_exercises]
-    print obj
     return HttpResponse(json.dumps(obj), content_type="application/json")
 
 def course(request, course_type):
@@ -176,34 +137,10 @@ def course(request, course_type):
 def exercise_page(request):
     return render(request, 'ear_training_app/interval_exercise.html')
 
-#helper function for exercise_page
-# def get_interval_set(request):
-#     num_intervals = 4
-#     interval_list = Interval.objects.all()
-#     interval_set = sample(interval_list, num_intervals)
-#     interval_obj = [
-#         {
-#             "interval_name": interval.name.quality.lower(),
-#             "top_note": {
-#                 "octave": interval.top_note.octave,
-#                 "name": interval.top_note.name.lower()
-#             },
-#             "bottom_note": {
-#                 "octave": interval.bottom_note.octave,
-#                 "name": interval.bottom_note.name.lower()
-#             },
-#
-#         } for interval in interval_set]
-#
-#     answer_json = json.dumps(interval_obj)
-#     return HttpResponse(answer_json, content_type="application/json")
-
 #TODO: currently only works for interval exercises
 def get_course_exercises(request, course_title):
-    # print course_title
     course_title = course_title.capitalize()
     exercises = Exercise.objects.filter(course__course_type__title=course_title)
-    # print exercises
     obj = [
         {
             "interval_name": exercise.interval_answer.name.quality.lower(),
