@@ -5,8 +5,6 @@ var EP = {
     currentExercise: {
         id: 0,
         answerGiven: false,
-        answerResult: "",
-        answerIndex: -1,
         intervalName: "",
         topNoteName: "",
         topNoteOctave: 0,
@@ -14,12 +12,17 @@ var EP = {
         bottomNoteOctave: 0,
     },
     course: {
-        exercises: [],
+        allExercises: [],
+        remainingExercises: [],
         //total number of exercises in course
-        numExercises: 0,
-        studentExercises: [],
+        numExercises: function() {
+            return EP.course.allExercises.length;
+        },
         //number of exercises that the student(user) has touched (Django StudentExercise object created for each)
-        numStudentExercises: 0
+        studentExercises: [],
+        numStudentExercises: function() {
+            return EP.course.studentExercises.length;
+        }
     }
 }
 
