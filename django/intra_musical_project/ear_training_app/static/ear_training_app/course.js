@@ -1,6 +1,7 @@
 //needs tones.js
 
 //namespace for interval and note data
+//TODO: configure for generic exercise or have different files or namespaces for each course type
 var EP = {
     currentExercise: {
         id: 0,
@@ -26,14 +27,8 @@ var EP = {
     }
 }
 
-function randIndex(length) {
-    num = Math.floor(Math.random() * length);
-    return num;
-}
-
 function showCourseResultsDialogue() {
-  //in dialogue.js
-  showDialogue();
+    showDialogue(); //in dialogue.js
 }
 
 function saveResult (event) {
@@ -45,25 +40,20 @@ function saveResult (event) {
         if (EP.currentExercise.answerGiven) {
             showResult(event);
         }
-        apiAllStudentExercises();
+        apiAllStudentExercises(); //for debugging purposes and resuming course from previous point
     }
     request.open('POST', '/courses/intervals/exercises/save-student-exercise/');
-
-
     formdata.append("exercise_id", EP.currentExercise.id);
     if (EP.currentExercise.answerGiven) {
         if(event.target.innerHTML === EP.currentExercise.intervalName) {
             formdata.append("result", "correct");
-            EP.answerResult = "correct";
         }
         else {
             formdata.append("result", "incorrect");
-            EP.answerResult = "incorrect";
         }
     }
     else {
         formdata.append("result", "skipped");
-        EP.answerResult = "skipped";
     }
     request.send(formdata);
 }
@@ -90,17 +80,18 @@ function showResult(event){
 
 function getCourseExercises() {
     var request = new XMLHttpRequest();
-    request.onload = makeExercisesFromData;
+    request.onload = function() {
+        makeExercisesFromData(this.responseText);
+    }
     request.open("GET", "/get-course-exercises/intervals", true);
     request.send()
-    apiAllStudentExercises();
 }
 
 function initProgressCounter(curr, total) {
-  //number of exercises (keys) in the course data object + current exercise
-  var numExercises = Object.keys(EP.course.exercises).length + 1;
-  total.innerHTML = numExercises;
-  curr.innerHTML = 1;
+    //number of exercises (keys) in the course data object + current exercise
+    var numExercises = Object.keys(EP.course.remainingExercises).length + 1;
+    total.innerHTML = numExercises;
+    curr.innerHTML = 1;
 }
 
 function updateProgressCounter() {
@@ -123,41 +114,46 @@ function updateProgressCounter() {
     }
 }
 
-function makeExercisesFromData() {
-  if(this.responseText) {
-      EP.course.exercises = JSON.parse(this.responseText);
-      EP.course.numExercises = EP.course.exercises.length;
-  }
-  else {
-      console.log("No JSON data");
-      return false;
-  }
-  setRandomIntervalExercise();
-  createAnswerButtons(4); //param: number of buttons to create
-  resetStylesAndSound();
-  setupListeners();
-  updateProgressCounter();
+function makeExercisesFromData(responseText) {
+    var numButtons = 4;
+    if(responseText) {
+        EP.course.allExercises = JSON.parse(responseText)
+        EP.course.remainingExercises = JSON.parse(responseText);
+    }
+    else {
+        console.log("No JSON data");
+        return false;
+    }
+    apiAllStudentExercises();
+    setRandomIntervalExercise();
+    createAnswerButtons(numButtons);
+    updateAnswerButtonText();
+    resetStylesAndSound();
+    setupListeners();
+    updateProgressCounter();
 }
 
 function setRandomIntervalExercise() {
-  /*
-  selects a random exercise from the array of exercises and assigns values
-  for the next exercise, then removes that exercise from the array
-  */
-  EP.currentExercise.answerGiven = false;
-  if (EP.course.exercises.length > 0) {
-      EP.currentExercise.answerIndex = randIndex(EP.course.exercises.length);
-      var curr = EP.course.exercises[EP.currentExercise.answerIndex];
-      EP.currentExercise.id = curr.id;
-      EP.currentExercise.intervalName = curr.interval_name;
-      EP.currentExercise.topNoteName = curr.top_note.name;
-      EP.currentExercise.topNoteOctave = parseInt(curr.top_note.octave);
-      EP.currentExercise.bottomNoteName = curr.bottom_note.name;
-      EP.currentExercise.bottomNoteOctave = parseInt(curr.bottom_note.octave);
-  }
-  else {
-      console.log("out of exercises!");
-  }
+    /*
+    selects a random exercise from the array of exercises and assigns values
+    for the next exercise, then removes that exercise from the array
+    */
+    console.log("EP.course.remainingExercises:");
+    console.log(EP.course.remainingExercises);
+    EP.currentExercise.answerGiven = false;
+    if (EP.course.remainingExercises.length > 0) {
+        var index = randIndex(EP.course.remainingExercises.length);
+        var selected = EP.course.remainingExercises[index];
+        EP.currentExercise.id = selected.id;
+        EP.currentExercise.intervalName = selected.interval_name;
+        EP.currentExercise.topNoteName = selected.top_note.name;
+        EP.currentExercise.topNoteOctave = parseInt(selected.top_note.octave);
+        EP.currentExercise.bottomNoteName = selected.bottom_note.name;
+        EP.currentExercise.bottomNoteOctave = parseInt(selected.bottom_note.octave);
+    }
+    else {
+        console.log("out of exercises!");
+    }
 }
 
 function resetStylesAndSound() {
@@ -180,21 +176,44 @@ function resetStylesAndSound() {
       tones.release = 150;
 }
 
-//TODO: only works for intervals
 function createAnswerButtons(numButtonLimit) {
-  var answerBtns = document.getElementsByClassName("answer-button");
-  var templateAnswerBtn = answerBtns[0];
-  templateAnswerBtn.innerHTML = EP.course.exercises[EP.currentExercise.answerIndex]["interval_name"];
-  //create / clone others
-  var answerBtnContainer = document.getElementById("answer-button-container");
-  for (var i = 1; i < numButtonLimit; i++) {
-      if (i != EP.currentExercise.answerIndex) {
-          var newBtn = templateAnswerBtn.cloneNode(false);
-          answerBtnContainer.appendChild(newBtn);
-          answerBtns[i].innerHTML = EP.course.exercises[i]["interval_name"];
-      }
-  }
-  EP.course.exercises.splice(EP.currentExercise.answerIndex, 1);
+    var answerBtns = document.getElementsByClassName("answer-button");
+    var answerBtnContainer = document.getElementById("answer-button-container");
+    for (var i = 1; i < numButtonLimit; i++) {
+        var newBtn = answerBtns[0].cloneNode(false);
+        answerBtnContainer.appendChild(newBtn);
+    }
+}
+
+//TODO: add parameter for course name to make it more generic
+function updateAnswerButtonText() {
+    var exercises = EP.course.allExercises.slice();
+    var answerBtns = document.getElementsByClassName("answer-button");
+    var numButtons = answerBtns.length;
+    var answerText = EP.currentExercise.intervalName;
+    var answerIndex = getObjectIndexByProperty("interval_name", answerText, exercises);
+    var correctAnswer = exercises.splice(answerIndex, 1)[0];
+    var newOptions = [];
+    var incorrectAnswers = randomSample(numButtons - 1, exercises);
+    //add answer to list of new options
+    newOptions = incorrectAnswers.concat([correctAnswer]);
+    shuffle(newOptions);
+    for (var i = 0; i < answerBtns.length; i++) {
+        var current = answerBtns[i];
+        current.innerHTML = newOptions[i]["interval_name"];
+    }
+}
+
+function shuffle(arr) {
+    var list = arr.slice();
+    var arrayLength = arr.length;
+    var result = [];
+    for (var i = 0; i < arrayLength; i++) {
+        var randIdx = randIndex(list.length);
+        //pull out a random element from arrCopy and append it to result
+        result.push(list.splice(randIdx, 1)[0]);
+    }
+    return result;
 }
 
 function doAnswer(event) {
@@ -206,8 +225,8 @@ function apiAllStudentExercises() {
     var request = new XMLHttpRequest();
     request.onload = function (e) {
         var se = JSON.parse(e.target.responseText);
+        console.log("api student exercises: ");
         console.log(se);
-        EP.course.numStudentExercises = se.length;
         EP.course.studentExercises = se;
     }
     request.open("GET", "/api/all-student-exercises/", true);
@@ -243,18 +262,24 @@ function setupNextButtonListener() {
 }
 
 function goToNextExercise(e) {
-    if(EP.course.numStudentExercises > EP.course.numExercises) {
+    if(EP.course.numStudentExercises() > EP.course.numExercises()) {
         alert("error: numStudentExercises greater than numExercises!");
     }
-    if(EP.course.numStudentExercises === EP.course.numExercises) {
+    if(EP.course.numStudentExercises() === EP.course.numExercises()) {
         showCourseResultsDialogue();
     }
     if(!EP.currentExercise.answerGiven) {
         saveResult(e);
     }
     setRandomIntervalExercise();
+    updateAnswerButtonText();
     resetStylesAndSound();
     updateProgressCounter();
+    //TODO: figure out where to put this. Maybe "goToNextExercise"?
+    // EP.course.remainingExercises.splice(EP.currentExercise.answerIndex, 1);
+    EP.course.remainingExercises.splice(
+      getObjectIndexByProperty("interval_name", EP.currentExercise.intervalName, EP.course.remainingExercises),
+      1);
 }
 
 function setupListeners() {
