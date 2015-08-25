@@ -149,7 +149,7 @@ class CourseStats(models.Model):
     student = models.ForeignKey(Student)
     course = models.ForeignKey(Course)
     #Boolean
-    course_complete = models.PositiveSmallIntegerField(null=True, blank=True)
+    course_complete = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
     exercises_complete = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
 
     def __unicode__(self): #__str__ in python3
