@@ -15,12 +15,12 @@ var EP = {
     course: {
         allExercises: [],
         remainingExercises: [],
+        //number of exercises that the student(user) has touched (Django StudentExercise object created for each)
+        studentExercises: [],
         //total number of exercises in course
         numExercises: function() {
             return EP.course.allExercises.length;
         },
-        //number of exercises that the student(user) has touched (Django StudentExercise object created for each)
-        studentExercises: [],
         numStudentExercises: function() {
             return EP.course.studentExercises.length;
         }
@@ -87,6 +87,25 @@ function getCourseExercises() {
     request.send()
 }
 
+function makeExercisesFromData(responseText) {
+    var numButtons = 4;
+    if(responseText) {
+        EP.course.allExercises = JSON.parse(responseText)
+        EP.course.remainingExercises = EP.course.allExercises;
+    }
+    else {
+        console.log("No JSON data");
+        return false;
+    }
+    apiAllStudentExercises();
+    setRandomIntervalExercise();
+    createAnswerButtons(numButtons);
+    updateAnswerButtonText();
+    resetStylesAndSound();
+    setupListeners();
+    updateProgressCounter();
+}
+
 function initProgressCounter(curr, total) {
     //number of exercises (keys) in the course data object + current exercise
     var numExercises = Object.keys(EP.course.remainingExercises).length + 1;
@@ -108,30 +127,12 @@ function updateProgressCounter() {
     if (currentCount < totalExercisesCount) {
         current.innerHTML = currentCount + 1;
     }
-    else if (EP.currentExercise.answerGiven){
-      alert("Course Complete");
-      // showCourseResultsDialogue();
-    }
+    // else if (EP.currentExercise.answerGiven){
+    //   alert("Course Complete");
+    //   showCourseResultsDialogue();
+    // }
 }
 
-function makeExercisesFromData(responseText) {
-    var numButtons = 4;
-    if(responseText) {
-        EP.course.allExercises = JSON.parse(responseText)
-        EP.course.remainingExercises = JSON.parse(responseText);
-    }
-    else {
-        console.log("No JSON data");
-        return false;
-    }
-    apiAllStudentExercises();
-    setRandomIntervalExercise();
-    createAnswerButtons(numButtons);
-    updateAnswerButtonText();
-    resetStylesAndSound();
-    setupListeners();
-    updateProgressCounter();
-}
 
 function setRandomIntervalExercise() {
     /*
@@ -152,6 +153,7 @@ function setRandomIntervalExercise() {
         EP.currentExercise.bottomNoteOctave = parseInt(selected.bottom_note.octave);
     }
     else {
+        //should never happen...
         console.log("out of exercises!");
     }
 }
@@ -197,23 +199,11 @@ function updateAnswerButtonText() {
     var incorrectAnswers = randomSample(numButtons - 1, exercises);
     //add answer to list of new options
     newOptions = incorrectAnswers.concat([correctAnswer]);
-    shuffle(newOptions);
+    inPlaceShuffle(newOptions);
     for (var i = 0; i < answerBtns.length; i++) {
         var current = answerBtns[i];
         current.innerHTML = newOptions[i]["interval_name"];
     }
-}
-
-function shuffle(arr) {
-    var list = arr.slice();
-    var arrayLength = arr.length;
-    var result = [];
-    for (var i = 0; i < arrayLength; i++) {
-        var randIdx = randIndex(list.length);
-        //pull out a random element from arrCopy and append it to result
-        result.push(list.splice(randIdx, 1)[0]);
-    }
-    return result;
 }
 
 function doAnswer(event) {
