@@ -1,0 +1,57 @@
+{% load staticfiles %}
+<head>
+  <!-- <link rel="stylesheet" href="/static/ear_training_app/ear_training.css"> -->
+  <link rel="stylesheet" href="{% static 'ear_training_app/ear_training.css' %}">
+</head>
+<body>
+  <h1>Ear Training Courses</h1>
+  <section>
+    <div id="scales" class="course under-construction">
+      <h3>
+        Under Construction...
+      </h3>
+      <h2 class="course-title">
+        Scales
+      </h2>
+    </div>
+
+    <div id="intervals" class="course">
+      <a href="/courses/intervals/exercises/">
+      <h2 class="course-title">
+        Intervals
+      </h2>
+      <div id="intervals-progress" class="course-progress">
+        {% if course == "new" %}
+          <h3>click to begin</h3>
+        {% elif course_complete %}
+          <p>You've completed this course</p>
+          <button id="reset-progress-intervals" type="button">reset progress</button>
+        {% else %}
+          <p>exercise {{ completed }} of {{ total }}</p>
+          <p>{{ percent_complete }}% complete</p>
+          <button id="resume-button" name="resume-button">Resume Course</button><br />
+          <button id="reset-button" name="reset-button">Reset Progress</button>
+        {% endif %}
+      </div>
+      </a>
+    </div>
+
+    <div id="chords" class="course under-construction">
+      <h3>
+        Under Construction...
+      </h3>
+      <h2 class="course-title">
+        Chords
+      </h2>
+    </div>
+  </section>
+  {% if user.is_authenticated %}
+    <div id="login-status"><p>Logged in as: <span id="username">{{ user.username }}</span></p></div>
+  {% endif %}
+  <nav>
+      <div><a href="/">Home</a></div>
+      {% if not user.is_authenticated %}
+        <div><a href="/login/">Login</a></div>
+      {% endif %}
+  </nav>
+</body>
