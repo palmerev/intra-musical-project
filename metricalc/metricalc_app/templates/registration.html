@@ -1,0 +1,23 @@
+{% load staticfiles %}
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+  <h1>
+    Register
+  </h1>
+  <form method="post">
+    {% csrf_token %}
+    <label id="username-label">
+      Username
+      <input type="text" id="username" name="username">
+    </label>
+    <label id="password-label">
+      Password
+      <input type="password" id="password" name="password">
+    </label>
+    <br>
+      <input type="submit" value="Register">
+  </form>
+  <p><a href="/">Home</a></p>
+</body>
