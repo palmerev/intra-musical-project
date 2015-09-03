@@ -1,6 +1,11 @@
 // function isDigit(x) {
 //     return /[\d]/.test(x);
 // }
+var EP = {
+  UserModel: {
+    songList: []
+  }
+}
 
 Number.isInteger = Number.isInteger || function(value) {
     return typeof value === "number" &&
@@ -126,7 +131,7 @@ function validatePositiveIntFields() {
         if(!isPositiveInteger(parseInt(curr.value))) {
             curr.classList.add("invalid");
             var result = document.getElementById("validation-result");
-            result.innerHTML = "Please use positive integers for all fields.";
+            result.innerHTML = "Please use positive integers for these fields.";
             isValid = false;
         }
         else if(curr.classList.contains("invalid")) {
@@ -146,7 +151,9 @@ function validateMeterBottomFields() {
         if(!(isPositiveInteger(parseInt(curr.value)) && isPowerOfTwo(parseInt(curr.value)))) {
             curr.classList.add("invalid");
             var result = document.getElementById("validation-result");
-            result.innerHTML += " Use a power of two for denominator of the meter.";
+            if (result.innerHTML == "" || result.innerHTML.indexOf("Use a") === -1) {
+                result.innerHTML += " Use a power of two for denominator of the meter.";
+            }
             isValid = false;
         }
         else if(curr.classList.contains("invalid")) {
@@ -172,8 +179,21 @@ function clearFields(event) {
 }
 
 function showSavePieceDialogue(event) {
-    document.getElementById("grayout").classList.remove("hidden");
-    document.getElementById("save-dialogue").classList.remove("hidden");
+  var measureGroups = document.getElementsByClassName("measure-group");
+  //convert HTMLCollection to Array
+  measureGroups = Array.prototype.slice.call(measureGroups);
+  var emptySaveMessage = document.getElementById("empty-save-message");
+  var validSave = !measureGroups.every(function(element, index, array){ return isEmpty(element); });
+  if(!validSave && emptySaveMessage.classList.contains("hidden")) {
+      emptySaveMessage.classList.remove("hidden");
+  }
+  else if(validSave){
+      if(!emptySaveMessage.classList.contains("hidden")) {
+          emptySaveMessage.classList.add("hidden");
+      }
+      document.getElementById("grayout").classList.remove("hidden");
+      document.getElementById("save-dialogue").classList.remove("hidden");
+  }
 }
 
 function hideSavePieceDialogue(event) {
@@ -183,6 +203,19 @@ function hideSavePieceDialogue(event) {
 
 function savePiece() {
     console.log("saving piece");
+    var pieceList = document.getElementById("piece-list");
+    var pieces = pieceList.getElementsByClassName("piece");
+
+}
+
+function isEmpty(inputGroup) {
+    var inputs = document.getElementsByTagName("input");
+    inputs = Array.prototype.slice.call(inputs);
+    if (inputs.every(
+        function(element, index, array) { return element.innerHTML === ""; })){
+        return true;
+    }
+    return false;
 }
 
 function init () {

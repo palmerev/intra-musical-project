@@ -3,10 +3,10 @@ from django.http import HttpResponse
 # Create your views here.
 
 def index(request):
-    render(request, 'metricalc_app/index.html')
+    return render(request, 'metricalc_app/index.html')
 
 def login_view(request):
-    render(request, 'metricalc_app/login_view.html')
+    return render(request, 'metricalc_app/login_view.html')
 
 def registration_view(request):
-    render(request, 'metricalc_app/registration_view.html')
+    return render(request, 'metricalc_app/registration_view.html')

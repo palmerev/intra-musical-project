@@ -4,7 +4,11 @@
   <title>
       Metricalc
   </title>
+{% load staticfiles %}
   <style>
+    * {
+      box-sizing: border-box;
+    }
     .hidden {
       display: none;
     }
@@ -24,26 +28,40 @@
       display: inline;
     }
     #grayout {
-      position:absolute;
+      /*position:absolute;*/
       height: 100%;
       width: 100%;
-      background: rgba(255, 0, 0, 0.5);
+      background-color:
     }
     #main-dialogue {
-      position: absolute;
+      /*position: absolute;*/
       top: 15%;
       height: 300px;
       width: 400px;
       margin-left: 50%;
       margin-right: 50%;
     }
+    #piece-list-container {
+      display: block;
+      margin-left: 60%;
+      border: 2px solid grey;
+      padding: 5px 10px 5px 10px;
+      margin-bottom: 10px
+    }
+
   </style>
-  <script src="main.js"></script>
+  <script src="{% static 'metricalc_app/main.js' %}"></script>
 </head>
 <body>
   <h1 id="main-title">Metricalc</h1>
   <p id="main-subtitle">Calculate the length of your music</p>
     <div id="main-content">
+      <div id="piece-list-container">
+        <h3>Your pieces</h3>
+        <div id="piece-list">
+          <p class="piece">you haven't added any pieces yet.</p>
+        </div>
+      </div>
       <div id="all-measure-groups">
         <fieldset class="measure-group">
           <input class="number-of-measures positive" type="text" autofocus="true"> measures of
@@ -69,7 +87,10 @@
       <button id="calculate-button">Calculate</button>
       <button id="save-piece-button">Save Piece</button>
       <p id="validation-result"></p>
-      <div id="result-container" class="hidden"><span id="result-seconds"></span><span id="seconds-label-span"> seconds total.</span></div>
+      <p id="empty-save-message" class="hidden">A piece must have content to be saved.</p>
+      <div id="result-container" class="hidden">
+        <span id="result-seconds"></span><span id="seconds-label-span"> seconds total.</span>
+      </div>
     </div>
     <!-- END MAIN CONTENT -->
       <!-- SAVE DIALOGUE BOX -->
@@ -82,7 +103,7 @@
         </label>
         <label>
           Description
-          <textarea id="piece-description" name="piece-description" maxlength="500">
+          <textarea id="piece-description" name="piece-description" maxlength="500"></textarea>
         </label>
         <button id="dialogue-save-button">Save</button>
         <button id="dialogue-cancel-button">Cancel</button>

@@ -127,10 +127,6 @@ function updateProgressCounter() {
     if (currentCount < totalExercisesCount) {
         current.innerHTML = currentCount + 1;
     }
-    // else if (EP.currentExercise.answerGiven){
-    //   alert("Course Complete");
-    //   showCourseResultsDialogue();
-    // }
 }
 
 
@@ -139,7 +135,7 @@ function setRandomIntervalExercise() {
     selects a random exercise from the array of exercises and assigns values
     for the next exercise, then removes that exercise from the array
     */
-    console.log("EP.course.remainingExercises:");
+    console.log("setRandomIntervalExercise::EP.course.remainingExercises:");
     console.log(EP.course.remainingExercises);
     EP.currentExercise.answerGiven = false;
     if (EP.course.remainingExercises.length > 0) {
@@ -169,6 +165,7 @@ function resetStylesAndSound() {
               answerBtns[i].style.background = "linear-gradient(to bottom, #E38900, #C06600)";
               answerBtns[i].style.border = "none";
           }
+          // This would be a better way. Keep CSS out of JS
           // if (answerBtns[i].classList.contains("pushed-button")){
           //     answerBtns[i].classList.remove("pushed-button");
           // }
@@ -215,6 +212,8 @@ function apiAllStudentExercises() {
     var request = new XMLHttpRequest();
     request.onload = function (e) {
         var se = JSON.parse(e.target.responseText);
+        console.log("remainingExercises:");
+        console.log(EP.course.remainingExercises);
         console.log("api student exercises: ");
         console.log(se);
         EP.course.studentExercises = se;
@@ -267,9 +266,12 @@ function goToNextExercise(e) {
     updateProgressCounter();
     //TODO: figure out where to put this. Maybe "goToNextExercise"?
     // EP.course.remainingExercises.splice(EP.currentExercise.answerIndex, 1);
-    EP.course.remainingExercises.splice(
-      getObjectIndexByProperty("interval_name", EP.currentExercise.intervalName, EP.course.remainingExercises),
-      1);
+    var answerIndex = getObjectIndexByProperty(
+          "interval_name",
+          EP.currentExercise.intervalName,
+          EP.course.remainingExercises
+    );
+    EP.course.remainingExercises.splice(answerIndex, 1);
 }
 
 function setupListeners() {
