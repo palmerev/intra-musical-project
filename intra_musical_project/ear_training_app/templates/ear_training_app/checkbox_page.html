@@ -1,0 +1,79 @@
+{% load staticfiles %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- <link rel="stylesheet" href='{% static "ear_training_app/base_generic.css" %}'>
+  <link rel="stylesheet" href='{% static "ear_training_app/ear_training.css" %}'> -->
+</head>
+<body>
+  <h1>Course Content</h1>
+  <p>
+    Intervals included in the course:
+  </p>
+  <form method="post"/>
+    <fieldset id="option-boxes">
+      <label>
+        minor second
+        <input id="min-second" type="checkbox" name="ch-1" value="min-second">
+      </label>
+      <label>
+        major second
+        <input id="maj-second" type="checkbox" name="ch-2" value="maj-second">
+      </label>
+      <label>
+        minor third
+        <input id="min-third" type="checkbox" name="ch-3" value="min-third">
+      </label>
+      <label>
+        major third
+        <input id="maj-third" type="checkbox" name="ch-4" value="maj-third">
+      </label>
+      <label>
+        perfect fourth
+        <input id="per-fourth" type="checkbox" name="ch-5" value="per-fourth">
+      </label>
+      <label>
+        tritone
+        <input id="tritone" type="checkbox" name="ch-6" value="tritone">
+      </label>
+      <label>
+        perfect fifth
+        <input id="per-fifth" type="checkbox" name="ch-7" value="per-fifth">
+      </label>
+      <label>
+        minor sixth
+        <input id="min-sixth" type="checkbox" name="ch-8" value="min-sixth">
+      </label>
+      <label>
+        major sixth
+        <input id="maj-sixth" type="checkbox" name="ch-9" value="maj-sixth">
+      </label>
+      <label>
+        minor seventh
+        <input id="min-seventh" type="checkbox" name="ch-10" value="min-seventh">
+      </label>
+      <label>
+        major seventh
+        <input id="maj-seventh" type="checkbox" name="ch-11" value="maj-seventh">
+      </label>
+      <label>
+        octave
+        <input id="octave" type="checkbox" name="ch-12" value="octave">
+      </label>
+    </fieldset>
+    <input type="submit" name="submit" value="Build Course">
+  </form>
+</body>
+<script type="text/javascript">
+  var request = new XMLHttpRequest();
+  request.onload = function() {
+    var response = JSON.parse(this.responseText);
+    var p = document.createElement("p");
+    var resContent = document.createTextNode(response);
+    p.appendChild(resContent);
+    document.body.appendChild(p);
+  }
+  request.open("POST", '/test-checkboxes/');
+  request.send();
+</script>
+</html>

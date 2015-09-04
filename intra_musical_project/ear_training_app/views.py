@@ -179,3 +179,11 @@ def create_course_stats(request, course_title):
         new_stats.student = request.user.student
         new_stats.course = Course.objects.filter(course_type__title=course_title)[0]
         new_stats.save()
+
+def test_checkboxes(request):
+    if request.POST:
+        print request.POST
+    return HttpResponse("Yay checkboxes!")
+
+def checkbox_page(request):
+    return render(request, 'ear_training_app/checkbox_page.html')
