@@ -20,6 +20,7 @@ from ear_training_app import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^test-checkboxes/$', 'ear_training_app.views.test_checkboxes'),
+    url(r'^checkbox-page/$', 'ear_training_app.views.checkbox_page'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'ear_training_app.views.login_page'),
     url(r'^logout/$', 'ear_training_app.views.logout_page'),
