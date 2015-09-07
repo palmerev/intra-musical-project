@@ -110,3 +110,30 @@ function getExerciseByProperty(propertyName, propertyValue, list){
     }
     return targetClone;
 }
+
+function capitalizeFirstLetter(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function makeIntervalNames(checkedStr) {
+    var IdList = checkedStr.split(" ");
+    var nameList = [];
+    for (var i = 0; i < IdList.length; i++) {
+        var name = capitalizeFirstLetter(IdList[i]).replace("-", "or ");
+        nameList.push(name)
+    }
+    return nameList;
+}
+
+function buildCheckedString() {
+    var boxes = document.getElementsByTagName("input");
+    var checkedString = "";
+    for (var i = 0; i < boxes.length; i++) {
+        var box = boxes[i];
+        if(box.checked) {
+          checkedString += box.id + " ";
+        }
+    }
+    var outputString = checkedString = checkedString.slice(0,-1);
+    return outputString;
+}
