@@ -1,4 +1,4 @@
-#grayout {
+#cc-grayout, #si-grayout {
   position: fixed;
   top: 0;
   left: 0;
@@ -7,7 +7,7 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-#dialogue {
+#cc-dialogue, #si-grayout {
   position: relative;
   margin-left: auto;
   margin-right: auto;
@@ -21,6 +21,6 @@
   opacity: 0;
 }
 
-div.content {
+.cc-content, .si-grayout {
   color: black;
 }

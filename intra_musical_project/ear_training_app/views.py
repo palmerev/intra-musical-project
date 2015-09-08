@@ -179,6 +179,7 @@ def create_course_stats(request, course_title):
         new_stats.student = request.user.student
         new_stats.course = Course.objects.filter(course_type__title=course_title)[0]
         new_stats.save()
+
 @csrf_exempt
 def test_checkboxes(request):
     if request.POST:

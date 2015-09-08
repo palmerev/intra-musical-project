@@ -279,4 +279,10 @@ function setupListeners() {
     setupNextButtonListener();
 }
 
-document.addEventListener("DOMContentLoaded", getCourseExercises);
+function showSelectionDialogue() {
+    // TODO: modify getCourseExercises to confirm selection and send selected names to Django
+    document.getElementById("build-course-button").addEventListener("click", getCourseExercises);
+    var dialogueParent = document.getElementById("si-grayout");
+    dialogueParent.classList.remove("hidden");
+}
+document.addEventListener("DOMContentLoaded", showSelectionDialogue);

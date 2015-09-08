@@ -3,13 +3,10 @@
 <head>
   <meta charset="utf-8">
   <title>
-      {% block title %}
        Intervals
-      {% endblock %}
   </title>
   <link rel="stylesheet" href="{% static 'ear_training_app/ear_training.css' %}">
-  <link rel="stylesheet" href="{% static 'ear_training_app/dialogue.css' %}">
-
+  <link rel="stylesheet" href="{% static 'ear_training_app/css/dialogue.css' %}">
 </head>
 <body>
   <h2>Exercise Page</h2>
@@ -30,7 +27,6 @@
 
   <p>Select an interval:</p>
     <div id="answer-button-container">
-      <!-- <div id="correct-answer" class="correct-answer">correct interval name</div> -->
       <div class="answer-button"></div>
     </div>
   <p id="answer-result"></p>
@@ -46,11 +42,47 @@
   <div id="courses"><a href="{% url 'course_selection' %}">Back to courses page</a></div>
   <div id="next">Next Exercise</div>
 </footer>
-<!-- DIALOGUE BOX (when course complete) ----------------------------------------------->
-<div class="hidden" id="grayout">
-  <div class="hidden" id="dialogue">
-    <div class="content">
-      <h2 id="dialogue-title">Results</h2>
+<!-- SELECT INTERVALS DIALOGUE BOX -------------------------------------------->
+<div class="hidden" id="si-grayout">
+  <div class="hidden" id="si-dialogue">
+    <div id="si-content">
+      <h1 id="si-title">Course Content</h1>
+      <p>Intervals included in the course:</p>
+        <fieldset id="option-boxes">
+          <label for="min-second">minor second</label>
+            <input id="min-second" type="checkbox" />
+          <label for="maj-second">major second</label>
+            <input id="maj-second" type="checkbox" />
+          <label for="min-third">minor third</label>
+            <input id="min-third" type="checkbox" />
+          <label for="maj-third">major third</label>
+            <input id="maj-third" type="checkbox" />
+          <label for="per-fourth">perfect fourth</label>
+            <input id="per-fourth" type="checkbox" />
+          <label for="tritone">tritone</label>
+            <input id="tritone" type="checkbox" />
+          <label for="per-fifth">perfect fifth</label>
+            <input id="per-fifth" type="checkbox" />
+          <label for="min-sixth">minor sixth</label>
+            <input id="min-sixth" type="checkbox" />
+          <label for="maj-sixth">major sixth</label>
+            <input id="maj-sixth" type="checkbox" />
+          <label for="min-seventh">minor seventh</label>
+            <input id="min-seventh" type="checkbox" />
+          <label for="maj-seventh">major seventh</label>
+            <input id="maj-seventh" type="checkbox" />
+          <label for="octave">octave</label>
+            <input id="octave" type="checkbox" />
+        </fieldset>
+        <button id="build-course-button" type="button" name="build-course-button">Build Course</button>
+    </div>
+  </div>
+</div>
+<!-- COURSE COMPLETE DIALOGUE BOX ----------------------------------------------->
+<div class="hidden" id="cc-grayout">
+  <div class="hidden" id="cc-dialogue">
+    <div id="cc-content">
+      <h2 id="cc-dialogue-title">Results</h2>
       <p>Exercises completed: <span id="ex-completed">0</span></p>
       <p>Exercises skipped: <span id="ex-skipped">0</span></p>
       <p>Correct answers: <span id="ex-correct">0</span></p>
@@ -59,10 +91,8 @@
     </div>
   </div>
 </div>
-
 </body>
 <script src="{% static 'ear_training_app/tones.js' %}"></script>
 <script src="{% static 'ear_training_app/helpers.js' %}"></script>
 <script src="{% static 'ear_training_app/dialogue.js' %}"></script>
-<script src="{% static 'ear_training_app/exercise.js' %}"></script>
 <script src="{% static 'ear_training_app/course.js' %}"></script>
