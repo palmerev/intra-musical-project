@@ -86,7 +86,11 @@ function cloneObject(inputObject) {
     }
     return targetClone;
 }
-
+/*
+searches list and returns the integer index of the first object that has a
+property called propertyName with a value of propertyValue. Returns -1 if
+no match is found.
+*/
 function getObjectIndexByProperty(propertyName, propertyValue, list){
     var lst = list.slice();
     var targetExercise;
@@ -111,10 +115,16 @@ function getExerciseByProperty(propertyName, propertyValue, list){
     return targetClone;
 }
 
+/*
+Takes a string and returns a new version of it with the first letter capitalized.
+*/
 function capitalizeFirstLetter(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
+/*
+Takes a string of interval ids and returns an array of interval names matching
+the Django IntervalType model (Interval.name.quality)
+*/
 function makeIntervalNames(checkedStr) {
     var IdList = checkedStr.split(" ");
     var nameList = [];
@@ -136,4 +146,31 @@ function buildCheckedString() {
     }
     var outputString = checkedString = checkedString.slice(0,-1);
     return outputString;
+}
+// -------- THESE FUNCTIONS MAY BE USEFUL FOR TESTING PURPOSES ----------
+function displayChecked(){
+    var checkedStr = buildCheckedString();
+    var output = document.getElementById("output");
+    if (output === null) {
+        var p = document.createElement("p");
+        p.id = "output";
+        document.body.appendChild(p);
+        output = p;
+    }
+    else {
+        output.innerHTML = "";
+    }
+    output.innerHTML = checkedStr;
+    printList(makeIntervalNames(buildCheckedString()));
+}
+
+function printList(list) {
+    var outputString = "";
+    for (var i = 0; i < list.length; i++) {
+        outputString += list[i].toString() + " ";
+    }
+    outputString = outputString.slice(0, -1);
+    var outputElement = document.createElement("p");
+    outputElement.innerHTML = outputString;
+    document.body.appendChild(outputElement);
 }
