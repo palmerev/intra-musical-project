@@ -19,21 +19,23 @@ from ear_training_app import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^test-checkboxes/$', 'ear_training_app.views.test_checkboxes'),
-    url(r'^checkbox-page/$', 'ear_training_app.views.checkbox_page'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^login/$', 'ear_training_app.views.login_page'),
     url(r'^logout/$', 'ear_training_app.views.logout_page'),
     url(r'^register/$', 'ear_training_app.views.registration_page'),
     url(r'^courses/$', views.course_selection, name='course_selection'),
+    url(r'^interval-selection/$', 'ear_training_app.views.interval_selection'),
     url(r'^courses/(?P<course_type>[A-Za-z]+)/$', views.course, name='course'),
     #url(r'^courses/progress/$', views.progress_page, name='progress_page'),
     url(r'^courses/intervals/exercises/$', views.exercise_page, name='exercise_page'),
-    url(r'^courses/intervals/exercises/save-student-exercise/$',
-        views.save_student_exercise, name='save_student_exercise'),
+    url(r'^courses/intervals/exercises/save-student-exercise/$', views.save_student_exercise, name='save_student_exercise'),
     url(r'^courses/(?P<course_type>[A-Za-z]+)/exercises/(?P<exercise_id>)/$',
         views.exercise_page, name='exercise_page'),
     url(r'^api/all-student-exercises/$', 'ear_training_app.views.api_all_student_exercises'),
     # url(r'^get-interval-set/$', views.get_interval_set, name='get_interval_set'),
     url(r'^get-course-exercises/(?P<course_title>[A-Za-z]+)/$', views.get_course_exercises, name='get_course_exercises'),
+    # ---------------------------------- FOR TESTING AJAX POST -------------------------------------
+    # url(r'^test/$', 'ear_training_app.views.show_test_page'),
+    # url(r'^result/$', 'ear_training_app.views.test'),
+    # url(r'^checkbox-page/$', 'ear_training_app.views.checkbox_page'),
 ]
