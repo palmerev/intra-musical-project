@@ -135,7 +135,11 @@ function makeIntervalNames(checkedStr) {
     return nameList;
 }
 
-function buildCheckedString() {
+/*
+Gathers all the ids checkboxes that are checked concatenates them into a
+string, separated by spaces, and returns that string.
+*/
+function getIdsOfChecked() {
     var boxes = document.getElementsByTagName("input");
     var checkedString = "";
     for (var i = 0; i < boxes.length; i++) {
@@ -144,12 +148,12 @@ function buildCheckedString() {
           checkedString += box.id + " ";
         }
     }
-    var outputString = checkedString = checkedString.slice(0,-1);
+    var outputString = checkedString.slice(0,-1);
     return outputString;
 }
 // -------- THESE FUNCTIONS MAY BE USEFUL FOR TESTING PURPOSES ----------
 function displayChecked(){
-    var checkedStr = buildCheckedString();
+    var checkedStr = getIdsOfChecked();
     var output = document.getElementById("output");
     if (output === null) {
         var p = document.createElement("p");
@@ -161,7 +165,7 @@ function displayChecked(){
         output.innerHTML = "";
     }
     output.innerHTML = checkedStr;
-    printList(makeIntervalNames(buildCheckedString()));
+    printList(makeIntervalNames(getIdsOfChecked()));
 }
 
 function printList(list) {
