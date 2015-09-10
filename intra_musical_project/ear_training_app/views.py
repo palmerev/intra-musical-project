@@ -147,21 +147,6 @@ def course(request, course_type):
 def exercise_page(request):
     return render(request, 'ear_training_app/interval_exercise.html')
 
-def construct_interval_exercises(ex_list):
-    data = [
-        {
-            "interval_name": exercise.interval_answer.name.quality.lower(),
-            "top_note": {
-                "octave": exercise.interval_answer.top_note.octave,
-                "name": exercise.interval_answer.top_note.name.lower()
-            },
-            "bottom_note": {
-                "octave": exercise.interval_answer.bottom_note.octave,
-                "name": exercise.interval_answer.bottom_note.name.lower()
-            },
-            "id": exercise.id
-        } for exercise in ex_list]
-    return data
 
 # IN query example for reference
 # Entry.objects.filter(id__in=[1, 3, 4])
@@ -187,11 +172,6 @@ def create_course_stats(request, course_title):
         new_stats.course = Course.objects.filter(course_type__title=course_title)[0]
         new_stats.save()
 
-# @csrf_exempt
-# def test_checkboxes(request):
-#     if request.POST:
-#         print request.POST
-#         return HttpResponse("Yay checkboxes!")
 
 # ------------------------------------------------------------------------------
 # converts HTML-style names ("foo-bar") for intervals to capitalized full names
@@ -209,26 +189,49 @@ def to_interval_names(html_names):
         i_names.append(i_name.capitalize())
     return i_names
 
-# -----------------------------------------------------------------------------
-# AJAX POST TEST
-# -----------------------------------------------------------------------------
 @csrf_exempt
 def interval_selection(request):
     if request.POST:
         print "POST to interval_selection:", request.POST
         # get list of intervals that match names in list
-        # ...
         selected = request.POST["html_names"].split(" ")
         interval_names = to_interval_names(selected)
-        return JsonResponse({ "data": interval_names })
+        exercises = Exercise.objects.filter(interval_answer__name__quality__in=[interval_names])
+        interval_data = construct_interval_exercises(exercises)
+        return JsonResponse({ "data": interval_data })
 
-def show_test_page(request):
-    return render(request, 'ear_training_app/test.html')
+def construct_interval_exercises(ex_list):
+    data = [
+        {
+            "interval_name": exercise.interval_answer.name.quality.lower(),
+            "top_note": {
+                "octave": exercise.interval_answer.top_note.octave,
+                "name": exercise.interval_answer.top_note.name.lower()
+            },
+            "bottom_note": {
+                "octave": exercise.interval_answer.bottom_note.octave,
+                "name": exercise.interval_answer.bottom_note.name.lower()
+            },
+            "id": exercise.id
+        } for exercise in ex_list]
+    return data
 
-@csrf_exempt
-def test(request):
-    if request.POST:
-        print "POST:",request.POST
-        html_names = [key for key in request.POST.keys() if key != 'csrfmiddlewaretoken']
-        interval_names = to_interval_names(html_names)
-        return JsonResponse({ "interval_names": interval_names })
+# -----------------------------------------------------------------------------
+# test views for AJAX post
+# -----------------------------------------------------------------------------
+# def show_test_page(request):
+#     return render(request, 'ear_training_app/test.html')
+#
+# @csrf_exempt
+# def test_checkboxes(request):
+#     if request.POST:
+#         print request.POST
+#         return HttpResponse("Yay checkboxes!")
+#
+# @csrf_exempt
+# def test(request):
+#     if request.POST:
+#         print "POST:",request.POST
+#         html_names = [key for key in request.POST.keys() if key != 'csrfmiddlewaretoken']
+#         interval_names = to_interval_names(html_names)
+#         return JsonResponse({ "interval_names": interval_names })
