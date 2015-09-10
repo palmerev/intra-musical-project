@@ -1,0 +1,25 @@
+<body>
+    Received interval:
+    <p id="list">List: </p>
+</body>
+<script type="text/javascript">
+function testPostInterval() {
+    var request = new XMLHttpRequest();
+    var data = new FormData();
+    data.append("min-second", "1");
+    data.append("maj-second", "1");
+    request.onload = function (){
+        draw(JSON.parse(this.responseText));
+    }
+    request.open("POST", "/result/")
+    request.send(data);
+}
+
+function draw(text) {
+    var list = document.getElementById("list");
+    list.innerHTML += text.interval_names;
+}
+
+
+document.addEventListener("DOMContentLoaded", testPostInterval);
+</script>
