@@ -79,12 +79,17 @@ function showResult(event){
 }
 
 function getCourseExercises() {
+    var checkedIds = getIdsOfChecked();
     var request = new XMLHttpRequest();
     request.onload = function() {
-        makeExercisesFromData(this.responseText);
+        console.log("It worked!");
+        console.log(this.responseText);
+        // makeExercisesFromData(this.responseText);
     }
-    request.open("GET", "/get-course-exercises/intervals", true);
-    request.send()
+    var data = new FormData();
+    data.append("html_names", checkedIds)
+    request.open("POST", "/interval-selection/", true);
+    request.send(data)
 }
 
 function makeExercisesFromData(responseText) {
@@ -281,8 +286,10 @@ function setupListeners() {
 
 function showSelectionDialogue() {
     // TODO: modify getCourseExercises to confirm selection and send selected names to Django
+    var siGrayout = document.getElementById("si-grayout");
+    var siDialogue = document.getElementById("si-dialogue");
+    siGrayout.classList.remove("hidden");
+    siDialogue.classList.remove("hidden");
     document.getElementById("build-course-button").addEventListener("click", getCourseExercises);
-    var dialogueParent = document.getElementById("si-grayout");
-    dialogueParent.classList.remove("hidden");
 }
 document.addEventListener("DOMContentLoaded", showSelectionDialogue);
