@@ -88,7 +88,7 @@ function getCourseExercises() {
     }
     var data = new FormData();
     data.append("html_names", checkedIds)
-    request.open("POST", "/interval-selection/", true);
+    request.open("POST", "/get-course-exercises/", true);
     request.send(data)
 }
 
