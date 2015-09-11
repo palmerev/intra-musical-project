@@ -28,7 +28,7 @@ var EP = {
 }
 
 function showCourseResultsDialogue() {
-    showDialogue(); //in dialogue.js
+    showCCDialogue(); //in dialogue.js
 }
 
 function saveResult (event) {
@@ -78,25 +78,12 @@ function showResult(event){
     }
 }
 
-function getCourseExercises() {
-    var checkedIds = getIdsOfChecked();
-    var request = new XMLHttpRequest();
-    request.onload = function() {
-        console.log("It worked!");
-        console.log(this.responseText);
-        makeExercisesFromData(this.responseText);
-    }
-    var data = new FormData();
-    data.append("html_names", checkedIds)
-    request.open("POST", "/interval-selection/", true);
-    request.send(data)
-}
 
-function makeExercisesFromData(responseText) {
-    var numButtons = Math.min(responseText.length, 4);
-    console.log(numButtons);
-    if(responseText) {
-        EP.course.allExercises = JSON.parse(responseText);
+function makeExercisesFromData(data) {
+    var numButtons = Math.min(data.length, 4);
+    console.log("numButtons:" + numButtons);
+    if(data) {
+        EP.course.allExercises = data;
         EP.course.remainingExercises = EP.course.allExercises;
     }
     else {
@@ -114,7 +101,7 @@ function makeExercisesFromData(responseText) {
 
 function initProgressCounter(curr, total) {
     //number of exercises (keys) in the course data object + current exercise
-    var numExercises = Object.keys(EP.course.remainingExercises).length + 1;
+    var numExercises = Object.keys(EP.course.remainingExercises).length;
     total.innerHTML = numExercises;
     curr.innerHTML = 1;
 }
@@ -134,7 +121,6 @@ function updateProgressCounter() {
         current.innerHTML = currentCount + 1;
     }
 }
-
 
 function setRandomIntervalExercise() {
     /*
@@ -285,12 +271,37 @@ function setupListeners() {
     setupNextButtonListener();
 }
 
+function getCourseExercises() {
+    var checkedIds = getIdsOfChecked();
+    if (checkedIds.split(" ").length < 2) {
+        alert("You must choose at least two intervals");
+        return false;
+    }
+    var request = new XMLHttpRequest();
+    request.onload = function() {
+        console.log("It worked!");
+        var text = JSON.parse(this.responseText);
+        console.log(text);
+        makeExercisesFromData(text.data);
+    }
+    var data = new FormData();
+    data.append("html_names", checkedIds);
+    request.open("POST", "/interval-selection/", true);
+    request.send(data);
+    return true;
+}
+
+function confirmSIDialogue() {
+    if(getCourseExercises()) {
+        hideSIDialogue();
+    }
+}
 function showSelectionDialogue() {
     // TODO: modify getCourseExercises to confirm selection and send selected names to Django
     var siGrayout = document.getElementById("si-grayout");
     var siDialogue = document.getElementById("si-dialogue");
     siGrayout.classList.remove("hidden");
     siDialogue.classList.remove("hidden");
-    document.getElementById("build-course-button").addEventListener("click", getCourseExercises);
+    document.getElementById("build-course-button").addEventListener("click", confirmSIDialogue);
 }
 document.addEventListener("DOMContentLoaded", showSelectionDialogue);

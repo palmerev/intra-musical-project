@@ -197,9 +197,6 @@ def interval_selection(request):
         selected = request.POST["html_names"].split(" ")
         interval_names = to_interval_names(selected)
         exercises = Exercise.objects.filter(interval_answer__name__quality__in=interval_names)
-        # raw_ex = Exercise.objects.raw('SELECT id, name FROM ear_training_app_exercise WHERE name IN %s', [interval_names])
-        # for ex in raw_ex:
-        #      print ex.name
         interval_data = construct_interval_exercises(exercises)
         return JsonResponse({ "data": interval_data })
 

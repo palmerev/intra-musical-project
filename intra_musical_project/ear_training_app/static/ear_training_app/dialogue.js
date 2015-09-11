@@ -32,27 +32,30 @@
         dialogueSkipped.innerHTML = totalSkipped;
     }
 
-    function showDialogue() {
+    function showCCDialogue() {
         console.log("SHOWING!");
         var courseResults = EP.course.studentExercises;
         var overallResults = makeOverallResults(courseResults);
-        document.getElementById("grayout").classList.remove("hidden");
-        document.getElementById("dialogue").classList.remove("hidden");
+        document.getElementById("cc-grayout").classList.remove("hidden");
+        document.getElementById("cc-dialogue").classList.remove("hidden");
     }
 
-    function hideDialogue() {
+    function hideCCDialogue() {
         console.log("HIDING!");
-        document.getElementById("grayout").classList.add("hidden");
-        document.getElementById("dialogue").classList.add("hidden");
+        document.getElementById("cc-grayout").classList.add("hidden");
+        document.getElementById("cc-dialogue").classList.add("hidden");
     }
 
     var btn = document.getElementById("dialogue-ok");
     if (btn) {
-        btn.addEventListener("click", hideDialogue);
+        btn.addEventListener("click", hideCCDialogue);
     }
     else {
         alert("error: dialogue ok-button not found by id");
     }
 // }
-
+    function hideSIDialogue() {
+        document.getElementById("si-grayout").classList.add("hidden");
+        document.getElementById("si-dialogue").classList.add("hidden");
+    }
 //document.addEventListener("DOMContentLoaded", init);
