@@ -84,18 +84,19 @@ function getCourseExercises() {
     request.onload = function() {
         console.log("It worked!");
         console.log(this.responseText);
-        // makeExercisesFromData(this.responseText);
+        makeExercisesFromData(this.responseText);
     }
     var data = new FormData();
     data.append("html_names", checkedIds)
-    request.open("POST", "/get-course-exercises/", true);
+    request.open("POST", "/interval-selection/", true);
     request.send(data)
 }
 
 function makeExercisesFromData(responseText) {
-    var numButtons = 4;
+    var numButtons = Math.min(responseText.length, 4);
+    console.log(numButtons);
     if(responseText) {
-        EP.course.allExercises = JSON.parse(responseText)
+        EP.course.allExercises = JSON.parse(responseText);
         EP.course.remainingExercises = EP.course.allExercises;
     }
     else {
