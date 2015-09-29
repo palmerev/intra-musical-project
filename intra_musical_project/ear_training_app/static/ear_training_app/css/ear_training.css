@@ -1,4 +1,5 @@
 * {
+  margin: 0;
   box-sizing: border-box;
   /*border: 1px solid red;*/
 }
@@ -6,13 +7,11 @@
 body {
   width: 100%;
   height: 100%;
-  /*background-color: #AAAAFF;
-  background-color: #0F52A2;*/
   font-family: sans-serif;
   /*border: 1px solid red;*/
 }
 
-div {
+.play-button, .answer-button {
   text-align: center;
 }
 
@@ -38,8 +37,6 @@ div > a {
 nav {
   position: absolute;
   bottom: 5%;
-  /*background-color: black;*/
-
 }
 nav div a {
   color: black;
