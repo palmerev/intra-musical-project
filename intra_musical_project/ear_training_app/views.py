@@ -1,28 +1,23 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse,HttpResponseRedirect,JsonResponse
-from django.template import RequestContext, loader
+import json
+
+from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
-# Create your views here.
-from .models import Note
-from .models import Interval
-from .models import IntervalType
-from .models import Scale
-from .models import ScaleType
-from .models import Chord
-from .models import ChordType
+
 from .models import Exercise
+from .models import Course
 from .models import CourseStats
 from .models import Student
 from .models import StudentExercise
 from .models import ExerciseStatus
-from random import choice, sample, randint
-import json
+
 
 def index(request):
     return render(request, 'ear_training_app/index.html')
+
 
 def login_page(request):
     if request.POST:
@@ -40,12 +35,14 @@ def login_page(request):
 
     return render(request, 'ear_training_app/login_page.html')
 
+
 def logout_page(request):
     logout(request)
     return HttpResponseRedirect("/")
 
+
 def registration_page(request):
-    #TODO: validate registration against existing users?
+    # TODO: validate registration against existing users?
     if request.POST:
         user = User()
         user.username = request.POST['username']
@@ -58,12 +55,13 @@ def registration_page(request):
 
     return render(request, 'ear_training_app/registration_page.html')
 
+
 @login_required(login_url="/login/")
 def course_selection(request):
     if(request.user.is_authenticated()):
         context = {}
         user_stats = CourseStats.objects.filter(student__stuser=request.user)
-        print user_stats
+        print(user_stats)
         if len(user_stats) == 0:
             context["course"] = "new"
         else:
@@ -89,10 +87,11 @@ def course_selection(request):
         context = {}
     return render(request, 'ear_training_app/courses.html', context)
 
+
 @csrf_exempt
 def save_student_exercise(request):
     if request.POST:
-        print "request.POST:", request.POST
+        print("request.POST:", request.POST)
         exercise_id = request.POST["exercise_id"]
         # result should be formatted to match EXERCISE_RESULT_CHOICES in StudentExercise model
         # e.g. all lowercase "correct", "incorrect", or "skipped"
@@ -118,9 +117,10 @@ def save_student_exercise(request):
     else:
         return HttpResponse(json.dumps("{ error: please use POST }"), content_type="application/json")
 
+
 def api_all_student_exercises(request):
     student_exercises = StudentExercise.objects.filter(student__stuser=request.user)
-    print "StudentExercises:", student_exercises
+    print("StudentExercises:", student_exercises)
     if(len(student_exercises) > 0):
         obj = [
             {
@@ -131,18 +131,17 @@ def api_all_student_exercises(request):
             for se in student_exercises]
         return HttpResponse(json.dumps(obj), content_type="application/json")
     else:
-        print "no StudentExercises for student"
+        print("no StudentExercises for student")
         return HttpResponse(json.dumps(
             "{ error: no StudentExercises for Student }"
-            ), content_type="application/json")
+        ), content_type="application/json")
+
 
 def course(request, course_type):
     # view logic
     #
     return HttpResponse("Course Content Page")
 
-# def progress_page(request):
-#     return HttpResponse("Course Progress Page")
 
 def exercise_page(request):
     return render(request, 'ear_training_app/interval_exercise.html')
@@ -151,21 +150,22 @@ def exercise_page(request):
 # IN query example for reference
 # Entry.objects.filter(id__in=[1, 3, 4])
 
-#TODO: currently only works for interval exercises
+# TODO: currently only works for interval exercises
 def get_course_exercises(request, course_title):
     course_title = course_title.capitalize()
     exercises = Exercise.objects.filter(course__course_type__title=course_title)
     obj = construct_interval_exercises(exercises)
     return HttpResponse(json.dumps(obj, indent=4), content_type="application/json")
 
+
 def create_course_stats(request, course_title):
     course_title = course_title.capitalize()
     user_stats = CourseStats.objects.filter(
         course__course_type__title=course_title,
         student__stuser=request.user
-        )
+    )
     if len(user_stats) > 0:
-        print "CourseStats already exist for ", course_title, ":", request.user.username
+        print("CourseStats already exist for ", course_title, ":", request.user.username)
     else:
         new_stats = CourseStats()
         new_stats.student = request.user.student
@@ -189,16 +189,18 @@ def to_interval_names(html_names):
         i_names.append(i_name.capitalize())
     return i_names
 
+
 @csrf_exempt
 def interval_selection(request):
     if request.POST:
-        print "POST to interval_selection:", request.POST
+        print("POST to interval_selection:", request.POST)
         # get list of intervals that match names in list
         selected = request.POST["html_names"].split(" ")
         interval_names = to_interval_names(selected)
         exercises = Exercise.objects.filter(interval_answer__name__quality__in=interval_names)
         interval_data = construct_interval_exercises(exercises)
-        return JsonResponse({ "data": interval_data })
+        return JsonResponse({"data": interval_data})
+
 
 def construct_interval_exercises(ex_list):
     data = [
@@ -225,13 +227,13 @@ def construct_interval_exercises(ex_list):
 # @csrf_exempt
 # def test_checkboxes(request):
 #     if request.POST:
-#         print request.POST
+#         print(request.POST)
 #         return HttpResponse("Yay checkboxes!")
 #
 # @csrf_exempt
 # def test(request):
 #     if request.POST:
-#         print "POST:",request.POST
+#         print("POST:",request.POST)
 #         html_names = [key for key in request.POST.keys() if key != 'csrfmiddlewaretoken']
 #         interval_names = to_interval_names(html_names)
 #         return JsonResponse({ "interval_names": interval_names })
