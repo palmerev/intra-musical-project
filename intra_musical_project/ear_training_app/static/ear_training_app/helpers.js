@@ -1,4 +1,16 @@
 /*
+  returns true if an array is empty, otherwise false
+*/
+function isEmptyArray(arr) {
+   if(arr.length === 0) {
+     return true;
+   }
+   else {
+     return false;
+   }
+}
+
+/*
   returns a random integer i: 0 <= i < length
 */
 function randIndex(length) {
