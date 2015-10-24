@@ -147,8 +147,22 @@ def exercise_page(request):
     return render(request, 'ear_training_app/interval_exercise.html')
 
 
-# IN query example for reference
-# Entry.objects.filter(id__in=[1, 3, 4])
+def construct_interval_exercises(ex_list):
+    data = [
+        {
+            "interval_name": exercise.interval_answer.name.quality.lower(),
+            "top_note": {
+                "octave": exercise.interval_answer.top_note.octave,
+                "name": exercise.interval_answer.top_note.name.lower()
+            },
+            "bottom_note": {
+                "octave": exercise.interval_answer.bottom_note.octave,
+                "name": exercise.interval_answer.bottom_note.name.lower()
+            },
+            "id": exercise.id
+        } for exercise in ex_list]
+    return data
+
 
 # TODO: currently only works for interval exercises
 def get_course_exercises(request, course_title):
@@ -190,6 +204,8 @@ def to_interval_names(html_names):
     return i_names
 
 
+# IN query example for reference
+# Entry.objects.filter(id__in=[1, 3, 4])
 @csrf_exempt
 def interval_selection(request):
     if request.POST:
@@ -201,22 +217,6 @@ def interval_selection(request):
         interval_data = construct_interval_exercises(exercises)
         return JsonResponse({"data": interval_data})
 
-
-def construct_interval_exercises(ex_list):
-    data = [
-        {
-            "interval_name": exercise.interval_answer.name.quality.lower(),
-            "top_note": {
-                "octave": exercise.interval_answer.top_note.octave,
-                "name": exercise.interval_answer.top_note.name.lower()
-            },
-            "bottom_note": {
-                "octave": exercise.interval_answer.bottom_note.octave,
-                "name": exercise.interval_answer.bottom_note.name.lower()
-            },
-            "id": exercise.id
-        } for exercise in ex_list]
-    return data
 
 # -----------------------------------------------------------------------------
 # test views for AJAX post
