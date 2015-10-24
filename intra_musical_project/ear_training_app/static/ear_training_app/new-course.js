@@ -1,49 +1,85 @@
- //re-structuring course.js to use object-oriented JS
-//requires helpers.js
-function createNote(letterName, octave) {
-    letterNames = [
-      "Ab", "A", "A#", "Bb", "B", "B#",
-      "Cb" "C", "C#", "Db" "D", "D#",
-       "Eb", "E", "E#", "Fb", "F", "F#", "Gb", "G", "G#"]
+//re-structuring course.js to use object-oriented JS
 
-    if(letterNames.indexOf(letterName) === -1) {
-        console.log("Invalid letter name: " + letterName);
+var intramusical = (function () {
+    "use strict";
+    /*
+      letterNames will be useful for checking for valid letter
+      names when creating Note objects
+      var letterNames = ["A", "B", "C", "D", "E", "F", "G"];
+    */
+    return {
+        /*
+            params:
+            letterName:string
+            octave:integer
+            returns: Note object
+        */
+        Note: function (letterName, octave) {
+            var note = {};
+            note.letterName = letterName;
+            note.octave = octave;
+            return note;
+        },
+        /*
+            params:
+            id:integer - unique id of the exercise from Django
+            topNote:Note()
+            bottomNote:Note()
+            returns: Exercise object
+        */
+        Exercise: function (id, topNote, bottomNote) {
+            //FIXME: add error checking
+
+            var exercise = {};
+            exercise.id = id;
+            exercise.topNote = topNote;
+            exercise.bottomNote = bottomNote;
+            exercise.answerGiven = false;
+            return exercise;
+        },
+        /*
+            params:
+            studentId:integer - unique id of the student from Django
+            exercises:[Exercise] - a list of Exercise objects
+        */
+        //FIXME: add more error checking
+        Course: function (studentId, exercises) {
+            if (!Array.isArray(exercises)) {
+                console.log("ERROR: exercises should be an Array");
+            }
+            else if (isEmptyArray(exercises)) {
+
+            }
+            else {
+                var course = new Object();
+                course.studentId = studentId;
+                course.exercises = {
+                    complete: exercises,
+                    incomplete: []
+                // }
+            }
+        }
+}());
+
+var note = intramusical.Note("A", 4);
+document.getElementById("result").innerHTML = note.letterName + " " + note.octave;
+
+function getCourseExercises() {
+    var checkedIds = getIdsOfChecked();
+    if (checkedIds.split(" ").length < 2) {
+        alert("You must choose at least two intervals");
         return false;
     }
-    //TODO: check that octave is an integer > 0
-    else {
-        var note = new Object();
-        note.letterName = letterName;
-        note.octave = octave;
+    var request = new XMLHttpRequest();
+    request.onload = function() {
+        console.log("It worked!");
+        var text = JSON.parse(this.responseText);
+        console.log(text);
+        makeExercisesFromData(text.data);
     }
-
-    return note;
-}
-
-
-/*
-    params:
-    id:integer - unique id of the exercise from Django
-    topNote:Note()
-    bottomNote:Note()
-*/
-function Exercise(id, topNote, bottomNote){}
-
-function Course(student, exercises){
-    this.student = student;
-    if(!Array.isArray(exercises)) {
-      console.log("ERROR: exercises should be an Array");
-    }
-    else if(isEmptyArray(exercises))
-    else {
-        this.exercises = {
-            complete: exercises,
-            incomplete: []
-        }
-    }
-}
-
-Course.prototype.student = student;
-Course.prototype.numExercises = function() {
-    return this.exercises.complete.length + this.exercises.incomplete.length;
+    var data = new FormData();
+    data.append("html_names", checkedIds);
+    request.open("POST", "/interval-selection/", true);
+    request.send(data);
+    return true;
 }
