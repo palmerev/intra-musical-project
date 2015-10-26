@@ -22,18 +22,30 @@ var intramusical = (function () {
         },
         /*
             params:
-            id:integer - unique id of the exercise from Django
-            topNote:Note()
-            bottomNote:Note()
+            intervalId:integer - unique id of the interval from Django
+            topNote:Note object
+            bottomNote:Note object
+            intervalName:string
+        */
+        Interval: function (intervalId, topNote, BottomNote, intervalName) {
+            var interval = {};
+            interval.intervalId = intervalId;
+            interval.topNote = topNote;
+            interval.bottomNote = bottomNote;
+            interval.name = name;
+            return interval;
+        }
+        /*
+            params:
+            exerciseId:integer - unique id of the exercise from Django
+            interval:Interval object
             returns: Exercise object
         */
-        Exercise: function (id, topNote, bottomNote) {
+        Exercise: function (exerciseId, interval) {
             //FIXME: add error checking
-
             var exercise = {};
-            exercise.id = id;
-            exercise.topNote = topNote;
-            exercise.bottomNote = bottomNote;
+            exercise.exerciseId = exerciseId;
+
             exercise.answerGiven = false;
             return exercise;
         },
@@ -84,6 +96,7 @@ function makeExercisesFromData(data) {
 
 function getCourseExercises() {
     var checkedIds = getIdsOfChecked();
+    //FIXME: change alert to warning text in selection dialogue
     if (checkedIds.split(" ").length < 2) {
         alert("You must choose at least two intervals");
         return false;
@@ -91,9 +104,9 @@ function getCourseExercises() {
     var request = new XMLHttpRequest();
     request.onload = function() {
         // console.log("It worked!");
-        var text = JSON.parse(this.responseText);
-        // console.log(text);
-        makeExercisesFromData(text.data);
+        var response = JSON.parse(this.responseText);
+        // console.log(response);
+        makeExercisesFromData(response.data);
     }
     var data = new FormData();
     data.append("html_names", checkedIds);
