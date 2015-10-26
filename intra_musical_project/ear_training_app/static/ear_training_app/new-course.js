@@ -46,23 +46,41 @@ var intramusical = (function () {
         Course: function (studentId, exercises) {
             if (!Array.isArray(exercises)) {
                 console.log("ERROR: exercises should be an Array");
-            }
-            else if (isEmptyArray(exercises)) {
-
-            }
-            else {
+            } else if (isEmptyArray(exercises)) {
+                return;
+            } else {
                 var course = new Object();
                 course.studentId = studentId;
                 course.exercises = {
                     complete: exercises,
                     incomplete: []
-                // }
+                }
             }
         }
 }());
 
-var note = intramusical.Note("A", 4);
-document.getElementById("result").innerHTML = note.letterName + " " + note.octave;
+// var note = intramusical.Note("A", 4);
+// document.getElementById("result").innerHTML = note.letterName + " " + note.octave;
+function makeExercisesFromData(data) {
+    var numButtons = Math.min(data.length, 4);
+    // console.log("numButtons:" + numButtons);
+    if(data) {
+    // initialize a bunch of Exercises with data
+    //
+    }
+    else {
+        // console.log("No JSON data");
+        return false;
+    }
+    // apiAllStudentExercises();
+    // setRandomIntervalExercise();
+    // createAnswerButtons(numButtons);
+    // updateAnswerButtonText();
+    // resetStylesAndSound();
+    // setupListeners();
+    // updateProgressCounter();
+}
+
 
 function getCourseExercises() {
     var checkedIds = getIdsOfChecked();
@@ -72,9 +90,9 @@ function getCourseExercises() {
     }
     var request = new XMLHttpRequest();
     request.onload = function() {
-        console.log("It worked!");
+        // console.log("It worked!");
         var text = JSON.parse(this.responseText);
-        console.log(text);
+        // console.log(text);
         makeExercisesFromData(text.data);
     }
     var data = new FormData();
