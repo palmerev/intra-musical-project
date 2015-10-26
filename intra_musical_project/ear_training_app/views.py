@@ -68,19 +68,19 @@ def course_selection(request):
             for stat in user_stats:
                 if stat.course.course_type.title == "Intervals":
                     context["course"] = "intervals"
-                    context["intervals_completed"] = stat.exercises_complete
-                    context["intervals_total"] = stat.course.num_exercises
-                    context["intervals_percent_complete"] = stat.exercises_complete / stat.course.num_exercises
+                    context["intervalsCompleted"] = stat.exercises_complete
+                    context["intervalsTotal"] = stat.course.num_exercises
+                    context["intervalsPercentComplete"] = stat.exercises_complete / stat.course.num_exercises
                 elif stat.course.course_type.title == "Scales":
                     context["course"] = "scales"
-                    context["scales_completed"] = stat.exercises_complete
-                    context["scales_total"] = stat.course.num_exercises
-                    context["scales_percent_complete"] = stat.exercises_complete / stat.course.num_exercises
+                    context["scalesCompleted"] = stat.exercises_complete
+                    context["scalesTotal"] = stat.course.num_exercises
+                    context["scalesPercentComplete"] = stat.exercises_complete / stat.course.num_exercises
                 elif stat.course.course_type.title == "Chords":
                     context["course"] = "chords"
-                    context["chords_completed"] = stat.exercises_complete
-                    context["chords_total"] = stat.course.num_exercises
-                    context["chords_percent_complete"] = stat.exercises_complete / stat.course.num_exercises
+                    context["chordsCompleted"] = stat.exercises_complete
+                    context["chordsTotal"] = stat.course.num_exercises
+                    context["chordsPercentComplete"] = stat.exercises_complete / stat.course.num_exercises
                 else:
                     raise ValueError("Unknown course type in user_stats.")
     else:
@@ -125,8 +125,8 @@ def api_all_student_exercises(request):
         obj = [
             {
                 "user": se.student.stuser.username,
-                "exercise_id": se.exercise.id,
-                "exercise_result": se.result.status
+                "exerciseId": se.exercise.id,
+                "exerciseResult": se.result.status
             }
             for se in student_exercises]
         return HttpResponse(json.dumps(obj), content_type="application/json")
@@ -150,12 +150,12 @@ def exercise_page(request):
 def construct_interval_exercises(ex_list):
     data = [
         {
-            "interval_name": exercise.interval_answer.name.quality.lower(),
-            "top_note": {
+            "intervalName": exercise.interval_answer.name.quality.lower(),
+            "topNote": {
                 "octave": exercise.interval_answer.top_note.octave,
                 "name": exercise.interval_answer.top_note.name.lower()
             },
-            "bottom_note": {
+            "bottomNote": {
                 "octave": exercise.interval_answer.bottom_note.octave,
                 "name": exercise.interval_answer.bottom_note.name.lower()
             },
