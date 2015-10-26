@@ -15,7 +15,7 @@ class IntervalType(models.Model):
     quality = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):  # __str__ in python3
-        return "quality: " + str(self.quality)
+        return str(self.quality)
 
 
 class Interval(models.Model):
@@ -26,7 +26,7 @@ class Interval(models.Model):
     bottom_note = models.ForeignKey(Note, related_name="bottom_note", null=True, blank=True)
 
     def __str__(self):  # __str__ in python3
-        return "interval: " + str(self.name) + ", top: " + str(self.top_note) + ", bottom: " + str(self.bottom_note)
+        return str(self.name) + ", top: " + str(self.top_note) + ", bottom: " + str(self.bottom_note)
 
 
 class ScaleType(models.Model):
@@ -34,7 +34,7 @@ class ScaleType(models.Model):
     quality = models.CharField(max_length=25, null=True, blank=True)
 
     def __str__(self):  # __str__ in python3
-        return "(quality: " + str(self.quality) + ")"
+        return str(self.quality)
 
 
 class Scale(models.Model):
@@ -45,7 +45,7 @@ class Scale(models.Model):
     ascending = models.BooleanField(default=True)
 
     def __str__(self):  # __str__ in python3
-        return "scale: " + str(self.name) + ", " + "quality: " + str(self.quality) + ", " + "ascending: " + str(self.ascending)
+        return str(self.name)
 
 
 class ChordType(models.Model):
@@ -53,7 +53,7 @@ class ChordType(models.Model):
     quality = models.CharField(max_length=20, null=True, blank=True)
 
     def __str__(self):  # __str__ in python3
-        return "(quality: " + str(self.quality) + ")"
+        return str(self.quality)
 
 
 class Chord(models.Model):
@@ -62,7 +62,7 @@ class Chord(models.Model):
     quality = models.ForeignKey(ChordType, null=True)
 
     def __str__(self):  # __str__ in python3
-        return "(root: " + str(self.root) + ", " + "quality: " + str(self.quality) + ")"
+        return str(self.root) + ", " + str(self.quality)
 
 
 class CourseType(models.Model):
@@ -90,7 +90,7 @@ class Exercise(models.Model):
     course = models.ForeignKey(Course, null=True, blank=True)
 
     def __str__(self):  # __str__ in python3
-        return str(self.name) + ", " + str(self.id)
+        return str(self.name)
 
 
 class Student(models.Model):
