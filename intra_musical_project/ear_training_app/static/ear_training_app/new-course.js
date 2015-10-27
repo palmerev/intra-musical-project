@@ -1,11 +1,11 @@
 //re-structuring course.js to use object-oriented JS
 
 var intramusical = (function () {
-    "use strict";
+    'use strict';
     /*
       letterNames will be useful for checking for valid letter
       names when creating Note objects
-      var letterNames = ["A", "B", "C", "D", "E", "F", "G"];
+      var letterNames = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
     */
     return {
         /*
@@ -41,14 +41,17 @@ var intramusical = (function () {
             interval:Interval object
             returns: Exercise object
         */
-        Exercise: function (exerciseId, interval) {
+        IntervalExercise: function (exerciseId, interval) {
             //FIXME: add error checking
             var exercise = {};
             exercise.exerciseId = exerciseId;
-
-            exercise.answerGiven = false;
+            exercise.interval: {
+                topNote: interval.topNote;
+                bottomNote: interval.bottomNote;
+            }
+            exercise.answer = "skipped";
             return exercise;
-        },
+        }
         /*
             params:
             studentId:integer - unique id of the student from Django
@@ -57,31 +60,31 @@ var intramusical = (function () {
         //FIXME: add more error checking
         Course: function (studentId, exercises) {
             if (!Array.isArray(exercises)) {
-                console.log("ERROR: exercises should be an Array");
+                console.log('ERROR: exercises should be an Array');
             } else if (isEmptyArray(exercises)) {
                 return;
             } else {
                 var course = new Object();
                 course.studentId = studentId;
                 course.exercises = {
-                    complete: exercises,
-                    incomplete: []
+                    complete: [],
+                    incomplete: exercises
                 }
             }
         }
 }());
 
-// var note = intramusical.Note("A", 4);
-// document.getElementById("result").innerHTML = note.letterName + " " + note.octave;
+// var note = intramusical.Note('A', 4);
+// document.getElementById('result').innerHTML = note.letterName + ' ' + note.octave;
 function makeExercisesFromData(data) {
     var numButtons = Math.min(data.length, 4);
-    // console.log("numButtons:" + numButtons);
+    // console.log('numButtons:' + numButtons);
     if(data) {
     // initialize a bunch of Exercises with data
     //
     }
     else {
-        // console.log("No JSON data");
+        // console.log('No JSON data');
         return false;
     }
     // apiAllStudentExercises();
@@ -97,20 +100,24 @@ function makeExercisesFromData(data) {
 function getCourseExercises() {
     var checkedIds = getIdsOfChecked();
     //FIXME: change alert to warning text in selection dialogue
-    if (checkedIds.split(" ").length < 2) {
-        alert("You must choose at least two intervals");
+    if (checkedIds.split(' ').length < 2) {
+        alert('You must choose at least two intervals');
         return false;
     }
     var request = new XMLHttpRequest();
     request.onload = function() {
-        // console.log("It worked!");
+        // console.log('It worked!');
         var response = JSON.parse(this.responseText);
         // console.log(response);
         makeExercisesFromData(response.data);
     }
     var data = new FormData();
-    data.append("html_names", checkedIds);
-    request.open("POST", "/interval-selection/", true);
+    data.append('html_names', checkedIds);
+    request.open('POST', '/interval-selection/', true);
     request.send(data);
     return true;
+}
+
+function init() {
+    
 }
