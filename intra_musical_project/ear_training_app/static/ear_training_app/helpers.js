@@ -1,3 +1,4 @@
+//TODO: refactor to module pattern
 /*
   returns true if an array is empty, otherwise false
 */

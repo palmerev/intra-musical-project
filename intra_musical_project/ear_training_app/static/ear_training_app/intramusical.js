@@ -39,7 +39,7 @@ var intramusical = (function () {
             params:
             exerciseId:integer - unique id of the exercise from Django
             interval:Interval object
-            returns: Exercise object
+            returns: IntervalExercise object, where answer == "skipped";
         */
         IntervalExercise: function (exerciseId, interval) {
             //FIXME: add error checking
@@ -48,6 +48,8 @@ var intramusical = (function () {
             exercise.interval: {
                 topNote: interval.topNote;
                 bottomNote: interval.bottomNote;
+                intervalId: interval.intervalId;
+                name: interval.name;
             }
             exercise.answer = "skipped";
             return exercise;
@@ -58,18 +60,36 @@ var intramusical = (function () {
             exercises:[Exercise] - a list of Exercise objects
         */
         //FIXME: add more error checking
-        Course: function (studentId, exercises) {
-            if (!Array.isArray(exercises)) {
+        Course: function (studentId, exercisesArray) {
+            if (!Array.isArray(exercisesArray)) {
                 console.log('ERROR: exercises should be an Array');
-            } else if (isEmptyArray(exercises)) {
+            } else if (isEmptyArray(exercisesArray)) {
                 return;
             } else {
-                var course = new Object();
+                var course = Object.create(null);
                 course.studentId = studentId;
                 course.exercises = {
                     complete: [],
-                    incomplete: exercises
+                    incomplete: exercisesArray
                 }
+                //TODO: test this!
+                Course.prototype.markCurrentExerciseCompleted = function (result) {
+                    console.log("untested method");
+                    if (this.exercises.incomplete.length > 0) {
+                        var currentExercise = this.exercises.incomplete.splice(0, 1)[0];
+                    }
+                    if (!currentExercise) {
+                      throw "couldn't get current incomplete exercise";
+                    }
+                    currentExercise.answer = result || currentExercise.answer;
+                    this.exercises.complete.push(currentExercise);
+                }
+                //TODO: test this!
+                Course.prototype.checkCourseComplete = function () {
+                    console.log("untested method");
+                    return (this.exercises.incomplete.length == 0);
+                }
+              }
             }
         }
 }());
@@ -79,13 +99,12 @@ var intramusical = (function () {
 function makeExercisesFromData(data) {
     var numButtons = Math.min(data.length, 4);
     // console.log('numButtons:' + numButtons);
-    if(data) {
+    if(studentCourse) {
     // initialize a bunch of Exercises with data
-    //
     }
     else {
         // console.log('No JSON data');
-        return false;
+        throw "no studentCourse";
     }
     // apiAllStudentExercises();
     // setRandomIntervalExercise();
@@ -119,5 +138,7 @@ function getCourseExercises() {
 }
 
 function init() {
-    
+    window.course =
 }
+
+document.addEventListener("DOMContentLoaded", init);
