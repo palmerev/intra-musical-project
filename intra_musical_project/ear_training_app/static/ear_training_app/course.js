@@ -1,36 +1,5 @@
 //needs tones.js
 
-//namespace for interval and note data
-//TODO: configure for generic exercise or have different files or namespaces for each course type
-var EP = {
-    currentExercise: {
-        id: 0,
-        answerGiven: false,
-        intervalName: "",
-        topNoteName: "",
-        topNoteOctave: 0,
-        bottomNoteName: "",
-        bottomNoteOctave: 0,
-    },
-    course: {
-        allExercises: [],
-        remainingExercises: [],
-        //number of exercises that the student(user) has touched (Django StudentExercise object created for each)
-        studentExercises: [],
-        //total number of exercises in course
-        numExercises: function() {
-            return EP.course.allExercises.length;
-        },
-        numStudentExercises: function() {
-            return EP.course.studentExercises.length;
-        }
-    }
-}
-
-function showCourseResultsDialogue() {
-    showCCDialogue(); //in dialogue.js
-}
-
 function saveResult (event) {
     var formdata = new FormData();
     var responseData;
@@ -99,12 +68,6 @@ function makeExercisesFromData(data) {
     updateProgressCounter();
 }
 
-function initProgressCounter(curr, total) {
-    //number of exercises (keys) in the course data object + current exercise
-    var numExercises = Object.keys(EP.course.remainingExercises).length;
-    total.innerHTML = numExercises;
-    curr.innerHTML = 1;
-}
 
 function updateProgressCounter() {
     var current = document.getElementById("current");

@@ -40,6 +40,12 @@ function getCourseExercises() {
     return true;
 }
 
+function initProgressCounter(curr, total) {
+    var numExercises = studentCourse.exercises.incomplete.length;
+    total.innerHTML = numExercises;
+    curr.innerHTML = 1;
+}
+
 function init() {
     //get exercise data
     //create exercises
