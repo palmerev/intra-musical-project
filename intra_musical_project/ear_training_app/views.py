@@ -1,4 +1,5 @@
 import json
+from random import shuffle
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -148,7 +149,7 @@ def exercise_page(request):
 
 
 def construct_interval_exercises(ex_list):
-    data = [
+    data = shuffle([
         {
             "intervalName": exercise.interval_answer.name.quality.lower(),
             "topNote": {
@@ -160,7 +161,7 @@ def construct_interval_exercises(ex_list):
                 "name": exercise.interval_answer.bottom_note.name.lower()
             },
             "id": exercise.id
-        } for exercise in ex_list]
+        } for exercise in ex_list])
     return data
 
 
