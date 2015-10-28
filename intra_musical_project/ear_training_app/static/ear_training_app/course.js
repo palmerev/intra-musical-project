@@ -253,18 +253,4 @@ function getCourseExercises() {
     request.send(data);
     return true;
 }
-
-function confirmSIDialogue() {
-    if(getCourseExercises()) {
-        hideSIDialogue();
-    }
-}
-function showSelectionDialogue() {
-    // TODO: modify getCourseExercises to confirm selection and send selected names to Django
-    var siGrayout = document.getElementById("si-grayout");
-    var siDialogue = document.getElementById("si-dialogue");
-    siGrayout.classList.remove("hidden");
-    siDialogue.classList.remove("hidden");
-    document.getElementById("build-course-button").addEventListener("click", confirmSIDialogue);
-}
 document.addEventListener("DOMContentLoaded", showSelectionDialogue);

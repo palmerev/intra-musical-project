@@ -46,7 +46,23 @@ function initProgressCounter(curr, total) {
     curr.innerHTML = 1;
 }
 
+function showSelectionDialogue() {
+    // TODO: modify getCourseExercises to confirm selection and send selected names to Django
+    var siGrayout = document.getElementById("si-grayout");
+    var siDialogue = document.getElementById("si-dialogue");
+    siGrayout.classList.remove("hidden");
+    siDialogue.classList.remove("hidden");
+    document.getElementById("build-course-button").addEventListener("click", confirmSIDialogue);
+}
+
+function confirmSIDialogue() {
+    if(getCourseExercises()) {
+        hideSIDialogue();
+    }
+}
+
 function init() {
+    //show interval selection dialogue
     //get exercise data
     //create exercises
     //create course with exercises
