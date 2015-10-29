@@ -1,4 +1,4 @@
-#cc-grayout, #si-grayout {
+#course-complete-grayout, #interval-selection-grayout {
   position: fixed;
   top: 0;
   left: 0;
@@ -7,7 +7,7 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
-#cc-dialogue, #si-dialogue {
+#course-complete-dialogue, #interval-selection-dialogue {
   position: relative;
   margin-left: auto;
   margin-right: auto;
@@ -21,6 +21,6 @@
   opacity: 0;
 }
 
-.cc-content, .si-grayout {
+.course-complete-content, .interval-selection-grayout {
   color: black;
 }

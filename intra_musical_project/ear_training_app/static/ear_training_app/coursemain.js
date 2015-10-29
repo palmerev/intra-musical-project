@@ -52,12 +52,12 @@ function showSelectionDialogue() {
     var siDialogue = document.getElementById("si-dialogue");
     siGrayout.classList.remove("hidden");
     siDialogue.classList.remove("hidden");
-    document.getElementById("build-course-button").addEventListener("click", confirmSIDialogue);
+    document.getElementById("build-course-button").addEventListener("click", confirmIntervalSelectionDialogue);
 }
 
-function confirmSIDialogue() {
+function confirmIntervalSelectionDialogue() {
     if(getCourseExercises()) {
-        hideSIDialogue();
+        hideIntervalSelectionDialogue();
     }
 }
 
