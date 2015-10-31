@@ -1,4 +1,3 @@
-// function init() {
     function makeOverallResults(resultsObj) {
         console.log("MAKING OVERALL RESULTS");
         console.log(resultsObj);
@@ -33,7 +32,7 @@
     }
 
     function showCourseCompleteDialogue() {
-        console.log("SHOWING!");
+        //console.log("SHOWING!");
         var courseResults = EP.course.studentExercises;
         var overallResults = makeOverallResults(courseResults);
         document.getElementById("course-complete-grayout").classList.remove("hidden");
@@ -41,9 +40,14 @@
     }
 
     function hideCourseCompleteDialogue() {
-        console.log("HIDING!");
+        //console.log("HIDING!");
         document.getElementById("course-complete-grayout").classList.add("hidden");
         document.getElementById("course-complete-dialogue").classList.add("hidden");
+    }
+
+    function hideIntervalSelectionDialogue() {
+        document.getElementById("interval-selection-grayout").classList.add("hidden");
+        document.getElementById("interval-selection-dialogue").classList.add("hidden");
     }
 
     var btn = document.getElementById("dialogue-ok");
@@ -53,9 +57,3 @@
     else {
         alert("error: dialogue ok-button not found by id");
     }
-// }
-    function hideIntervalSelectionDialogue() {
-        document.getElementById("interval-selection-grayout").classList.add("hidden");
-        document.getElementById("interval-selection-dialogue").classList.add("hidden");
-    }
-//document.addEventListener("DOMContentLoaded", init);

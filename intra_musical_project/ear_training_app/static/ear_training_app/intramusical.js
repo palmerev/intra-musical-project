@@ -42,7 +42,7 @@ var intramusical = (function () {
             returns: IntervalExercise object, where answer == "skipped";
         */
         IntervalExercise: function (exerciseId, interval) {
-            //FIXME: add error checking
+            //TODO: add error checking
             var exercise = {};
             exercise.exerciseId = exerciseId;
             exercise.interval: {
@@ -59,7 +59,7 @@ var intramusical = (function () {
             studentId:integer - unique id of the student from Django
             exercises:[Exercise] - a list of Exercise objects
         */
-        //FIXME: add more error checking
+        //TODO: add more error checking
         Course: function (studentId, exercisesArray) {
             if (!Array.isArray(exercisesArray)) {
                 console.log('ERROR: exercises should be an Array');

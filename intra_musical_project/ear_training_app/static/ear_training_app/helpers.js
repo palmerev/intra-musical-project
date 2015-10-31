@@ -1,4 +1,3 @@
-//TODO: refactor to module pattern
 (function (window) {
     var helpers = {
     /*

@@ -108,6 +108,9 @@ class ExerciseStatus(models.Model):
     def __str__(self):  # __str__ in python3
         return str(self.status)
 
+    class Meta:
+        verbose_name_plural = "exercise statuses"
+
 
 class StudentExercise(models.Model):
     student = models.ForeignKey(Student)
@@ -127,3 +130,6 @@ class CourseStats(models.Model):
 
     def __str__(self):  # __str__ in python3
         return "CourseStats for " + str(self.course)
+
+    class Meta:
+        verbose_name_plural = "course stats"
