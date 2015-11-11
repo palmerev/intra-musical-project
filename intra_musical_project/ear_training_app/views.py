@@ -50,7 +50,7 @@ def registration_page(request):
         user.set_password(request.POST['password'])
         user.save()
         student = Student()
-        student.stuser = user
+        student.student_user = user
         student.save()
         return HttpResponseRedirect("/login/")
 
@@ -61,7 +61,7 @@ def registration_page(request):
 def course_selection(request):
     if(request.user.is_authenticated()):
         context = {}
-        user_stats = CourseStats.objects.filter(student__stuser=request.user)
+        user_stats = CourseStats.objects.filter(student__student_user=request.user)
         print(user_stats)
         if len(user_stats) == 0:
             context["course"] = "new"
@@ -94,19 +94,19 @@ def save_student_exercise(request):
     if request.POST:
         print("request.POST:", request.POST)
         exercise_id = request.POST["exercise_id"]
-        # result should be formatted to match EXERCISE_RESULT_CHOICES in StudentExercise model
+        # result should be formatted to match STATUSES in ExerciseStatus model
         # e.g. all lowercase "correct", "incorrect", or "skipped"
         result = request.POST["result"]
-        user_exercise = StudentExercise.objects.filter(student__stuser=request.user, exercise__id=exercise_id)
+        user_exercise = StudentExercise.objects.filter(student__student_user=request.user, exercise__id=exercise_id)
         if len(user_exercise) > 0:
             student_exercise = user_exercise[0]
             student_exercise.save()
         else:
             curr_student = Student()
-            curr_student.stuser = request.user
+            curr_student.student_user = request.user
             student_exercise = StudentExercise()
             student_exercise.student = curr_student
-            # student_exercise.student.stuser = request.user
+            # student_exercise.student.student_user = request.user
             student_exercise.exercise = Exercise.objects.order_by('-id').filter(id=exercise_id)[0]
             # update result or if newly created, set it
             se_stat = ExerciseStatus()
@@ -114,28 +114,28 @@ def save_student_exercise(request):
             se_stat.save()
             student_exercise.result = se_stat
             student_exercise.save()
-        return HttpResponse('{ "id": ' + str(student_exercise.id) + ' }', content_type="application/json")
+        return JsonResponse('{ "id": ' + str(student_exercise.id) + ' }')
     else:
-        return HttpResponse(json.dumps("{ error: please use POST }"), content_type="application/json")
+        return JsonResponse(json.dumps("{ error: please use POST }"))
 
 
 def api_all_student_exercises(request):
-    student_exercises = StudentExercise.objects.filter(student__stuser=request.user)
+    student_exercises = StudentExercise.objects.filter(student__student_user=request.user)
     print("StudentExercises:", student_exercises)
     if(len(student_exercises) > 0):
         obj = [
             {
-                "user": se.student.stuser.username,
+                "user": se.student.student_user.username,
                 "exerciseId": se.exercise.id,
                 "exerciseResult": se.result.status
             }
             for se in student_exercises]
-        return HttpResponse(json.dumps(obj), content_type="application/json")
+        return JsonResponse(json.dumps(obj))
     else:
         print("no StudentExercises for student")
-        return HttpResponse(json.dumps(
+        return JsonResponse(json.dumps(
             "{ error: no StudentExercises for Student }"
-        ), content_type="application/json")
+        ))
 
 
 def course(request, course_type):
@@ -170,14 +170,14 @@ def get_course_exercises(request, course_title):
     course_title = course_title.capitalize()
     exercises = Exercise.objects.filter(course__course_type__title=course_title)
     obj = construct_interval_exercises(exercises)
-    return HttpResponse(json.dumps(obj, indent=4), content_type="application/json")
+    return JsonResponse(json.dumps(obj, indent=4))
 
 
 def create_course_stats(request, course_title):
     course_title = course_title.capitalize()
     user_stats = CourseStats.objects.filter(
         course__course_type__title=course_title,
-        student__stuser=request.user
+        student__student_user=request.user
     )
     if len(user_stats) > 0:
         print("CourseStats already exist for ", course_title, ":", request.user.username)
