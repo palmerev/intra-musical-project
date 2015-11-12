@@ -82,16 +82,6 @@ WSGI_APPLICATION = 'intra_musical_site.wsgi.application'
 #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 #     }
 # }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'intramusical_db',
-        'USER': 'im_admin',
-        'PASSWORD': 'imadminthe*choir01',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
