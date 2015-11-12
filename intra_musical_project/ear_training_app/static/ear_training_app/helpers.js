@@ -10,7 +10,7 @@
        else {
          return false;
        }
-    }
+    },
 
     /*
       returns a random integer i: 0 <= i < length
@@ -18,7 +18,7 @@
     randIndex: function (length) {
         num = Math.floor(Math.random() * length);
         return num;
-    }
+    },
 
     /*
       returns a random sample of n elements from arr.
@@ -34,7 +34,7 @@
             selected.push(item);
         }
         return selected;
-    }
+    },
 
     /*
     Decorate, sort, undecorate pattern
@@ -53,7 +53,7 @@
             delete item.randomNumber;
         }
         // console.log("postdelete:" + list);
-    }
+    },
 
     copyShuffle: function (arr) {
         var list = arr.slice();
@@ -65,7 +65,7 @@
             result.push(list.splice(randIdx, 1)[0]);
         }
         return result;
-    }
+    },
 
     compare: function (a, b) {
         if (a.randomNumber > b.randomNumber) {
@@ -74,14 +74,14 @@
             return -1;
         }
         return 0;
-    }
+    },
 
     printList: function (selected) {
         for (var i = 0; i < selected.length; i++) {
             var item = selected[i];
             document.write(item.name + "<br>");
         }
-    }
+    },
 
     printObject: function (obj){
         document.write("{<br />")
@@ -89,7 +89,7 @@
           document.write("&nbsp;&nbsp;" + prop + ": " + obj[prop] + ",<br />");
         }
         document.write("}<br />");
-    }
+    },
 
     cloneObject: function (inputObject) {
         var targetClone = new Object();
@@ -99,7 +99,7 @@
             targetClone[p]= inputObject[p];
         }
         return targetClone;
-    }
+    },
     /*
     searches list and returns the integer index of the first object that has a
     property called propertyName with a value of propertyValue. Returns -1 if
@@ -114,7 +114,7 @@
             }
         }
         return -1;
-    }
+    },
 
     getExerciseByProperty: function (propertyName, propertyValue, list) {
         var lst = list.slice();
@@ -127,14 +127,14 @@
             }
         }
         return targetClone;
-    }
+    },
 
     /*
     Takes a string and returns a new version of it with the first letter capitalized.
     */
     capitalizeFirstLetter: function (str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
-    }
+    },
     /*
     Takes a string of interval ids and returns an array of interval names matching
     the Django IntervalType model (Interval.name.quality)
@@ -147,7 +147,7 @@
             nameList.push(name)
         }
         return nameList;
-    }
+    },
 
     /*
     Gathers all the ids checkboxes that are checked concatenates them into a
@@ -164,7 +164,7 @@
         }
         var outputString = checkedString.slice(0,-1);
         return outputString;
-    }
+    },
     // -------- THESE FUNCTIONS MAY BE USEFUL FOR TESTING PURPOSES ----------
     _displayChecked: function (){
         var checkedStr = getIdsOfChecked();
@@ -180,7 +180,7 @@
         }
         output.innerHTML = checkedStr;
         _printList(makeIntervalNames(getIdsOfChecked()));
-    }
+    },
 
     _printList: function (list) {
         var outputString = "";
