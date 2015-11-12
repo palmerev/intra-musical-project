@@ -46,42 +46,6 @@ class Interval(models.Model):
         return str(self.name) + ", top: " + str(self.top_note) + ", bottom: " + str(self.bottom_note)
 
 
-class ScaleType(models.Model):
-    '''A list of scale types / qualities'''
-    quality = models.CharField(max_length=25, null=True, blank=True)
-
-    def __str__(self):  # __str__ in python3
-        return str(self.quality)
-
-
-class Scale(models.Model):
-    '''A collection of notes organized by frequency.'''
-    name = models.CharField(max_length=50, blank=True)
-    tonic = models.ForeignKey(Note, null=True)
-    quality = models.ForeignKey(ScaleType, null=True)
-    ascending = models.BooleanField(default=True)
-
-    def __str__(self):  # __str__ in python3
-        return str(self.name)
-
-
-class ChordType(models.Model):
-    '''A list of chord types / qualities'''
-    quality = models.CharField(max_length=20, null=True, blank=True)
-
-    def __str__(self):  # __str__ in python3
-        return str(self.quality)
-
-
-class Chord(models.Model):
-    '''A set of at least three notes.'''
-    root = models.ForeignKey(Note, null=True)
-    quality = models.ForeignKey(ChordType, null=True)
-
-    def __str__(self):  # __str__ in python3
-        return str(self.root) + ", " + str(self.quality)
-
-
 class CourseType(models.Model):
     title = models.CharField(max_length=50, null=True, blank=True)
 
@@ -147,7 +111,6 @@ class CourseStats(models.Model):
     student = models.ForeignKey(Student)
     course = models.ForeignKey(Course)
     course_complete = models.BooleanField(default=False)
-    exercises_complete = models.BooleanField(default=False)
 
     def __str__(self):  # __str__ in python3
         return "CourseStats for " + str(self.course)
