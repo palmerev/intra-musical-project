@@ -40,13 +40,13 @@
   {% endif %}
 <footer>
   <div id="courses"><a href="{% url 'course_selection' %}">Back to courses page</a></div>
-  <div id="next">Next Exercise</div>
+  <div id="save">Save and Continue</div>
 </footer>
 <!-- SELECT INTERVALS DIALOGUE BOX -------------------------------------------->
-<div class="hidden" id="si-grayout">
-  <div class="hidden" id="si-dialogue">
-    <div id="si-content">
-      <h1 id="si-title">Course Content</h1>
+<div class="hidden" id="interval-selection-grayout">
+  <div class="hidden" id="interval-selection-dialogue">
+    <div id="interval-selection-content">
+      <h1 id="interval-selection-title">Course Content</h1>
       <p>Intervals included in the course:</p>
         <fieldset id="option-boxes">
           <label for="min-second">minor second
@@ -91,10 +91,10 @@
   </div>
 </div>
 <!-- COURSE COMPLETE DIALOGUE BOX ----------------------------------------------->
-<div class="hidden" id="cc-grayout">
-  <div class="hidden" id="cc-dialogue">
-    <div id="cc-content">
-      <h2 id="cc-dialogue-title">Results</h2>
+<div class="hidden" id="course-complete-grayout">
+  <div class="hidden" id="course-complete-dialogue">
+    <div id="course-complete-content">
+      <h2 id="course-complete-title">Results</h2>
       <p>Exercises completed: <span id="ex-completed">0</span></p>
       <p>Exercises skipped: <span id="ex-skipped">0</span></p>
       <p>Correct answers: <span id="ex-correct">0</span></p>
@@ -104,6 +104,7 @@
   </div>
 </div>
 </body>
+<script src="{% static 'ear_training_app/underscore-min.js' %}"></script>
 <script src="{% static 'ear_training_app/tones.js' %}"></script>
 <script src="{% static 'ear_training_app/helpers.js' %}"></script>
 <script src="{% static 'ear_training_app/dialogue.js' %}"></script>
