@@ -32,7 +32,6 @@
     }
 
     function showCourseCompleteDialogue() {
-        //console.log("SHOWING!");
         var courseResults = EP.course.studentExercises;
         var overallResults = makeOverallResults(courseResults);
         document.getElementById("course-complete-grayout").classList.remove("hidden");
@@ -40,9 +39,14 @@
     }
 
     function hideCourseCompleteDialogue() {
-        //console.log("HIDING!");
         document.getElementById("course-complete-grayout").classList.add("hidden");
         document.getElementById("course-complete-dialogue").classList.add("hidden");
+    }
+
+    function showIntervalSelectionDialogue() {
+        document.getElementById("interval-selection-grayout").classList.remove("hidden");
+        document.getElementById("interval-selection-dialogue").classList.remove("hidden");
+
     }
 
     function hideIntervalSelectionDialogue() {
