@@ -109,25 +109,6 @@ def save_student_exercise(request):
         return JsonResponse(json.dumps("{ error: please use POST }"))
 
 
-def api_all_student_exercises(request):
-    student_exercises = StudentExercise.objects.filter(student__student_user=request.user)
-    print("StudentExercises:", student_exercises)
-    if(len(student_exercises) > 0):
-        obj = [
-            {
-                "user": se.student.student_user.username,
-                "exerciseId": se.exercise.id,
-                "exerciseResult": se.result.status
-            }
-            for se in student_exercises]
-        return JsonResponse(json.dumps(obj))
-    else:
-        print("no StudentExercises for student")
-        return JsonResponse(json.dumps(
-            "{ error: no StudentExercises for Student }"
-        ))
-
-
 def course(request, course_type):
     # view logic
     #
