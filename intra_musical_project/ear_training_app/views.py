@@ -72,16 +72,6 @@ def course_selection(request):
                     context["intervalsCompleted"] = stat.exercises_complete
                     context["intervalsTotal"] = stat.course.num_exercises
                     context["intervalsPercentComplete"] = stat.exercises_complete / stat.course.num_exercises
-                elif stat.course.course_type.title == "Scales":
-                    context["course"] = "scales"
-                    context["scalesCompleted"] = stat.exercises_complete
-                    context["scalesTotal"] = stat.course.num_exercises
-                    context["scalesPercentComplete"] = stat.exercises_complete / stat.course.num_exercises
-                elif stat.course.course_type.title == "Chords":
-                    context["course"] = "chords"
-                    context["chordsCompleted"] = stat.exercises_complete
-                    context["chordsTotal"] = stat.course.num_exercises
-                    context["chordsPercentComplete"] = stat.exercises_complete / stat.course.num_exercises
                 else:
                     raise ValueError("Unknown course type in user_stats.")
     else:
