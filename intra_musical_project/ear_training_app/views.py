@@ -114,7 +114,7 @@ def save_student_exercise(request):
             se_stat.save()
             student_exercise.result = se_stat
             student_exercise.save()
-        return JsonResponse('{ "id": ' + str(student_exercise.id) + ' }')
+        return JsonResponse(json.dumps({"id": student_exercise.id}))
     else:
         return JsonResponse(json.dumps("{ error: please use POST }"))
 
@@ -148,29 +148,35 @@ def exercise_page(request):
     return render(request, 'ear_training_app/interval_exercise.html')
 
 
-def construct_interval_exercises(ex_list):
-    data = shuffle([
-        {
-            "intervalName": exercise.interval_answer.name.quality.lower(),
-            "topNote": {
-                "octave": exercise.interval_answer.top_note.octave,
-                "name": exercise.interval_answer.top_note.name.lower()
-            },
-            "bottomNote": {
-                "octave": exercise.interval_answer.bottom_note.octave,
-                "name": exercise.interval_answer.bottom_note.name.lower()
-            },
-            "id": exercise.id
-        } for exercise in ex_list])
-    return data
+def construct_interval_exercises(req, exercise_list):
+    if req.user.is_authenticated():
+        authenticated = True
+    else:
+        authenticated = False
+    return json.dumps({
+        "userAuthenticated": authenticated,
+        "exercises": shuffle([
+            {
+                "intervalName": exercise.interval_answer.name.quality.lower(),
+                "topNote": {
+                    "octave": exercise.interval_answer.top_note.octave,
+                    "name": exercise.interval_answer.top_note.name.lower()
+                },
+                "bottomNote": {
+                    "octave": exercise.interval_answer.bottom_note.octave,
+                    "name": exercise.interval_answer.bottom_note.name.lower()
+                },
+                "exerciseId": exercise.id
+            } for exercise in exercise_list])
+    }, indent=4)
 
 
 # TODO: currently only works for interval exercises
 def get_course_exercises(request, course_title):
     course_title = course_title.capitalize()
     exercises = Exercise.objects.filter(course__course_type__title=course_title)
-    obj = construct_interval_exercises(exercises)
-    return JsonResponse(json.dumps(obj, indent=4))
+    exercise_json = construct_interval_exercises(request, exercises)
+    return JsonResponse(exercise_json)
 
 
 def create_course_stats(request, course_title):
