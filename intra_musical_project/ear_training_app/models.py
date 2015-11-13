@@ -13,6 +13,7 @@ class Note(models.Model):
 
 
 class IntervalType(models.Model):
+    '''A list of predefined interval types / qualities'''
     INTERVAL_TYPES = (
         ('unison', 'unison'),
         ('minor second', 'minor second'),
@@ -28,7 +29,6 @@ class IntervalType(models.Model):
         ('major seventh', 'major seventh'),
         ('octave', 'octave')
     )
-    '''A list of predefined interval types / qualities'''
     quality = models.CharField(max_length=20, choices=INTERVAL_TYPES, null=True, blank=True)
 
     def __str__(self):  # __str__ in python3
@@ -64,9 +64,7 @@ class Course(models.Model):
 
 class Exercise(models.Model):
     name = models.CharField(max_length=30, null=True, blank=True)
-    interval_answer = models.ForeignKey(Interval, null=True, blank=True)
-    scale_answer = models.ForeignKey(Scale, null=True, blank=True)
-    chord_answer = models.ForeignKey(Chord, null=True, blank=True)
+    answer = models.ForeignKey(Interval, null=True, blank=True)
     course = models.ForeignKey(Course, null=True, blank=True)
 
     def __str__(self):  # __str__ in python3
