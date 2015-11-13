@@ -104,7 +104,7 @@ def save_student_exercise(request):
             se_stat.save()
             student_exercise.result = se_stat
             student_exercise.save()
-        return JsonResponse(json.dumps({"id": student_exercise.id}))
+        return JsonResponse({"id": student_exercise.id})
     else:
         return JsonResponse(json.dumps("{ error: please use POST }"))
 
@@ -139,26 +139,25 @@ def exercise_page(request):
 
 
 def construct_interval_exercises(req, exercise_list):
-    if req.user.is_authenticated():
-        authenticated = True
-    else:
-        authenticated = False
-    return json.dumps({
-        "userAuthenticated": authenticated,
-        "exercises": shuffle([
-            {
-                "intervalName": exercise.interval_answer.name.quality.lower(),
-                "topNote": {
-                    "octave": exercise.interval_answer.top_note.octave,
-                    "name": exercise.interval_answer.top_note.name.lower()
-                },
-                "bottomNote": {
-                    "octave": exercise.interval_answer.bottom_note.octave,
-                    "name": exercise.interval_answer.bottom_note.name.lower()
-                },
-                "exerciseId": exercise.id
-            } for exercise in exercise_list])
-    }, indent=4)
+    exercises = [
+        {
+            "intervalName": exercise.answer.name.quality.lower(),
+            "topNote": {
+                "octave": exercise.answer.top_note.octave,
+                "letterName": exercise.answer.top_note.name.lower()
+            },
+            "bottomNote": {
+                "octave": exercise.answer.bottom_note.octave,
+                "letterName": exercise.answer.bottom_note.name.lower()
+            },
+            "exerciseId": exercise.id
+        } for exercise in exercise_list]
+    shuffle(exercises)
+
+    return {
+        "userAuthenticated": req.user.is_authenticated(),
+        "exercises": exercises
+    }
 
 
 # TODO: currently only works for interval exercises
@@ -210,8 +209,10 @@ def interval_selection(request):
         # get list of intervals that match names in list
         selected = request.POST["html_names"].split(" ")
         interval_names = to_interval_names(selected)
-        exercises = Exercise.objects.filter(interval_answer__name__quality__in=interval_names)
-        interval_data = construct_interval_exercises(exercises)
+        exercises = Exercise.objects.filter(answer__name__quality__in=interval_names)
+        # print("Exercise.objects.filter: ", exercises)
+        interval_data = construct_interval_exercises(request, exercises)
+        # print("interval data: ", interval_data)
         return JsonResponse({"data": interval_data})
 
 
