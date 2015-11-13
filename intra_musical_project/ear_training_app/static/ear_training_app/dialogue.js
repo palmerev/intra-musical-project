@@ -32,8 +32,9 @@
     }
 
     function showCourseCompleteDialogue() {
-        var courseResults = EP.course.studentExercises;
-        var overallResults = makeOverallResults(courseResults);
+        if (IM.course.exercises.incomplete.length > 0) { throw Error("some exercises are still incomplete"); }
+        var completedExercises = IM.course.exercises.complete;
+        makeOverallResults(completedExercises);
         document.getElementById("course-complete-grayout").classList.remove("hidden");
         document.getElementById("course-complete-dialogue").classList.remove("hidden");
     }
