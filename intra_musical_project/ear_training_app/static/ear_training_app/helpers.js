@@ -1,9 +1,15 @@
 (function (window) {
     var helpers = {
+    assert: function (condition, message) {
+      var message = message || "assertion failed";
+      if (!condition) {
+        throw message;
+      }
+    },
     /*
       returns true if an array is empty, otherwise false
     */
-     isEmptyArray: function (arr) {
+    isEmptyArray: function (arr) {
        if(arr.length === 0) {
          return true;
        }
@@ -92,6 +98,7 @@
     },
 
     cloneObject: function (inputObject) {
+        this.assert(false, "cloneObject probably broken");
         var targetClone = new Object();
         var properties = Object.keys(inputObject);
         for(var i = 0; i < properties.length; i++) {
