@@ -184,8 +184,8 @@ def create_course_stats(request, course_title):
 
 
 # ------------------------------------------------------------------------------
-# converts HTML-style names ("foo-bar") for intervals to capitalized full names
-# of intervals, in the form "Foo bar"
+# converts HTML-style names ("foo-bar") for intervals to full names
+# of intervals, in the form "foo bar"
 # ------------------------------------------------------------------------------
 def to_interval_names(html_names):
     i_names = []
@@ -196,7 +196,7 @@ def to_interval_names(html_names):
             i_name = name.replace("-", "fect ")
         else:
             i_name = name
-        i_names.append(i_name.capitalize())
+        i_names.append(i_name)
     return i_names
 
 
