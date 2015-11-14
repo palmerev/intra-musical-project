@@ -49,40 +49,40 @@
       <h1 id="interval-selection-title">Course Content</h1>
       <p>Intervals included in the course:</p>
         <fieldset id="option-boxes">
-          <label for="min-second">minor second
+          <label for="min-second" class="interval-label">minor second
             <input id="min-second" type="checkbox" />
           </label>
-          <label for="maj-second">major second
+          <label for="maj-second" class="interval-label">major second
             <input id="maj-second" type="checkbox" />
           </label>
-          <label for="min-third">minor third
+          <label for="min-third" class="interval-label">minor third
             <input id="min-third" type="checkbox" />
           </label>
-          <label for="maj-third">major third
+          <label for="maj-third" class="interval-label">major third
             <input id="maj-third" type="checkbox" />
           </label>
-          <label for="per-fourth">perfect fourth
+          <label for="per-fourth" class="interval-label">perfect fourth
             <input id="per-fourth" type="checkbox" />
           </label>
-          <label for="tritone">tritone
+          <label for="tritone" class="interval-label">tritone
             <input id="tritone" type="checkbox" />
           </label>
-          <label for="per-fifth">perfect fifth
+          <label for="per-fifth" class="interval-label">perfect fifth
             <input id="per-fifth" type="checkbox" />
           </label>
-          <label for="min-sixth">minor sixth
+          <label for="min-sixth" class="interval-label">minor sixth
             <input id="min-sixth" type="checkbox" />
           </label>
-          <label for="maj-sixth">major sixth
+          <label for="maj-sixth" class="interval-label">major sixth
             <input id="maj-sixth" type="checkbox" />
           </label>
-          <label for="min-seventh">minor seventh
+          <label for="min-seventh" class="interval-label">minor seventh
             <input id="min-seventh" type="checkbox" />
           </label>
-          <label for="maj-seventh">major seventh
+          <label for="maj-seventh" class="interval-label">major seventh
             <input id="maj-seventh" type="checkbox" />
           </label>
-          <label for="octave">octave
+          <label for="octave" class="interval-label">octave
             <input id="octave" type="checkbox" />
           </label>
         </fieldset>
@@ -103,10 +103,27 @@
     </div>
   </div>
 </div>
+<style media="screen">
+  #play-button-container div,
+  footer div,
+  .answer-button {
+      display: inline-block;
+      border: 1px solid black;
+      margin: 5px;
+  }
+  .answer-button {
+      height: 1em;
+      padding: 3px;
+  }
+
+  .pushed-button {
+      border: 1px solid red;
+  }
+</style>
 </body>
 <script src="{% static 'ear_training_app/underscore-min.js' %}"></script>
 <script src="{% static 'ear_training_app/tones.js' %}"></script>
+<script src="{% static 'ear_training_app/intramusical.js' %}"></script>
 <script src="{% static 'ear_training_app/helpers.js' %}"></script>
 <script src="{% static 'ear_training_app/dialogue.js' %}"></script>
 <script src="{% static 'ear_training_app/coursemain.js' %}"></script>
-<script src="{% static 'ear_training_app/intramusical.js' %}"></script>
