@@ -142,18 +142,20 @@
     capitalizeFirstLetter: function (str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     },
+
     /*
-    Takes a string of interval ids and returns an array of interval names matching
-    the Django IntervalType model (Interval.name.quality)
+    Gets the innerText of elements with a class of "interval-label",
+    which should be interval names
     */
-    makeIntervalNames: function (checkedStr) {
-        var IdList = checkedStr.split(" ");
-        var nameList = [];
-        for (var i = 0; i < IdList.length; i++) {
-            var name = capitalizeFirstLetter(IdList[i]).replace("-", "or ");
-            nameList.push(name)
-        }
-        return nameList;
+    getCheckedNames: function () {
+       var intervalLabels = document.getElementsByClassName("interval-label");
+       var checkedIntervals = _.filter(intervalLabels, function getChecked(label) {
+           return label.children[0].checked;
+       });
+       var nameList = [];
+       return _.map(checkedIntervals, function extractName(label) {
+           return label.childNodes[0].textContent.trim();
+       });
     },
 
     /*
