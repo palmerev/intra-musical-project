@@ -97,20 +97,13 @@ var intramusical = (function () {
                     complete: [],
                     incomplete: courseExercises
                 };
-                // IDEA: _.pluck instead of map works with interval.name
-                course.nameSet = _.uniq(_.map(courseExercises, function getExerciseNames(ex) {
-                    return ex.interval.name;
-                }));
 
                 //TODO: test this!
                 course.prototype.markCurrentExercise = function (result) {
-                    console.log("untested method");
-                    if (["correct", "incorrect"].indexOf(result) === -1) {
-                        throw "invalid result";
-                    }
                     var currentExercise;
-                    if (this.exercises.incomplete.length > 0) {
+                    if (!this.courseComplete()) {
                         currentExercise = this.exercises.incomplete.splice(0, 1)[0];
+                        console.log("markCurrentExercise:currentExercise", currentExercise);
                     }
                     if (!currentExercise) {
                         throw "couldn't get current incomplete exercise";
@@ -121,14 +114,13 @@ var intramusical = (function () {
 
                 //TODO: test this!
                 course.prototype.courseComplete = function () {
-                    console.log("untested method");
                     return (this.exercises.incomplete.length === 0);
                 }
 
                 course.prototype.currentExercise = function () {
-                    console.log("untested method");
                     if(!this.CourseComplete) {
                         var firstIncomplete = this.exercises.incomplete[0];
+                        helpers.assert(firstIncomplete, "no firstIncomplete");
                         return firstIncomplete;
                     }
                     else {
