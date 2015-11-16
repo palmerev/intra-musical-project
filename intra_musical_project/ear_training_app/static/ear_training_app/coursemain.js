@@ -23,6 +23,8 @@ function initCourseWithData(responseData) {
     IM.userLoggedIn = responseData.userAuthenticated;
     helpers.assert(responseData.exercises, "no responseData.exercises");
     IM.course = intramusical.createCourse(responseData.exercises);
+    IM.course.nameSet = helpers.getCheckedNames();
+    console.log(IM.course.nameSet);
     setupUserInterface();
 }
 
@@ -104,9 +106,14 @@ function goToNextExercise() {
         result = getResult(); // also shows result
         if (IM.userLoggedIn) {
             saveResult(result);
+            IM.course.markCurrentExercise(result);
         }
         else {
             IM.course.markCurrentExercise(); // default to "skipped" for anonymous users
+        }
+        // last exercise
+        if(IM.course.exercises.incomplete.length === 1) {
+            document.getElementById("save").innerText = "Get Results";
         }
     }
     updateUserInterface();
@@ -128,22 +135,6 @@ function resetStylesAndSound(answerButtons) {
     tones.release = 150;
 }
 
-function updateAnswerButtons(answerButtons) {
-    "use strict";
-    var correctAnswer, options, incorrectAnswers, numButtons, i;
-    correctAnswer = IM.course.currentExercise().interval.name;
-    // sample from nameSet with intervalAnswer excluded
-    incorrectAnswers = _.without(IM.course.nameSet, correctAnswer);
-    // make a shuffled list of all options
-    options = _.shuffle(incorrectAnswers.concat([correctAnswer]));
-    // get the buttons
-    numButtons = answerButtons.length;
-    if (numButtons === 0) { throw new Error("no buttons"); }
-    // update button text with options
-    for (i = 0; i < numButtons; i += 1) {
-        answerButtons[i].innerText = options[i];
-    }
-}
 
 function initProgressCounter(curr, total) {
     "use strict";
@@ -174,14 +165,14 @@ function updateProgressCounter() {
 function playTopNote() {
     "use strict";
     var topNote = IM.course.currentExercise().interval.topNote;
-    console.log("topNote: ", topNote);
+    // console.log("topNote: ", topNote);
     tones.play(topNote.letterName, topNote.octave);
 }
 
 function playBottomNote() {
     "use strict";
     var bottomNote = IM.course.currentExercise().interval.bottomNote;
-    console.log("bottomNote: ", bottomNote);
+    // console.log("bottomNote: ", bottomNote);
     tones.play(bottomNote.letterName, bottomNote.octave);
 }
 
@@ -208,8 +199,15 @@ function setupPlayButtonListeners() {
 }
 
 function markButtonPushed(event) {
+    var answerButtons = document.getElementsByClassName("answer-button");
+    for (var i = 0; i < answerButtons.length; i++) {
+        if(answerButtons[i].classList.contains("pushed-button")) {
+            answerButtons[i].classList.remove("pushed-button");
+        }
+    }
     event.target.classList.add("pushed-button");
 }
+
 
 function setupAnswerButtonListeners() {
     "use strict";
@@ -222,8 +220,8 @@ function setupAnswerButtonListeners() {
 
 function setupUserInterface() {
     "use strict";
-    var numButtons = document.getElementsByClassName("answer-button").length;
-    createAnswerButtons(numButtons);
+    var numButtons = Math.min(IM.course.nameSet.length, 4);
+    updateAnswerButtons(createAnswerButtons(numButtons));
     setupSaveButtonListener();
     setupPlayButtonListeners();
     setupAnswerButtonListeners();
@@ -237,17 +235,39 @@ function confirmIntervalSelectionDialogue() {
     }
 }
 
+function updateAnswerButtons(answerButtons) {
+    "use strict";
+    var correctAnswer, options, incorrectAnswers, numButtons, i;
+    correctAnswer = IM.course.currentExercise().interval.name;
+    numButtons = answerButtons.length;
+    // sample from nameSet with intervalAnswer excluded
+    var incorrectNames = _.without(IM.course.nameSet, correctAnswer);
+    helpers.assert(IM.course.nameSet.length === incorrectNames.length + 1);
+    incorrectAnswers = _.sample(incorrectNames, numButtons);
+    helpers.assert(!_.contains(incorrectAnswers, correctAnswer));
+    // make a shuffled list of all options
+    options = _.shuffle(incorrectAnswers.concat([correctAnswer]));
+    // helpers.assert(options.length === 4);
+    // get the buttons
+    if (numButtons === 0) { throw new Error("no buttons"); }
+    // update button text with options
+    for (i = 0; i < numButtons; i += 1) {
+        answerButtons[i].innerText = options[i];
+    }
+}
 
 function createAnswerButtons(numButtonLimit) {
     "use strict";
-    var i, newBtn,
+    var i, newButton,
     answerButtonContainer = document.getElementById("answer-button-container"),
     answerButtons = document.getElementsByClassName("answer-button");
+    helpers.assert(answerButtonContainer);
     helpers.assert(answerButtons.length === 1);
     for (i = 1; i < numButtonLimit; i++) {
         newButton = answerButtons[0].cloneNode(false);
         answerButtonContainer.appendChild(newButton);
     }
+    return answerButtons;
 }
 
 
