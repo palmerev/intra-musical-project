@@ -99,10 +99,6 @@ function updateUserInterface() {
 function goToNextExercise() {
     "use strict";
     var result;
-    if (IM.course.courseComplete()) {
-        showCourseCompleteDialogue();
-    }
-    else {
         result = getResult(); // also shows result
         if (IM.userLoggedIn) {
             saveResult(result);
@@ -115,7 +111,9 @@ function goToNextExercise() {
         if(IM.course.exercises.incomplete.length === 1) {
             document.getElementById("save").innerText = "Get Results";
         }
-    }
+        if (IM.course.courseComplete()) {
+            showCourseCompleteDialogue();
+        }
     updateUserInterface();
 }
 
