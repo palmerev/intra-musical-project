@@ -1,6 +1,6 @@
-    function makeOverallResults(resultsObj) {
+    function makeOverallResults(exercises) {
         console.log("MAKING OVERALL RESULTS");
-        console.log(resultsObj);
+        console.log(exercises);
         var dialogueCompleted = document.getElementById("ex-completed");
         var dialogueCorrect = document.getElementById("ex-correct");
         var dialogueIncorrect = document.getElementById("ex-incorrect");
@@ -8,8 +8,8 @@
         var totalCorrect = 0;
         var totalIncorrect = 0;
         var totalSkipped = 0;
-        for (var i = 0; i < resultsObj.length; i++){
-            switch(resultsObj[i]["exercise_result"]){
+        for (var i = 0; i < exercises.length; i++){
+            switch(exercises[i].answer){
               case "correct":
                 totalCorrect++;
                 break;
@@ -20,7 +20,7 @@
                 totalSkipped++;
                 break;
               default:
-                console.log("error: unknown exercise_result!");
+                throw new Error("error: unknown answer!");
                 break;
             }
         }
@@ -47,7 +47,6 @@
     function showIntervalSelectionDialogue() {
         document.getElementById("interval-selection-grayout").classList.remove("hidden");
         document.getElementById("interval-selection-dialogue").classList.remove("hidden");
-
     }
 
     function hideIntervalSelectionDialogue() {
