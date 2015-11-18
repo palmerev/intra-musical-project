@@ -92,7 +92,7 @@ function updateUserInterface() {
     "use strict";
     var answerButtons = document.getElementsByClassName("answer-button");
     updateAnswerButtons(answerButtons);
-    resetStylesAndSound(answerButtons);
+    resetStyles(answerButtons);
     updateProgressCounter();
 }
 
@@ -117,7 +117,7 @@ function goToNextExercise() {
     updateUserInterface();
 }
 
-function resetStylesAndSound(answerButtons) {
+function resetStyles(answerButtons) {
     "use strict";
     //reset styles that have changed
     var i,
@@ -128,9 +128,6 @@ function resetStylesAndSound(answerButtons) {
             answerButtons[i].classList.remove("pushed-button");
         }
     }
-    //set sound quality
-    tones.type = "sine";
-    tones.release = 150;
 }
 
 
