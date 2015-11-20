@@ -1,0 +1,113 @@
+body {
+  width: 100%;
+  height: 100%;
+  font-family: Helvetica, sans-serif;
+  font-weight: bold;
+  /*border: 1px solid red;*/ }
+
+h1,
+.main-content {
+  text-align: center; }
+  h1 input[type=submit],
+  .main-content input[type=submit] {
+    text-align: right; }
+
+.box-title {
+  margin: 15px; }
+
+form {
+  display: inline-block; }
+
+.interval-selection-box {
+  padding: 15px; }
+
+.interval-selection label {
+  display: block; }
+
+.container {
+  margin-left: 25px; }
+
+.button {
+  text-align: center;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 15px; }
+
+.play-button, .answer-button {
+  text-align: center;
+  border-radius: 10px;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 15px; }
+
+.play-button {
+  background-color: #1122DD; }
+
+.answer-button {
+  background-color: #E38900; }
+
+.form-group {
+  margin-bottom: 3px; }
+
+fieldset {
+  border: none; }
+
+div > a {
+  color: black;
+  font-weight: bold;
+  text-decoration: none; }
+
+nav {
+  position: absolute;
+  bottom: 5%; }
+  nav div a {
+    color: black;
+    text-decoration: underline; }
+
+footer {
+  height: 25px;
+  width: 100%; }
+
+footer > div {
+  position: absolute;
+  bottom: 3%; }
+
+footer > div > a {
+  font-size: 0.8em;
+  font-weight: bold;
+  text-decoration: underline;
+  color: black; }
+
+#play-button-container {
+  width: 50%; }
+
+#answer-button-container {
+  width: 55%; }
+
+#login-status-wrapper {
+  position: absolute;
+  right: 3%;
+  top: 3%; }
+
+#play-button-container div {
+  display: inline-block;
+  border: 1px solid black;
+  margin: 5px; }
+
+.pushed-button {
+  border: 1px solid red; }
+
+.button-link {
+  color: white;
+  display: block;
+  margin: 0 auto;
+  text-decoration: none;
+  padding: 15px;
+  border-radius: 20px;
+  background-color: #3333ff;
+  text-align: center;
+  width: 4em; }
+
+/*# sourceMappingURL=ear_training.css.map */
