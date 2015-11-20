@@ -149,12 +149,12 @@
     */
     getCheckedNames: function () {
        var intervalLabels = document.getElementsByClassName("interval-label");
+       this.assert(intervalLabels.length > 0);
        var checkedIntervals = _.filter(intervalLabels, function getChecked(label) {
            return label.children[0].checked;
        });
-       var nameList = [];
        return _.map(checkedIntervals, function extractName(label) {
-           return label.childNodes[0].textContent.trim();
+           return label.innerText.trim();
        });
     },
 

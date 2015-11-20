@@ -24,7 +24,7 @@ function initCourseWithData(responseData) {
     helpers.assert(responseData.exercises, "no responseData.exercises");
     IM.course = intramusical.createCourse(responseData.exercises);
     IM.course.nameSet = helpers.getCheckedNames();
-    console.log(IM.course.nameSet);
+    // console.log(IM.course.nameSet);
     setupUserInterface();
 }
 
@@ -32,16 +32,15 @@ function getCourseExercises() {
     "use strict";
     var data,
         request,
-        checkedIds = helpers.getIdsOfChecked();
-    //FIXME: change alert to warning text in selection dialogue
-    if (checkedIds.split(' ').length < 2) {
+        checkedIds = helpers.getCheckedNames();
+    //FIXME: instead of alert, disable button until two intervals are selected
+    if (checkedIds.length < 2) {
         alert('You must choose at least two intervals');
         return false;
     }
     request = new XMLHttpRequest();
     request.onload = function () {
         var response = JSON.parse(this.responseText);
-        helpers.assert(response.data, "no response.data");
         initCourseWithData(response.data);
     };
     data = new FormData();

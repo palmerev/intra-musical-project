@@ -17,7 +17,10 @@ from .models import ExerciseStatus
 
 
 def index(request):
-    return render(request, 'ear_training_app/index.html')
+    if request.user.is_authenticated():
+        return render(request, 'ear_training_app/interval_exercise.html')
+    else:
+        return HttpResponseRedirect('/login/')
 
 
 def login_page(request):
@@ -32,7 +35,7 @@ def login_page(request):
             else:
                 return HttpResponse("disabled account")
         else:
-            return HttpResponse("invalid login")
+            return HttpResponseRedirect("/register/")
 
     return render(request, 'ear_training_app/login_page.html')
 
@@ -53,7 +56,6 @@ def registration_page(request):
         student.student_user = user
         student.save()
         return HttpResponseRedirect("/login/")
-
     return render(request, 'ear_training_app/registration_page.html')
 
 
@@ -107,12 +109,6 @@ def save_student_exercise(request):
         return JsonResponse({"id": student_exercise.id})
     else:
         return JsonResponse(json.dumps("{ error: please use POST }"))
-
-
-def course(request, course_type):
-    # view logic
-    #
-    return HttpResponse("Course Content Page")
 
 
 def exercise_page(request):
@@ -169,6 +165,7 @@ def create_course_stats(request, course_title):
 # of intervals, in the form "foo bar"
 # ------------------------------------------------------------------------------
 def to_interval_names(html_names):
+    # print("html_names", html_names)
     i_names = []
     for name in html_names:
         if name.startswith("min") or name.startswith("maj"):
@@ -178,6 +175,7 @@ def to_interval_names(html_names):
         else:
             i_name = name
         i_names.append(i_name)
+    print(i_names)
     return i_names
 
 
@@ -188,12 +186,14 @@ def interval_selection(request):
     if request.POST:
         print("POST to interval_selection:", request.POST)
         # get list of intervals that match names in list
-        selected = request.POST["html_names"].split(" ")
-        interval_names = to_interval_names(selected)
+        # selected = request.POST["html_names"].split(" ")
+        # interval_names = to_interval_names(selected)
+        interval_names = request.POST["html_names"].split(",")
+        print("interval_names", interval_names)
         exercises = Exercise.objects.filter(answer__name__quality__in=interval_names)
-        # print("Exercise.objects.filter: ", exercises)
+        print("Exercise.objects.filter: ", exercises)
         interval_data = construct_interval_exercises(request, exercises)
-        # print("interval data: ", interval_data)
+        print("interval data: ", interval_data)
         return JsonResponse({"data": interval_data})
 
 
