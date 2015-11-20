@@ -2,13 +2,17 @@
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>
        Intervals
   </title>
-  <link rel="stylesheet" href="{% static 'ear_training_app/ear_training.css' %}">
+  <link rel="stylesheet" href="{% static 'ear_training_app/css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'ear_training_app/css/ear_training.css' %}">
   <link rel="stylesheet" href="{% static 'ear_training_app/css/dialogue.css' %}">
 </head>
 <body>
+<header>
+</header>
   <h2>Exercise Page</h2>
   {% if user.is_authenticated %}
     <p id="course-progress">
@@ -17,7 +21,7 @@
   {% endif %}
     <p>
       To complete this exercise, identify the interval.
-       You may play the top or bottom note alone, or both notes together, using the buttons below.
+       Play the notes with the blue buttons, then select your answer.
     </p>
     <div id="play-button-container">
       <div id="top-note-button" class="play-button">top note</div>
@@ -39,51 +43,62 @@
   </div>
   {% endif %}
 <footer>
-  <div id="courses"><a href="{% url 'course_selection' %}">Back to courses page</a></div>
   <div id="save">Save and Continue</div>
 </footer>
 <!-- SELECT INTERVALS DIALOGUE BOX -------------------------------------------->
 <div class="hidden" id="interval-selection-grayout">
-  <div class="hidden" id="interval-selection-dialogue">
-    <div id="interval-selection-content">
-      <h1 id="interval-selection-title">Course Content</h1>
+  <div class="hidden" id="interval-selection-dialogue" class="inteval-selection-box">
+    <div id="interval-selection-content" class="interval-selection">
+      <h1 id="interval-selection-title" class="box-title">Course Content</h1>
       <p>Intervals included in the course:</p>
         <fieldset id="option-boxes">
-          <label for="min-second" class="interval-label">minor second
+          <label for="min-second" class="interval-label">
             <input id="min-second" type="checkbox" />
+            minor second
           </label>
-          <label for="maj-second" class="interval-label">major second
+          <label for="maj-second" class="interval-label">
             <input id="maj-second" type="checkbox" />
+            major second
           </label>
-          <label for="min-third" class="interval-label">minor third
+          <label for="min-third" class="interval-label">
             <input id="min-third" type="checkbox" />
+            minor third
           </label>
-          <label for="maj-third" class="interval-label">major third
+          <label for="maj-third" class="interval-label">
             <input id="maj-third" type="checkbox" />
+            major third
           </label>
-          <label for="per-fourth" class="interval-label">perfect fourth
+          <label for="per-fourth" class="interval-label">
             <input id="per-fourth" type="checkbox" />
+            perfect fourth
           </label>
-          <label for="tritone" class="interval-label">tritone
+          <label for="tritone" class="interval-label">
             <input id="tritone" type="checkbox" />
+            tritone
           </label>
-          <label for="per-fifth" class="interval-label">perfect fifth
+          <label for="per-fifth" class="interval-label">
             <input id="per-fifth" type="checkbox" />
+            perfect fifth
           </label>
-          <label for="min-sixth" class="interval-label">minor sixth
+          <label for="min-sixth" class="interval-label">
             <input id="min-sixth" type="checkbox" />
+            minor sixth
           </label>
-          <label for="maj-sixth" class="interval-label">major sixth
+          <label for="maj-sixth" class="interval-label">
             <input id="maj-sixth" type="checkbox" />
+            major sixth
           </label>
-          <label for="min-seventh" class="interval-label">minor seventh
+          <label for="min-seventh" class="interval-label">
             <input id="min-seventh" type="checkbox" />
+            minor seventh
           </label>
-          <label for="maj-seventh" class="interval-label">major seventh
+          <label for="maj-seventh" class="interval-label">
             <input id="maj-seventh" type="checkbox" />
+            major seventh
           </label>
-          <label for="octave" class="interval-label">octave
+          <label for="octave" class="interval-label">
             <input id="octave" type="checkbox" />
+            octave
           </label>
         </fieldset>
         <button id="build-course-button" type="button" name="build-course-button">Build Course</button>
@@ -103,34 +118,6 @@
     </div>
   </div>
 </div>
-<style media="screen">
-  #play-button-container div,
-  footer div,
-  .answer-button {
-      display: inline-block;
-      border: 1px solid black;
-      margin: 5px;
-  }
-  .answer-button {
-      height: 1em;
-      padding: 3px;
-  }
-
-  .pushed-button {
-      border: 1px solid red;
-  }
-  .button-link {
-      color: white;
-      display: block;
-      margin: 0 auto;
-      text-decoration: none;
-      padding: 15px;
-      border-radius: 20px;
-      background-color: #3333ff;
-      text-align: center;
-      width: 4em;
-  }
-</style>
 </body>
 <script src="{% static 'ear_training_app/underscore-min.js' %}"></script>
 <script src="{% static 'ear_training_app/tones.js' %}"></script>
