@@ -57,8 +57,7 @@ function getResult() {
     // TODO: change alerts to custom error dialogues
     var selectedButton = document.getElementsByClassName("pushed-button")[0];
     if (selectedButton !== undefined) {
-        // innerText not on IE
-        if (selectedButton.innerText === IM.course.currentExercise().interval.name) {
+        if (selectedButton.textContent === IM.course.currentExercise().interval.name) {
             alert("correct");
             return "correct";
         }
@@ -108,7 +107,7 @@ function goToNextExercise() {
         }
         // last exercise
         if(IM.course.exercises.incomplete.length === 1) {
-            document.getElementById("save").innerText = "Get Results";
+            document.getElementById("save").textContent = "Get Results";
         }
         if (IM.course.courseComplete()) {
             showCourseCompleteDialogue();
@@ -121,7 +120,7 @@ function resetStyles(answerButtons) {
     //reset styles that have changed
     var i,
         result = document.getElementById("answer-result");
-    result.innerText = "";
+    result.textContent = "";
     for (i = 0; i < answerButtons.length; i += 1) {
         if (answerButtons[i].classList.contains("pushed-button")) {
             answerButtons[i].classList.remove("pushed-button");
@@ -246,7 +245,7 @@ function updateAnswerButtons(answerButtons) {
     if (numButtons === 0) { throw new Error("no buttons"); }
     // update button text with options
     for (i = 0; i < numButtons; i += 1) {
-        answerButtons[i].innerText = options[i];
+        answerButtons[i].textContent = options[i];
     }
 }
 

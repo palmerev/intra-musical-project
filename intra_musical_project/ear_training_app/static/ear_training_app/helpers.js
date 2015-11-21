@@ -144,7 +144,7 @@
     },
 
     /*
-    Gets the innerText of elements with a class of "interval-label",
+    Gets the textContent of elements with a class of "interval-label",
     which should be interval names
     */
     getCheckedNames: function () {
@@ -154,10 +154,17 @@
            return label.children[0].checked;
        });
        return _.map(checkedIntervals, function extractName(label) {
-           return label.innerText.trim();
+           return label.textContent.trim();
        });
     },
 
+    getNumChecked: function () {
+        var intervalLabels = document.getElementsByClassName("interval-label");
+        var checkedIntervals = _.filter(intervalLabels, function getChecked(label) {
+            return label.children[0].checked;
+        });
+        return checkedIntervals.length;
+    },
     /*
     Gathers all the ids checkboxes that are checked concatenates them into a
     string, separated by spaces, and returns that string.
