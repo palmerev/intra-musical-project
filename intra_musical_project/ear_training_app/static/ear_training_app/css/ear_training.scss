@@ -3,7 +3,6 @@ body {
   height: 100%;
   font-family: Helvetica, sans-serif;
   font-weight: bold;
-  /*border: 1px solid red;*/
 }
 
 h1,
@@ -25,30 +24,29 @@ form {
 .interval-selection-box {
   padding: 15px;
 }
+
 .interval-selection label {
   display: block;
 }
+
 .container {
   margin-left: 25px;
 }
 
-.button {
-  text-align: center;
-  // border-radius: 10px;
-  border: none;
-  color: white;
-  font-weight: bold;
-  padding: 15px;
+.button-container {
+  margin: 35px
 }
 
-.play-button, .answer-button {
+.button {
+  display: inline;
+  margin-left: 5px;
+  padding: 15px;
   text-align: center;
-  border-radius: 10px;
   border: none;
   color: white;
   font-weight: bold;
-  padding: 15px;
 }
+
 .play-button {
   background-color: #1122DD;
 }
@@ -71,39 +69,39 @@ div > a {
   text-decoration: none;
 }
 
-nav {
-  position: absolute;
-  bottom: 5%;
-    div a {
-      color: black;
-      text-decoration: underline;
-    }
-}
+// nav {
+//   position: absolute;
+//   bottom: 5%;
+//     div a {
+//       color: black;
+//       text-decoration: underline;
+//     }
+// }
+//
+// footer {
+//   height: 25px;
+//   width: 100%;
+// }
 
-footer {
-  height: 25px;
-  width: 100%;
-}
+// footer > div {
+//   position: absolute;
+//   bottom: 3%;
+// }
+//
+// footer > div > a {
+//   font-size: 0.8em;
+//   font-weight: bold;
+//   text-decoration: underline;
+//   color: black;
+// }
 
-footer > div {
-  position: absolute;
-  bottom: 3%;
-}
-
-footer > div > a {
-  font-size: 0.8em;
-  font-weight: bold;
-  text-decoration: underline;
-  color: black;
-}
-
-#play-button-container {
-  width: 50%;
-}
-
-#answer-button-container {
-  width: 55%;
-}
+// #play-button-container {
+//   width: 50%;
+// }
+//
+// #answer-button-container {
+//   width: 55%;
+// }
 
 // .course {
 //   background-color: #444477;
@@ -158,11 +156,11 @@ footer > div > a {
   top: 3%;
 }
 
-#play-button-container div {
-    display: inline-block;
-    border: 1px solid black;
-    margin: 5px;
-}
+// #play-button-container div {
+//     display: inline-block;
+//     border: 1px solid black;
+//     margin: 5px;
+// }
 
 .pushed-button {
     border: 1px solid red;
@@ -177,4 +175,10 @@ footer > div > a {
     background-color: #3333ff;
     text-align: center;
     width: 4em;
+}
+
+.disabled {
+  color: #F5F5F5;
+  background: #DDDDDD;
+  text-decoration: line-through;
 }

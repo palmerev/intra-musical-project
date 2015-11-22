@@ -1,4 +1,5 @@
-#course-complete-grayout, #interval-selection-grayout {
+#course-complete-grayout, #interval-selection-grayout,
+.grayout {
   position: fixed;
   top: 0;
   left: 0;
@@ -7,7 +8,8 @@
   background: rgba(0, 0, 0, 0.9);
 }
 
-#course-complete-dialogue, #interval-selection-dialogue {
+#course-complete-dialogue, #interval-selection-dialogue,
+.dialogue {
   position: relative;
   margin: 5% auto;
   background-color: #EEEEEE;
