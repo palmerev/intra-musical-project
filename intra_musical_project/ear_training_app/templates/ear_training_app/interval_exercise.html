@@ -7,12 +7,21 @@
        Intervals
   </title>
   <link rel="stylesheet" href="{% static 'ear_training_app/css/normalize.css' %}">
-  <link rel="stylesheet" href="{% static 'ear_training_app/css/ear_training.css' %}">
   <link rel="stylesheet" href="{% static 'ear_training_app/css/dialogue.css' %}">
+  <link rel="stylesheet" href="{% static 'ear_training_app/css/ear_training.css' %}">
 </head>
 <body>
-<header>
-</header>
+  <header>
+    <h1 class="main-title">Intramusical</h1>
+  {% if user.is_authenticated %}
+  <div id="login-status-wrapper">
+    <p id="login-status">
+      Logged in as <span id=username>{{ user.username }}</span>
+    </p>
+    <a href="/logout/" id="logout">Logout</a>
+  </div>
+  {% endif %}
+  </header>
   <h2>Exercise Page</h2>
   {% if user.is_authenticated %}
     <p id="course-progress">
@@ -23,25 +32,17 @@
       To complete this exercise, identify the interval.
        Play the notes with the blue buttons, then select your answer.
     </p>
-    <div id="play-button-container">
-      <div id="top-note-button" class="play-button">top note</div>
-      <div id="bottom-note-button" class="play-button">bottom note</div>
-      <div id="both-notes-button" class="play-button">both notes</div>
+    <div id="play-button-container" class="button-container">
+      <div id="top-note-button" class="button play-button">top note</div>
+      <div id="bottom-note-button" class="button play-button">bottom note</div>
+      <div id="both-notes-button" class="button play-button">both notes</div>
     </div>
 
   <p>Select an interval:</p>
-    <div id="answer-button-container">
-      <div class="answer-button"></div>
+    <div id="answer-button-container" class="button-container">
+      <div class="button answer-button"></div>
     </div>
   <p id="answer-result"></p>
-  {% if user.is_authenticated %}
-  <div id="login-status-wrapper">
-    <p id="login-status">
-      Logged in as <span id=username>{{ user.username }}</span>
-    </p>
-    <a href="/logout/" id="logout">Logout</a>
-  </div>
-  {% endif %}
 <footer>
   <div id="save">Save and Continue</div>
 </footer>
@@ -101,7 +102,7 @@
             octave
           </label>
         </fieldset>
-        <button id="build-course-button" type="button" name="build-course-button">Build Course</button>
+        <button id="build-course-button" class="hidden" type="button" name="build-course-button">Build Course</button>
     </div>
   </div>
 </div>
