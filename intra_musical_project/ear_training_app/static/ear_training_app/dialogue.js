@@ -46,7 +46,23 @@
 
     function showIntervalSelectionDialogue() {
         document.getElementById("interval-selection-grayout").classList.remove("hidden");
-        document.getElementById("interval-selection-dialogue").classList.remove("hidden");
+        var box = document.getElementById("interval-selection-dialogue");
+        box.classList.remove("hidden");
+        box.addEventListener("click", function () {
+            var button = document.getElementById("build-course-button");
+            console.log("clicked on box");
+            console.log("numChecked", helpers.getNumChecked());
+            if (helpers.getNumChecked() >= 2) {
+                if (button.classList.contains('hidden')) {
+                    button.classList.remove('hidden');
+                }
+            }
+            else {
+                if (!button.classList.contains('hidden')) {
+                    button.classList.add('hidden');
+                }
+            }
+        });
     }
 
     function hideIntervalSelectionDialogue() {
