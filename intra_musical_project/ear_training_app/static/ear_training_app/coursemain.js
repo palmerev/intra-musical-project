@@ -21,7 +21,7 @@ function initCourseWithData(responseData) {
     // console.log("data: ", data);
     // TODO: eliminate globals
     IM.userLoggedIn = responseData.userAuthenticated;
-    helpers.assert(responseData.exercises, "no responseData.exercises");
+    helpers.assert(responseData.exercises.length > 0, "responseData.exercises has length zero");
     IM.course = intramusical.createCourse(responseData.exercises);
     IM.course.nameSet = helpers.getCheckedNames();
     // console.log(IM.course.nameSet);
