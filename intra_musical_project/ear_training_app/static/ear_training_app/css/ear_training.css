@@ -41,6 +41,9 @@ button {
   color: white;
   font-weight: bold; }
 
+#build-course-button {
+  background-color: #3333ff; }
+
 .play-button {
   background-color: #1122DD; }
 
@@ -59,6 +62,9 @@ div > a {
 
 .pushed-button {
   border: 3px solid red; }
+
+.state-change-button {
+  background-color: #11BB11; }
 
 .button-link {
   color: white;
