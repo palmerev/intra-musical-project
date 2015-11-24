@@ -22,7 +22,6 @@
   </div>
   {% endif %}
   </header>
-  <h2>Exercise Page</h2>
   {% if user.is_authenticated %}
     <p id="course-progress">
       Exercise <span id="current"></span>/<span id="course-total"></span>
@@ -33,14 +32,14 @@
        Play the notes with the blue buttons, then select your answer.
     </p>
     <div id="play-button-container" class="button-container">
-      <div id="top-note-button" class="button play-button">top note</div>
-      <div id="bottom-note-button" class="button play-button">bottom note</div>
-      <div id="both-notes-button" class="button play-button">both notes</div>
+    <button id="top-note-button" class="play-button">top note</button>
+    <button id="bottom-note-button" class="play-button">bottom note</button>
+    <button id="both-notes-button" class="play-button">both notes</button>
     </div>
 
   <p>Select an interval:</p>
     <div id="answer-button-container" class="button-container">
-      <div class="button answer-button"></div>
+      <button class="answer-button"></button>
     </div>
   <p id="answer-result"></p>
 <footer>
@@ -115,7 +114,7 @@
       <p>Exercises skipped: <span id="ex-skipped">0</span></p>
       <p>Correct answers: <span id="ex-correct">0</span></p>
       <p>Incorrect answers: <span id="ex-incorrect">0</span></p>
-      <a href="/" id="dialogue-ok"><button type="button" name="button">Return to Homepage</button></a>
+      <a href="/" id="dialogue-ok"><button class="centered-block" type="button">Return to Homepage</button></a>
     </div>
   </div>
 </div>
