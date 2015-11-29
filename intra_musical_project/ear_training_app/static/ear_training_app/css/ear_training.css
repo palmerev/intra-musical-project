@@ -41,6 +41,11 @@ button {
   color: white;
   font-weight: bold; }
 
+.button {
+  padding: 15px;
+  text-align: center;
+  font-weight: bold; }
+
 #build-course-button {
   background-color: #3333ff; }
 
@@ -58,7 +63,17 @@ div > a {
 #login-status-wrapper {
   position: absolute;
   right: 3%;
-  top: 3%; }
+  top: 3%;
+  font-weight: normal;
+  font-size: 0.9em; }
+  #login-status-wrapper a {
+    display: block;
+    text-align: right; }
+
+#logout {
+  text-align: right;
+  font-weight: normal;
+  color: #001077; }
 
 .pushed-button {
   border: 3px solid red; }

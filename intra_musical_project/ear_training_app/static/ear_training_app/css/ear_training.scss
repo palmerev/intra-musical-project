@@ -83,6 +83,18 @@ div > a {
   position: absolute;
   right: 3%;
   top: 3%;
+  font-weight: normal;
+  font-size: 0.9em;
+  a {
+    display: block;
+    text-align: right;
+  }
+}
+
+#logout {
+  text-align: right;
+  font-weight: normal;
+  color: #001077;
 }
 
 .pushed-button {
