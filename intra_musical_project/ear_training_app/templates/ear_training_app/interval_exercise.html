@@ -23,11 +23,11 @@
   {% endif %}
   </header>
   {% if user.is_authenticated %}
-    <p id="course-progress">
+    <p class="hidden" id="course-progress">
       Exercise <span id="current"></span>/<span id="course-total"></span>
     </p>
   {% endif %}
-  <div class="exercise-content">
+  <div class="hidden exercise-content-wrapper">
       <p>
         To complete this exercise, identify the interval.
          Play the notes with the blue buttons, then select your answer.
@@ -49,8 +49,8 @@
 <div class="hidden" id="interval-selection-wrapper">
   <div class="hidden" id="interval-selection-dialogue" class="inteval-selection-box">
     <div id="interval-selection-content" class="interval-selection">
-      <h1 id="interval-selection-title" class="box-title">Course Content</h1>
-      <p>Intervals included in the course:</p>
+      <!-- <h1 id="interval-selection-title" class="box-title">Course Content</h1> -->
+      <p>Select intervals to include in the course:</p>
         <fieldset id="option-boxes">
           <label for="min-second" class="interval-label">
             <input id="min-second" type="checkbox" />

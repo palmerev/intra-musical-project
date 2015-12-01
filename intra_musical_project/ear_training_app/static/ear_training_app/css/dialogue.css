@@ -1,4 +1,4 @@
-#course-complete-wrapper, #interval-selection-wrapper,
+/*#course-complete-wrapper, #interval-selection-wrapper,
 .grayout {
   position: fixed;
   top: 0;
@@ -6,13 +6,13 @@
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.9);
-}
+}*/
 
 #course-complete-dialogue, #interval-selection-dialogue,
 .dialogue {
   position: relative;
   margin: 5% auto;
-  background-color: #EEEEEE;
+  /*background-color: #EEEEEE;*/
   width: 30%;
   min-width: 200px;
   /*height: 85%;*/

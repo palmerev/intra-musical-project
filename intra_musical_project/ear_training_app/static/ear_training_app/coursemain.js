@@ -110,6 +110,7 @@ function goToNextExercise() {
             document.getElementById("save").textContent = "Get Results";
         }
         if (IM.course.courseComplete()) {
+            hideExerciseContent();
             showCourseCompleteDialogue();
         }
     updateUserInterface();
@@ -225,6 +226,8 @@ function confirmIntervalSelectionDialogue() {
     "use strict";
     if (getCourseExercises()) {
         hideIntervalSelectionDialogue();
+        showExerciseContent();
+        document.getElementById("course-progress").classList.remove("hidden");
     }
 }
 

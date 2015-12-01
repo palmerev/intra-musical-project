@@ -70,6 +70,26 @@
         document.getElementById("interval-selection-dialogue").classList.add("hidden");
     }
 
+    function showExerciseContent() {
+        var mainContent = document.getElementsByClassName("exercise-content-wrapper")[0];
+        if(mainContent.classList.contains("hidden")) {
+            mainContent.classList.remove("hidden");
+        }
+        else {
+            throw "already showing exercise content";
+        }
+    }
+
+    function hideExerciseContent() {
+        var mainContent = document.getElementsByClassName("exercise-content-wrapper")[0];
+        if(!mainContent.classList.contains("hidden")) {
+            mainContent.classList.add("hidden");
+        }
+        else {
+            throw "already hiding exercise content";
+        }
+    }
+
     var btn = document.getElementById("dialogue-ok");
     if (btn) {
         btn.addEventListener("click", hideCourseCompleteDialogue);
