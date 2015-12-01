@@ -1,4 +1,4 @@
-#course-complete-grayout, #interval-selection-grayout,
+#course-complete-wrapper, #interval-selection-wrapper,
 .grayout {
   position: fixed;
   top: 0;
@@ -38,6 +38,6 @@
   opacity: 0;
 }
 
-.course-complete-content, .interval-selection-grayout {
+.course-complete-content, .interval-selection-wrapper {
   color: black;
 }

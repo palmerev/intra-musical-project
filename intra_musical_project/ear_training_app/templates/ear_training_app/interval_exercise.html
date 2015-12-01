@@ -27,26 +27,26 @@
       Exercise <span id="current"></span>/<span id="course-total"></span>
     </p>
   {% endif %}
-    <p>
-      To complete this exercise, identify the interval.
-       Play the notes with the blue buttons, then select your answer.
-    </p>
-    <div id="play-button-container" class="button-container">
-    <button id="top-note-button" class="play-button">top note</button>
-    <button id="bottom-note-button" class="play-button">bottom note</button>
-    <button id="both-notes-button" class="play-button">both notes</button>
-    </div>
+  <div class="exercise-content">
+      <p>
+        To complete this exercise, identify the interval.
+         Play the notes with the blue buttons, then select your answer.
+      </p>
+      <div id="play-button-container" class="button-container">
+      <button id="top-note-button" class="play-button">top note</button>
+      <button id="bottom-note-button" class="play-button">bottom note</button>
+      <button id="both-notes-button" class="play-button">both notes</button>
+      </div>
 
-  <p>Select an interval:</p>
-    <div id="answer-button-container" class="button-container">
-      <button class="answer-button"></button>
-    </div>
-  <p id="answer-result"></p>
-<footer>
-  <button id="save" class="state-change-button">Save and Continue</button>
-</footer>
+      <p>Select an interval:</p>
+        <div id="answer-button-container" class="button-container">
+          <button class="answer-button"></button>
+        </div>
+      <p id="answer-result"></p>
+      <button id="save" class="state-change-button">Save and Continue</button>
+  </div>
 <!-- SELECT INTERVALS DIALOGUE BOX -------------------------------------------->
-<div class="hidden" id="interval-selection-grayout">
+<div class="hidden" id="interval-selection-wrapper">
   <div class="hidden" id="interval-selection-dialogue" class="inteval-selection-box">
     <div id="interval-selection-content" class="interval-selection">
       <h1 id="interval-selection-title" class="box-title">Course Content</h1>
@@ -106,7 +106,7 @@
   </div>
 </div>
 <!-- COURSE COMPLETE DIALOGUE BOX ----------------------------------------------->
-<div class="hidden" id="course-complete-grayout">
+<div class="hidden" id="course-complete-wrapper">
   <div class="hidden" id="course-complete-dialogue">
     <div id="course-complete-content">
       <h2 id="course-complete-title">Results</h2>
@@ -118,6 +118,8 @@
     </div>
   </div>
 </div>
+  <footer>
+  </footer>
 </body>
 <script src="{% static 'ear_training_app/underscore-min.js' %}"></script>
 <script src="{% static 'ear_training_app/tones.js' %}"></script>
