@@ -19,6 +19,25 @@
     },
 
     /*
+      checks or unchecks all checkboxes based on the 'select all' checkbox
+    */
+    checkOrUncheckAll: function () {
+        var selectedAll = document.getElementById("select-all").checked;
+        var checkboxes = document.querySelectorAll("input[type=checkbox]");
+        if (selectedAll) {
+            for(var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = true;
+            }
+        }
+        else {
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = false;
+            }
+        }
+
+    },
+
+    /*
       returns a random integer i: 0 <= i < length
     */
     randIndex: function (length) {

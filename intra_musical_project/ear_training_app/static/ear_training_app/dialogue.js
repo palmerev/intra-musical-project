@@ -63,6 +63,7 @@
                 }
             }
         });
+        document.getElementById('select-all').addEventListener('click', helpers.checkOrUncheckAll);
     }
 
     function hideIntervalSelectionDialogue() {

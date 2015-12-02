@@ -33,6 +33,10 @@
     /*border-radius: 15px;*/
 }
 
+.select-all {
+    margin-top: 10px;
+}
+
 .hidden {
   display: none;
   opacity: 0;
