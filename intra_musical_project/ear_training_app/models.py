@@ -88,7 +88,7 @@ class StudentExercise(models.Model):
     )
     student = models.ForeignKey(Student)
     exercise = models.ForeignKey(Exercise)
-    status = models.CharField(choices=STATUSES, default='skipped')
+    status = models.CharField(choices=STATUSES, default='skipped', max_length=10)
 
     def __str__(self):  # __str__ in python3
         return str(self.student) + ", " + str(self.exercise)
