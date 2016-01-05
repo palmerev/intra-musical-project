@@ -1,11 +1,12 @@
 from django.db import models
+from django import forms
 from django.contrib.auth.models import User
 
 
 class Note(models.Model):
     OCTAVE_CHOICES = [(i, i) for i in range(1, 10)]
 
-    name = models.CharField(max_length=3, blank=True)
+    name = models.CharField(max_length=3, default='C')
     octave = models.PositiveSmallIntegerField(choices=OCTAVE_CHOICES, default=0)
 
     def __str__(self):  # __str__ in python3
@@ -29,7 +30,7 @@ class IntervalType(models.Model):
         ('major seventh', 'major seventh'),
         ('octave', 'octave')
     )
-    quality = models.CharField(max_length=20, choices=INTERVAL_TYPES, null=True, blank=True)
+    quality = models.CharField(max_length=20, choices=INTERVAL_TYPES, default='unison')
 
     def __str__(self):  # __str__ in python3
         return str(self.quality)
@@ -38,16 +39,16 @@ class IntervalType(models.Model):
 class Interval(models.Model):
     '''Two notes a specific distance (interval) apart.'''
     # TODO:??? make function to generate name based on top_note and bottom_note values
-    name = models.ForeignKey(IntervalType, null=True, blank=True)
-    top_note = models.ForeignKey(Note, related_name="top_note", null=True, blank=True)
-    bottom_note = models.ForeignKey(Note, related_name="bottom_note", null=True, blank=True)
+    name = models.ForeignKey(IntervalType, null=True, default='unison')
+    top_note = models.ForeignKey(Note, related_name="top_note", null=True)
+    bottom_note = models.ForeignKey(Note, related_name="bottom_note", null=True)
 
     def __str__(self):  # __str__ in python3
-        return str(self.name) + ", top: " + str(self.top_note) + ", bottom: " + str(self.bottom_note)
+        return str(self.name) + ", bottom: " + str(self.bottom_note) + ", top: " + str(self.top_note)
 
 
 class CourseType(models.Model):
-    title = models.CharField(max_length=50, null=True, blank=True)
+    title = models.CharField(max_length=50, default='untitled')
 
     def __str__(self):  # __str__ in python3
         return str(self.title)
@@ -55,20 +56,20 @@ class CourseType(models.Model):
 
 class Course(models.Model):
     ''' Page showing a list of all exercises in a course. '''
-    course_type = models.ForeignKey(CourseType, blank=True, null=True)
-    num_exercises = models.PositiveSmallIntegerField(default=10, null=True)
+    course_type = models.ForeignKey(CourseType, null=True)
+    num_exercises = models.PositiveSmallIntegerField(default=10)
 
     def __str__(self):  # __str__ in python3
         return "course on " + str(self.course_type)
 
 
 class Exercise(models.Model):
-    name = models.CharField(max_length=30, null=True, blank=True)
-    answer = models.ForeignKey(Interval, null=True, blank=True)
-    course = models.ForeignKey(Course, null=True, blank=True)
+    name = models.CharField(max_length=30, null=True)
+    answer = models.ForeignKey(Interval, null=True)
+    course = models.ForeignKey(Course, null=True)
 
     def __str__(self):  # __str__ in python3
-        return str(self.name)
+        return str(self.name) + " " + str(self.answer.name)
 
 
 class Student(models.Model):
