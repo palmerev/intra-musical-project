@@ -1,5 +1,4 @@
 from django.db import models
-from django import forms
 from django.contrib.auth.models import User
 
 
@@ -81,26 +80,15 @@ class Student(models.Model):
         return str(self.student_user)
 
 
-class ExerciseStatus(models.Model):
+class StudentExercise(models.Model):
     STATUSES = (
         ('skipped', 'skipped'),
         ('correct', 'correct'),
         ('incorrect', 'incorrect')
     )
-
-    status = models.CharField(max_length=25, default="", choices=STATUSES)
-
-    def __str__(self):  # __str__ in python3
-        return str(self.status)
-
-    class Meta:
-        verbose_name_plural = "exercise statuses"
-
-
-class StudentExercise(models.Model):
     student = models.ForeignKey(Student)
     exercise = models.ForeignKey(Exercise)
-    result = models.ForeignKey(ExerciseStatus, null=True, blank=True)
+    status = models.CharField(choices=STATUSES, default='skipped')
 
     def __str__(self):  # __str__ in python3
         return str(self.student) + ", " + str(self.exercise)

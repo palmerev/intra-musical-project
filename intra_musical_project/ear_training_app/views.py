@@ -13,7 +13,6 @@ from .models import Course
 from .models import CourseStats
 from .models import Student
 from .models import StudentExercise
-from .models import ExerciseStatus
 
 
 def index(request):
@@ -92,6 +91,7 @@ def save_student_exercise(request):
         user_exercise = StudentExercise.objects.filter(student__student_user=request.user, exercise__id=exercise_id)
         if len(user_exercise) > 0:
             student_exercise = user_exercise[0]
+            student_exercise.status = result
             student_exercise.save()
         else:
             curr_student = Student()
@@ -101,10 +101,7 @@ def save_student_exercise(request):
             # student_exercise.student.student_user = request.user
             student_exercise.exercise = Exercise.objects.order_by('-id').filter(id=exercise_id)[0]
             # update result or if newly created, set it
-            se_stat = ExerciseStatus()
-            se_stat.status = result
-            se_stat.save()
-            student_exercise.result = se_stat
+            student_exercise.status = result
             student_exercise.save()
         return JsonResponse({"id": student_exercise.id})
     else:
