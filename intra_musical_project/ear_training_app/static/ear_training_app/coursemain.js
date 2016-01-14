@@ -255,12 +255,9 @@ function updateAnswerButtons(answerButtons) {
 function createAnswerButtons(numButtonLimit) {
     "use strict";
     var i, newButton,
-    answerButtonContainer = document.getElementById("answer-button-container"),
-    answerButtons = document.getElementsByClassName("answer-button");
-    helpers.assert(answerButtonContainer);
-    helpers.assert(answerButtons.length === 1);
+    answerButtonContainer = document.getElementById("answer-button-container");
     for (i = 1; i < numButtonLimit; i++) {
-        newButton = answerButtons[0].cloneNode(false);
+        newButton = '<button class="answer-button"></button>';
         answerButtonContainer.appendChild(newButton);
     }
     return answerButtons;
