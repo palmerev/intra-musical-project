@@ -1,3 +1,7 @@
+$play-bg: #1122DD;
+$answer-bg: #E38900;
+$build-bg: #3333ff;
+
 body {
   width: 100%;
   height: 100%;
@@ -76,14 +80,14 @@ form {
 }
 
 #build-course-button {
-    background-color: #3333ff;
+    background-color: $build-bg;
 }
 .play-button {
-  background-color: #1122DD;
+  background-color: $play-bg;
 }
 
 .answer-button {
-  background-color: #E38900;
+  background-color: $answer-bg;
 }
 
 div > a {
@@ -116,7 +120,7 @@ div > a {
 }
 
 .pushed-button {
-    border: 3px solid red;
+    background-color: darken($answer-bg, 5%);
 }
 .state-change-button {
     background-color: #11BB11;
