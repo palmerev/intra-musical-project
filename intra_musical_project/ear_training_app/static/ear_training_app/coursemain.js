@@ -256,11 +256,12 @@ function createAnswerButtons(numButtonLimit) {
     "use strict";
     var i, newButton,
     answerButtonContainer = document.getElementById("answer-button-container");
-    for (i = 1; i < numButtonLimit; i++) {
-        newButton = '<button class="answer-button"></button>';
+    for (i = 0; i < numButtonLimit; i++) {
+        newButton = document.createElement('button');
+        newButton.classList.add('answer-button');
         answerButtonContainer.appendChild(newButton);
     }
-    return answerButtons;
+    return document.getElementsByClassName('answer-button');
 }
 
 
