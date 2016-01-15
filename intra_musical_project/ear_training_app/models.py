@@ -91,10 +91,10 @@ class StudentExercise(models.Model):
     status = models.CharField(choices=STATUSES, default='skipped', max_length=10)
 
     def __str__(self):  # __str__ in python3
-        return str(self.student) + ", " + str(self.exercise)
+        return "".join([str(self.student), ", ", str(self.exercise), ", ", str(self.status)])
 
     class Meta:
-        ordering = ['exercise']
+        ordering = ['-student', 'exercise']
 
 
 class CourseStats(models.Model):
