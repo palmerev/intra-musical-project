@@ -8,11 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Exercise
-from .models import Course
-from .models import CourseStats
-from .models import Student
-from .models import StudentExercise
+from .models import Exercise, Course, CourseStats, Student, StudentExercise
 
 
 def index(request):
@@ -83,12 +79,12 @@ def course_selection(request):
 @csrf_exempt
 def save_student_exercise(request):
     if request.POST:
-        print("request.POST:", request.POST)
         exercise_id = request.POST["exercise_id"]
         # result should be formatted to match STATUSES in ExerciseStatus model
         # e.g. all lowercase "correct", "incorrect", or "skipped"
         result = request.POST["result"]
         user_exercise = StudentExercise.objects.filter(student__student_user=request.user, exercise__id=exercise_id)
+        # if the student has already seen this exercise
         if len(user_exercise) > 0:
             student_exercise = user_exercise[0]
             student_exercise.status = result
