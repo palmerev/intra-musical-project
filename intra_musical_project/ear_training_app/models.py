@@ -88,7 +88,11 @@ class StudentExercise(models.Model):
     )
     student = models.ForeignKey(Student)
     exercise = models.ForeignKey(Exercise)
+    # the student's most recent result
     status = models.CharField(choices=STATUSES, default='skipped', max_length=10)
+    times_skipped = models.PositiveIntegerField(default=0)
+    times_correct = models.PositiveIntegerField(default=0)
+    times_incorrect = models.PositiveIntegerField(default=0)
 
     def __str__(self):  # __str__ in python3
         return "".join([str(self.student), ", ", str(self.exercise), ", ", str(self.status)])
