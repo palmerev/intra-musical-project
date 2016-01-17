@@ -30,6 +30,8 @@ urlpatterns = [
     url(r'^courses/intervals/exercises/save-student-exercise/$', views.save_student_exercise, name='save_student_exercise'),
     url(r'^courses/(?P<course_type>[A-Za-z]+)/exercises/(?P<exercise_id>)/$', views.exercise_page, name='exercise_page'),
     url(r'^get-course-exercises/(?P<course_title>[A-Za-z]+)/$', views.get_course_exercises, name='get_course_exercises'),
+    url(r'^(?P<username>\w{3,})/results/$', views.results, name='results'),
+
     # ---------------------------------- FOR TESTING AJAX POST -------------------------------------
     # url(r'^test/$', 'ear_training_app.views.show_test_page'),
     # url(r'^result/$', 'ear_training_app.views.test'),

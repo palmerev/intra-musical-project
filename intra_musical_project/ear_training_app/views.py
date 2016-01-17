@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Exercise, Course, CourseStats, Student, StudentExercise
+from .models import Exercise, Course, CourseStats, Student, StudentExercise, IntervalType
 
 
 def index(request):
@@ -189,6 +189,11 @@ def interval_selection(request):
         print("interval data: ", interval_data)
         return JsonResponse({"data": interval_data})
 
+
+def results(request, username):
+    interval_names = [i[0] for i in IntervalType.INTERVAL_TYPES]
+    context = {"interval_names": interval_names}
+    return render(request, 'ear_training_app/results.html', context)
 
 # -----------------------------------------------------------------------------
 # test views for AJAX post
