@@ -1,4 +1,5 @@
 import json
+import logging
 from random import shuffle
 
 from django.shortcuts import render
@@ -9,6 +10,10 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
 from .models import Exercise, Course, CourseStats, Student, StudentExercise, IntervalType
+
+
+logging.basicConfig(level=logging.DEBUG,
+                    format=' %(asctime)s - %(levelname)s - %(message)s')
 
 
 def index(request):
@@ -78,15 +83,26 @@ def course_selection(request):
 
 @csrf_exempt
 def save_student_exercise(request):
+    logging.debug('in save_student_exercise')
     if request.POST:
         exercise_id = request.POST["exercise_id"]
         # result should be formatted to match STATUSES in ExerciseStatus model
         # e.g. all lowercase "correct", "incorrect", or "skipped"
         result = request.POST["result"]
-        user_exercise = StudentExercise.objects.filter(student__student_user=request.user, exercise__id=exercise_id)
+        user_exercise = StudentExercise.objects.filter(
+            student__student_user=request.user, exercise__id=exercise_id)
         # if the student has already seen this exercise
         if len(user_exercise) > 0:
             student_exercise = user_exercise[0]
+            if result == 'skipped':
+                student_exercise.times_skipped += 1
+            elif result == 'correct':
+                student_exercise.times_correct += 1
+            elif result == 'incorrect':
+                student_exercise.times_incorrect += 1
+            else:
+                logging.debug(
+                    'result is not "skipped", "correct", or "incorrect"')
             student_exercise.status = result
             student_exercise.save()
         else:
@@ -95,7 +111,8 @@ def save_student_exercise(request):
             student_exercise = StudentExercise()
             student_exercise.student = curr_student
             # student_exercise.student.student_user = request.user
-            student_exercise.exercise = Exercise.objects.order_by('-id').filter(id=exercise_id)[0]
+            student_exercise.exercise = Exercise.objects.order_by('-id').filter(
+                id=exercise_id)[0]
             # update result or if newly created, set it
             student_exercise.status = result
             student_exercise.save()
@@ -153,11 +170,11 @@ def create_course_stats(request, course_title):
         new_stats.save()
 
 
-# ------------------------------------------------------------------------------
-# converts HTML-style names ("foo-bar") for intervals to full names
-# of intervals, in the form "foo bar"
-# ------------------------------------------------------------------------------
 def to_interval_names(html_names):
+    '''
+    Convert HTML-style names "f-bar" for intervals to full names of
+    intervals, in the form "foo bar".
+     '''
     # print("html_names", html_names)
     i_names = []
     for name in html_names:
