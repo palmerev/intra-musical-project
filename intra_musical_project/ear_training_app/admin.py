@@ -6,7 +6,6 @@ from .models import Course
 from .models import CourseType
 from .models import Exercise
 from .models import Student
-from .models import CourseStats
 from .models import StudentExercise
 
 

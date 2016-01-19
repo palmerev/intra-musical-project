@@ -99,15 +99,3 @@ class StudentExercise(models.Model):
 
     class Meta:
         ordering = ['-student', 'exercise']
-
-
-class CourseStats(models.Model):
-    student = models.ForeignKey(Student)
-    course = models.ForeignKey(Course)
-    course_complete = models.BooleanField(default=False)
-
-    def __str__(self):  # __str__ in python3
-        return "CourseStats for " + str(self.course)
-
-    class Meta:
-        verbose_name_plural = "course stats"

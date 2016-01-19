@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Exercise, Course, CourseStats, Student, StudentExercise, IntervalType
+from .models import Exercise, Course, Student, StudentExercise, IntervalType
 
 
 logging.basicConfig(level=logging.DEBUG,
@@ -57,28 +57,6 @@ def registration_page(request):
         student.save()
         return HttpResponseRedirect("/login/")
     return render(request, 'ear_training_app/registration_page.html')
-
-
-@login_required(login_url="/login/")
-def course_selection(request):
-    if(request.user.is_authenticated()):
-        context = {}
-        user_stats = CourseStats.objects.filter(student__student_user=request.user)
-        print(user_stats)
-        if len(user_stats) == 0:
-            context["course"] = "new"
-        else:
-            for stat in user_stats:
-                if stat.course.course_type.title == "Intervals":
-                    context["course"] = "intervals"
-                    context["intervalsCompleted"] = stat.exercises_complete
-                    context["intervalsTotal"] = stat.course.num_exercises
-                    context["intervalsPercentComplete"] = stat.exercises_complete / stat.course.num_exercises
-                else:
-                    raise ValueError("Unknown course type in user_stats.")
-    else:
-        context = {}
-    return render(request, 'ear_training_app/courses.html', context)
 
 
 @csrf_exempt
@@ -153,21 +131,6 @@ def get_course_exercises(request, course_title):
     exercises = Exercise.objects.filter(course__course_type__title=course_title)
     exercise_json = construct_interval_exercises(request, exercises)
     return JsonResponse(exercise_json)
-
-
-def create_course_stats(request, course_title):
-    course_title = course_title.capitalize()
-    user_stats = CourseStats.objects.filter(
-        course__course_type__title=course_title,
-        student__student_user=request.user
-    )
-    if len(user_stats) > 0:
-        print("CourseStats already exist for ", course_title, ":", request.user.username)
-    else:
-        new_stats = CourseStats()
-        new_stats.student = request.user.student
-        new_stats.course = Course.objects.filter(course_type__title=course_title)[0]
-        new_stats.save()
 
 
 def to_interval_names(html_names):
