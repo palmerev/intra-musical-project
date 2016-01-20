@@ -179,7 +179,11 @@ def interval_selection(request):
 
 def results(request, username):
     interval_names = [i[0] for i in IntervalType.INTERVAL_TYPES]
-    context = {"interval_names": interval_names}
+    # get all exercises for student
+    exercises = StudentExercises.objects.filter(
+        student=request.user.student
+    )
+    context = {"interval_names": interval_names, "exercises": exercises}
     return render(request, 'ear_training_app/results.html', context)
 
 # -----------------------------------------------------------------------------
