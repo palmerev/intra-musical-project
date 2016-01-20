@@ -61,7 +61,7 @@ def registration_page(request):
 
 @csrf_exempt
 def save_student_exercise(request):
-    logging.debug('in save_student_exercise')
+    logging.debug('in save_student_exercise for {}'.format(request.user))
     if request.POST:
         exercise_id = request.POST["exercise_id"]
         # result should be formatted to match STATUSES in ExerciseStatus model
@@ -71,19 +71,14 @@ def save_student_exercise(request):
             student__student_user=request.user, exercise__id=exercise_id)
         # if the student has already seen this exercise
         if len(user_exercise) > 0:
+            logging.debug(
+                'result is for exercise {} is {}'.format(exercise_id, result))
+            logging.debug(
+                'request.user.student: {}'.format(request.user.student))
             student_exercise = user_exercise[0]
-            if result == 'skipped':
-                student_exercise.times_skipped += 1
-            elif result == 'correct':
-                student_exercise.times_correct += 1
-            elif result == 'incorrect':
-                student_exercise.times_incorrect += 1
-            else:
-                logging.debug(
-                    'result is not "skipped", "correct", or "incorrect"')
-            student_exercise.status = result
-            student_exercise.save()
         else:
+            logging.debug(
+                'request.user.student: {}'.format(request.user.student))
             curr_student = Student()
             curr_student.student_user = request.user
             student_exercise = StudentExercise()
@@ -92,8 +87,19 @@ def save_student_exercise(request):
             student_exercise.exercise = Exercise.objects.order_by('-id').filter(
                 id=exercise_id)[0]
             # update result or if newly created, set it
-            student_exercise.status = result
-            student_exercise.save()
+            logging.debug('saved result as {}'.format())
+
+        if result == 'skipped':
+            student_exercise.times_skipped += 1
+        elif result == 'correct':
+            student_exercise.times_correct += 1
+        elif result == 'incorrect':
+            student_exercise.times_incorrect += 1
+        else:
+            logging.debug(
+                'result is not "skipped", "correct", or "incorrect"')
+        student_exercise.status = result
+        student_exercise.save()
         return JsonResponse({"id": student_exercise.id})
     else:
         return JsonResponse(json.dumps("{ error: please use POST }"))
@@ -163,7 +169,8 @@ def interval_selection(request):
         # interval_names = to_interval_names(selected)
         interval_names = request.POST["html_names"].split(",")
         print("interval_names", interval_names)
-        exercises = Exercise.objects.filter(answer__name__quality__in=interval_names)
+        exercises = Exercise.objects.filter(
+            answer__name__quality__in=interval_names)
         print("Exercise.objects.filter: ", exercises)
         interval_data = construct_interval_exercises(request, exercises)
         print("interval data: ", interval_data)
