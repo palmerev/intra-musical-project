@@ -97,5 +97,33 @@ class StudentExercise(models.Model):
     def __str__(self):  # __str__ in python3
         return "".join([str(self.student), ", ", str(self.exercise), ", ", str(self.status)])
 
+    def total_times_given(self):
+        '''
+        Return the total number of times the exercise has been given to the
+        student. Same as times_skipped + times_correct + times_incorrect.
+        '''
+        return self.times_skipped + self.times_correct + self.times_incorrect
+
+    def total_times_answered(self):
+        '''
+        Return the total number of times the exercise was actually answered.
+        Same as times_correct + times_incorrect.
+        '''
+        return self.times_correct + self.times_incorrect
+
+    def percent_correct(self):
+        '''
+        Return the percentage of total correct answers relative to the total
+        times given (including skips), rounded to one decimal place.
+        '''
+        return round((self.total_times_answered() / self.total_times_given()) * 100, 1)
+
+    def percent_skipped(self):
+        '''
+        Return the percentage of times the exercise was given but not answered,
+        rounded to one decimal place.
+        '''
+        return round((self.times_skipped / self.total_times_given()) * 100, 1)
+
     class Meta:
         ordering = ['-student', 'exercise']
