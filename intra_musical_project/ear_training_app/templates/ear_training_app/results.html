@@ -9,9 +9,9 @@
   <body>
     <h1>Results</h1>
     <p>Here are your results for the course you just completed.</p>
-    {% for i in interval_names %}
+    {% for exercise in exercises %}
     <p>
-      {{ i }}
+      You completed: {{ exercise.name }}
     </p>
     {% endfor %}
   </body>

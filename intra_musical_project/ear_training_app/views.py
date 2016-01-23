@@ -180,7 +180,7 @@ def interval_selection(request):
 def results(request, username):
     interval_names = [i[0] for i in IntervalType.INTERVAL_TYPES]
     # get all exercises for student
-    exercises = StudentExercises.objects.filter(
+    exercises = StudentExercise.objects.filter(
         student=request.user.student
     )
     context = {"interval_names": interval_names, "exercises": exercises}
