@@ -9,22 +9,10 @@ var IM = {
 function initCourseWithData(responseData) {
     "use strict";
     helpers.assert(responseData !== undefined);
-// for all users:
-    // create the course
-    // populate exercises
-        // authenticated users get potentially different data from Django
-        // anonymous users always get a random sample of intervals
-    // create buttons / eventListeners
-    // display exercise results
-    // show course complete dialogue
-    // var data = helpers.cloneObject(responseData);
-    // console.log("data: ", data);
-    // TODO: eliminate globals
     IM.userLoggedIn = responseData.userAuthenticated;
     helpers.assert(responseData.exercises.length > 0, "responseData.exercises has length zero");
     IM.course = intramusical.createCourse(responseData.exercises);
     IM.course.nameSet = helpers.getCheckedNames();
-    // console.log(IM.course.nameSet);
     setupUserInterface();
 }
 
@@ -33,7 +21,6 @@ function getCourseExercises() {
     var data,
         request,
         checkedIds = helpers.getCheckedNames();
-    //FIXME: instead of alert, disable button until two intervals are selected
     if (checkedIds.length < 2) {
         alert('You must choose at least two intervals');
         return false;
@@ -159,14 +146,12 @@ function updateProgressCounter() {
 function playTopNote() {
     "use strict";
     var topNote = IM.course.currentExercise().interval.topNote;
-    // console.log("topNote: ", topNote);
     tones.play(topNote.letterName, topNote.octave);
 }
 
 function playBottomNote() {
     "use strict";
     var bottomNote = IM.course.currentExercise().interval.bottomNote;
-    // console.log("bottomNote: ", bottomNote);
     tones.play(bottomNote.letterName, bottomNote.octave);
 }
 
@@ -243,7 +228,6 @@ function updateAnswerButtons(answerButtons) {
     helpers.assert(!_.contains(incorrectAnswers, correctAnswer));
     // make a shuffled list of all options
     options = _.shuffle(incorrectAnswers.concat([correctAnswer]));
-    // helpers.assert(options.length === 4);
     // get the buttons
     if (numButtons === 0) { throw new Error("no buttons"); }
     // update button text with options
