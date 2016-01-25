@@ -8,10 +8,10 @@
   </head>
   <body>
     <h1>Results</h1>
-    <p>Here are your results for the course you just completed.</p>
-    {% for exercise in exercises %}
+    <p>Here are your results for the course you've completed.</p>
+    {% for name, quantity in results.items %}
     <p>
-      You completed: {{ exercise.name }}
+      You've completed: {{ quantity }} {{ name }}s
     </p>
     {% endfor %}
   </body>

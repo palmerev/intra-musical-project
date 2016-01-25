@@ -1,6 +1,7 @@
 import json
 import logging
 from random import shuffle
+from collections import defaultdict
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -183,7 +184,19 @@ def results(request, username):
     exercises = StudentExercise.objects.filter(
         student=request.user.student
     )
-    context = {"interval_names": interval_names, "exercises": exercises}
+    nums_completed = [0 for x in interval_names]
+    logging.debug('inside "results": building number of exercises completed')
+    for exercise in exercises:
+        try:
+            logging.debug('exercise answer: {}'.format(str(exercise.exercise.answer)))
+            exercise_index = interval_names.index(str(exercise.exercise.answer).split(',')[0])
+            nums_completed[exercise_index] += 1
+            logging.debug('{} is now {}'.format(exercise.exercise.answer, nums_completed[exercise_index]))
+        except ValueError:
+            logging.debug('ValueError in "results"')
+            continue
+    results = dict(zip(interval_names, nums_completed))
+    context = {"interval_names": interval_names, "results": results, "exercises": exercises}
     return render(request, 'ear_training_app/results.html', context)
 
 # -----------------------------------------------------------------------------
