@@ -195,8 +195,8 @@ def results(request, username):
         except ValueError:
             logging.debug('ValueError in "results"')
             continue
-    results = dict(zip(interval_names, nums_completed))
-    context = {"interval_names": interval_names, "results": results, "exercises": exercises}
+    results = list(zip(interval_names, nums_completed))
+    context = { "results": results, "exercises": exercises}
     return render(request, 'ear_training_app/results.html', context)
 
 # -----------------------------------------------------------------------------
