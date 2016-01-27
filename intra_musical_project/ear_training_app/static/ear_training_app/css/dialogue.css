@@ -1,21 +1,9 @@
-/*#course-complete-wrapper, #interval-selection-wrapper,
-.grayout {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.9);
-}*/
-
 #course-complete-dialogue, #interval-selection-dialogue,
 .dialogue {
   position: relative;
   margin: 5% auto;
-  /*background-color: #EEEEEE;*/
   width: 30%;
   min-width: 200px;
-  /*height: 85%;*/
   padding: 15px;
 }
 
@@ -26,11 +14,9 @@
     margin-right: auto;
     padding: 15px;
     font-size: 1em;
-    font-weight: bold;
     background: #33BB33;
     color: white;
     border: none;
-    /*border-radius: 15px;*/
 }
 
 .select-all {
