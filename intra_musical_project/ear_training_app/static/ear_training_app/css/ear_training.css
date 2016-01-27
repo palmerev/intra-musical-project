@@ -1,17 +1,67 @@
+/* MAIN STYLES */
+.button-container {
+  margin: 35px; }
+  @media screen and (max-width: 475px) {
+    .button-container {
+      margin: 10px; } }
+
+button {
+  display: inline;
+  text-align: center;
+  margin-left: 5px;
+  padding: 15px;
+  border-radius: 5px;
+  border: none;
+  color: white; }
+  @media screen and (max-width: 475px) {
+    button {
+      margin-left: 3px;
+      padding: 7px; } }
+
+@media screen and (max-width: 475px) {
+  #answer-button-container button {
+    margin-left: 0;
+    margin-bottom: 5px;
+    display: block; } }
+
+#build-course-button {
+  background-color: #1B1; }
+  #build-course-button:hover {
+    background-color: #11b611; }
+
+.play-button {
+  background-color: #12D; }
+
+.answer-button {
+  background-color: #E38900; }
+
+.pushed-button {
+  background-color: #ca7a00; }
+
+.state-change-button {
+  background-color: #11BB11; }
+
+.button-link {
+  color: white;
+  display: block;
+  margin: 0 auto;
+  text-decoration: none;
+  padding: 15px;
+  border-radius: 20px;
+  background-color: #3333ff;
+  text-align: center;
+  width: 4em; }
+
 body {
   width: 100%;
   height: 100%;
   font-family: Helvetica, sans-serif;
-  font-weight: bold;
   padding-left: 10px;
   padding-right: 10px; }
 
-h1,
-.main-content {
-  text-align: center; }
-  h1 input[type=submit],
-  .main-content input[type=submit] {
-    text-align: right; }
+h1 input[type=submit],
+.main-content input[type=submit] {
+  text-align: right; }
 
 @media screen and (max-width: 475px) {
   h1 {
@@ -29,45 +79,25 @@ form {
 .interval-selection-box {
   padding: 15px; }
 
+input[type=checkbox] {
+  opacity: .5; }
+
+.interval-selection label,
+.interval-selection p {
+  text-align: center; }
 .interval-selection label {
-  display: block; }
+  margin: 5px auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  display: block;
+  color: white;
+  width: 45%;
+  background-color: #3242ef; }
+.interval-selection input[type=checkbox]:checked + label {
+  background-color: #12D; }
 
 .container {
   margin-left: 25px; }
-
-.button-container {
-  margin: 35px; }
-  @media screen and (max-width: 475px) {
-    .button-container {
-      margin: 10px; } }
-
-button {
-  display: inline;
-  margin-left: 5px;
-  padding: 15px;
-  text-align: center;
-  border: none;
-  color: white;
-  font-weight: bold; }
-  @media screen and (max-width: 475px) {
-    button {
-      margin-left: 3px;
-      padding: 7px; } }
-
-@media screen and (max-width: 475px) {
-  #answer-button-container button {
-    margin-left: 0;
-    margin-bottom: 5px;
-    display: block; } }
-
-#build-course-button {
-  background-color: #3333ff; }
-
-.play-button {
-  background-color: #1122DD; }
-
-.answer-button {
-  background-color: #E38900; }
 
 div > a {
   color: black;
@@ -91,23 +121,6 @@ div > a {
   text-align: right;
   font-weight: normal;
   color: #001077; }
-
-.pushed-button {
-  background-color: #ca7a00; }
-
-.state-change-button {
-  background-color: #11BB11; }
-
-.button-link {
-  color: white;
-  display: block;
-  margin: 0 auto;
-  text-decoration: none;
-  padding: 15px;
-  border-radius: 20px;
-  background-color: #3333ff;
-  text-align: center;
-  width: 4em; }
 
 .centered-block {
   display: block;

@@ -1,20 +1,18 @@
-$play-bg: #1122DD;
-$answer-bg: #E38900;
-$build-bg: #3333ff;
+/* MAIN STYLES */
+
+@import 'buttons';
 
 body {
   width: 100%;
   height: 100%;
   font-family: Helvetica, sans-serif;
-  font-weight: bold;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-
 h1,
 .main-content {
-  text-align: center;
+  // text-align: center;
     input[type=submit] {
       text-align: right;
     }
@@ -42,59 +40,40 @@ form {
   padding: 15px;
 }
 
-.interval-selection label {
-  display: block;
+input[type=checkbox] {
+    opacity: .5;
+}
+
+.interval-selection {
+    label,
+    p {
+        text-align: center;
+    }
+    label {
+        $top-btm-padding: 10px;
+        margin: 5px auto;
+        padding-top: $top-btm-padding;
+        padding-bottom: $top-btm-padding;
+        display: block;
+        color: white;
+        width: 45%;
+        background-color: lighten($play-bg, 10%);
+    }
+    input[type=checkbox]:checked + label {
+        background-color: $play-bg;
+    }
 }
 
 .container {
-  margin-left: 25px;
-}
-
-.button-container {
-  margin: 35px;
-  @media screen and (max-width: 475px) {
-    margin: 10px;
-  }
-}
-
- button {
-  display: inline;
-  margin-left: 5px;
-  padding: 15px;
-  text-align: center;
-  border: none;
-  color: white;
-  font-weight: bold;
-  @media screen and (max-width: 475px) {
-    margin-left: 3px;
-    padding: 7px;
-  }
-}
-
-#answer-button-container button {
-  @media screen and (max-width: 475px) {
-    margin-left: 0;
-    margin-bottom: 5px;
-    display: block;
-  }
-}
-
-#build-course-button {
-    background-color: $build-bg;
-}
-.play-button {
-  background-color: $play-bg;
-}
-
-.answer-button {
-  background-color: $answer-bg;
+    margin-left: 25px;
 }
 
 div > a {
-  color: black;
-  font-weight: bold;
-  text-decoration: none;
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
 }
+
 
 #login-status-wrapper {
   position: absolute;
@@ -119,28 +98,12 @@ div > a {
   color: #001077;
 }
 
-.pushed-button {
-    background-color: darken($answer-bg, 5%);
-}
-.state-change-button {
-    background-color: #11BB11;
-}
-.button-link {
-    color: white;
-    display: block;
-    margin: 0 auto;
-    text-decoration: none;
-    padding: 15px;
-    border-radius: 20px;
-    background-color: #3333ff;
-    text-align: center;
-    width: 4em;
-}
 .centered-block {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
+
 .disabled {
   color: #F5F5F5;
   background: #DDDDDD;
