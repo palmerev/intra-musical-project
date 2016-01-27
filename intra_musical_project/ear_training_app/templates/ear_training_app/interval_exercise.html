@@ -24,7 +24,7 @@
   </header>
   {% if user.is_authenticated %}
     <p class="hidden" id="course-progress">
-      Exercise <span id="current"></span>/<span id="course-total"></span>
+      Exercise <span id="current"></span> / <span id="course-total"></span>
     </p>
   {% endif %}
   <div class="hidden exercise-content-wrapper">
@@ -41,7 +41,9 @@
       <p>Select an interval:</p>
         <div id="answer-button-container" class="button-container"></div>
       <p id="answer-result"></p>
-      <button id="save" class="state-change-button">Save and Continue</button>
+      <div class="button-container">
+          <button id="save" class="state-change-button">Save and Continue</button>
+      </div>
   </div>
 <!-- SELECT INTERVALS DIALOGUE BOX -------------------------------------------->
 <div class="hidden" id="interval-selection-wrapper">
@@ -50,56 +52,56 @@
       <!-- <h1 id="interval-selection-title" class="box-title">Course Content</h1> -->
       <p>Select intervals to include in the course:</p>
         <fieldset id="option-boxes">
+          <input id="min-second" type="checkbox" />
           <label for="min-second" class="interval-label">
-            <input id="min-second" type="checkbox" />
             minor second
           </label>
+          <input id="maj-second" type="checkbox" />
           <label for="maj-second" class="interval-label">
-            <input id="maj-second" type="checkbox" />
             major second
           </label>
+          <input id="min-third" type="checkbox" />
           <label for="min-third" class="interval-label">
-            <input id="min-third" type="checkbox" />
             minor third
           </label>
+          <input id="maj-third" type="checkbox" />
           <label for="maj-third" class="interval-label">
-            <input id="maj-third" type="checkbox" />
             major third
           </label>
+          <input id="per-fourth" type="checkbox" />
           <label for="per-fourth" class="interval-label">
-            <input id="per-fourth" type="checkbox" />
             perfect fourth
           </label>
+          <input id="tritone" type="checkbox" />
           <label for="tritone" class="interval-label">
-            <input id="tritone" type="checkbox" />
             tritone
           </label>
+          <input id="per-fifth" type="checkbox" />
           <label for="per-fifth" class="interval-label">
-            <input id="per-fifth" type="checkbox" />
             perfect fifth
           </label>
+          <input id="min-sixth" type="checkbox" />
           <label for="min-sixth" class="interval-label">
-            <input id="min-sixth" type="checkbox" />
             minor sixth
           </label>
+          <input id="maj-sixth" type="checkbox" />
           <label for="maj-sixth" class="interval-label">
-            <input id="maj-sixth" type="checkbox" />
             major sixth
           </label>
+          <input id="min-seventh" type="checkbox" />
           <label for="min-seventh" class="interval-label">
-            <input id="min-seventh" type="checkbox" />
             minor seventh
           </label>
+          <input id="maj-seventh" type="checkbox" />
           <label for="maj-seventh" class="interval-label">
-            <input id="maj-seventh" type="checkbox" />
             major seventh
           </label>
+          <input id="octave" type="checkbox" />
           <label for="octave" class="interval-label">
-            <input id="octave" type="checkbox" />
             octave
           </label>
+          <input id="select-all" type="checkbox" />
           <label for="select-all" class="select-all">
-            <input id="select-all" type="checkbox" />
             select all
           </label>
         </fieldset>
