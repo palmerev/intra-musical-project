@@ -163,33 +163,53 @@
     },
 
     /*
-    Gets the textContent of elements with a class of "interval-label",
-    which should be interval names
+    Gets the ids of the checkboxes that are checked,
+    which should be interval names in the form "foo-bar",
+    and returns the names in the form "foo bar"
     */
     getCheckedNames: function () {
-       var intervalLabels = document.getElementsByClassName("interval-label");
-       this.assert(intervalLabels.length > 0);
-       var checkedIntervals = _.filter(intervalLabels, function getChecked(label) {
-           return label.children[0].checked;
-       });
-       return _.map(checkedIntervals, function extractName(label) {
-           return label.textContent.trim();
-       });
+        try {
+            var checkedBoxes = document.querySelectorAll("input[type='checkbox']:checked");
+        }
+        catch(e) {
+            var checkedNames = [],
+            currentId,
+            name,
+            allBoxes = document.querySelectorAll("input");
+            for(var i = 0; i < checkedBoxes.length; i++) {
+                if (checkBoxes[i].type == 'checkbox' && checkedBoxes[i].checked]) {
+                    currentId = checkedBoxes[i].id
+                    name = currentId.replace("-", " ");
+                    checkedNames.push(name);
+                }
+            }
+            return checkedNames;
+        }
     },
 
     getNumChecked: function () {
-        var intervalLabels = document.getElementsByClassName("interval-label");
-        var checkedIntervals = _.filter(intervalLabels, function getChecked(label) {
-            return label.children[0].checked;
-        });
-        return checkedIntervals.length;
+        try {
+            var checkedBoxes = document.querySelectorAll("input[type='checkbox']:checked");
+            return checkedBoxes.length;
+        }
+        catch(e) {
+            var numChecked = 0;
+            var allBoxes = document.querySelectorAll("input");
+            for(var i = 0; i < checkedBoxes.length; i++) {
+                if (checkBoxes[i].type == 'checkbox' && checkedBoxes[i].checked]) {
+                    numChecked += 1;
+                }
+            }
+            return numChecked;
+        }
     },
+
     /*
     Gathers all the ids checkboxes that are checked concatenates them into a
     string, separated by spaces, and returns that string.
     */
     getIdsOfChecked: function () {
-        var boxes = document.getElementsByTagName("input");
+        var boxes = document.querySelectorAll("input[type='checkbox']");
         var checkedString = "";
         for (var i = 0; i < boxes.length; i++) {
             var box = boxes[i];
