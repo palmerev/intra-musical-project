@@ -177,8 +177,8 @@
             name,
             allBoxes = document.querySelectorAll("input");
             for(var i = 0; i < checkedBoxes.length; i++) {
-                if (checkBoxes[i].type == 'checkbox' && checkedBoxes[i].checked]) {
-                    currentId = checkedBoxes[i].id
+                if (allBoxes[i].type == 'checkbox' && allBoxes[i].checked) {
+                    currentId = allBoxes[i].id;
                     name = currentId.replace("-", " ");
                     checkedNames.push(name);
                 }
@@ -196,7 +196,7 @@
             var numChecked = 0;
             var allBoxes = document.querySelectorAll("input");
             for(var i = 0; i < checkedBoxes.length; i++) {
-                if (checkBoxes[i].type == 'checkbox' && checkedBoxes[i].checked]) {
+                if (checkBoxes[i].type == 'checkbox' && checkedBoxes[i].checked) {
                     numChecked += 1;
                 }
             }
