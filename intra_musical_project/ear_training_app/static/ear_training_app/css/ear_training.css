@@ -80,7 +80,10 @@ form {
   padding: 15px; }
 
 input[type=checkbox] {
-  opacity: .5; }
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  opacity: 0; }
 
 .interval-selection label,
 .interval-selection p {
