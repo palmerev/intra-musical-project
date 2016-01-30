@@ -2,6 +2,11 @@
 
 @import 'buttons';
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
 body {
   width: 100%;
   height: 100%;
@@ -10,22 +15,41 @@ body {
   padding-right: 10px;
 }
 
-h1,
 .main-content {
-  // text-align: center;
-    input[type=submit] {
-      text-align: right;
+    background-color: #DDD;
+    width: 33%;
+    min-width: 150px;
+    margin: 3em auto 0 auto;
+    border-radius: 5px;
+    padding: 20px;
+    h1 {
+        font-size: 1.1em;
+        margin: 0;
+        text-align: center;
+    }
+
+    dl {
+        margin: 0 auto;
+        width: 50%;
+    }
+
+    input[type='submit'] {
+        margin-top: 1em;
     }
 }
 
-h1 {
-  @media screen and (max-width: 475px) {
-    font-size: 1.2em;
-  }
+form {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1em;
 }
 
-.box-title {
-  margin: 15px;
+h1 {
+    text-align: right;
+    @media screen and (max-width: 475px) {
+        font-size: 1.2em;
+    }
 }
 
 fieldset {
@@ -40,7 +64,7 @@ form {
   padding: 15px;
 }
 
-input[type=checkbox] {
+input[type='checkbox'] {
     position: absolute;
     top: -10px;
     left: -10px;
@@ -48,21 +72,28 @@ input[type=checkbox] {
 }
 
 .interval-selection {
+
     label,
     p {
         text-align: center;
     }
     label {
-        $top-btm-padding: 10px;
+        font-size: 0.8em;
+        $top-btm-padding: 3px;
         margin: 5px auto;
         padding-top: $top-btm-padding;
         padding-bottom: $top-btm-padding;
+        border-radius: 3px;
         display: block;
         color: white;
         width: 45%;
+        min-width: 110px;
         background-color: lighten($play-bg, 10%);
+        &:last-child {
+            margin-top: 2em;
+        }
     }
-    input[type=checkbox]:checked + label {
+    input[type='checkbox']:checked + label {
         background-color: $play-bg;
     }
 }
@@ -83,7 +114,7 @@ div > a {
   right: 3%;
   top: 3%;
   font-weight: normal;
-  font-size: 0.9em;
+  font-size: 0.8em;
   a {
     display: block;
     text-align: right;
