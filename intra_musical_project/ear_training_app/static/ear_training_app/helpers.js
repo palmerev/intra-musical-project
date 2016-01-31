@@ -168,14 +168,19 @@
     and returns the names in the form "foo bar"
     */
     getCheckedNames: function () {
+        var checkedNames = [],
+            currentId,
+            name;
         try {
             var checkedBoxes = document.querySelectorAll("input[type='checkbox']:checked");
+            for (var i = 0; i < checkedBoxes.length; i++) {
+                currentId = checkedBoxes[i].id;
+                name = currentId.replace("-", " ")
+                checkedNames.push(name);
+            }
         }
         catch(e) {
-            var checkedNames = [],
-            currentId,
-            name,
-            allBoxes = document.querySelectorAll("input");
+            var allBoxes = document.querySelectorAll("input");
             for(var i = 0; i < checkedBoxes.length; i++) {
                 if (allBoxes[i].type == 'checkbox' && allBoxes[i].checked) {
                     currentId = allBoxes[i].id;
@@ -183,8 +188,8 @@
                     checkedNames.push(name);
                 }
             }
-            return checkedNames;
         }
+        return checkedNames;
     },
 
     getNumChecked: function () {
