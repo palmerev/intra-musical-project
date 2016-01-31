@@ -2,6 +2,8 @@
 
 @import 'buttons';
 
+$top-btm-padding: 3px;
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -16,12 +18,13 @@ body {
 }
 
 .main-content {
-    background-color: #DDD;
     width: 33%;
     min-width: 150px;
     margin: 3em auto 0 auto;
-    border-radius: 5px;
+    border: 2px solid #AAA;
+    border-radius: $border-rad;
     padding: 20px;
+    box-shadow: 7px 7px 3px #DDD;
     h1 {
         font-size: 1.1em;
         margin: 0;
@@ -51,8 +54,11 @@ h1 {
         font-size: 1.2em;
     }
 }
-
+.main-title {
+    text-align: left;
+}
 fieldset {
+  text-align: center;
   border: none;
 }
 
@@ -79,11 +85,10 @@ input[type='checkbox'] {
     }
     label {
         font-size: 0.8em;
-        $top-btm-padding: 3px;
         margin: 5px auto;
         padding-top: $top-btm-padding;
         padding-bottom: $top-btm-padding;
-        border-radius: 3px;
+        border-radius: $border-rad;
         display: block;
         color: white;
         width: 45%;
