@@ -12,7 +12,8 @@ button {
   padding: 15px;
   border-radius: 0.4em;
   border: none;
-  color: white; }
+  color: white;
+  box-shadow: 3px 3px 3px #DDD; }
   @media screen and (max-width: 475px) {
     button {
       margin-left: 3px;
@@ -47,6 +48,8 @@ button {
   border-radius: 0.4em;
   border: none;
   color: white; }
+  .login-button:hover {
+    background-color: #0fa40f; }
 
 * {
   box-sizing: border-box;
@@ -68,14 +71,20 @@ body {
   padding: 20px;
   box-shadow: 7px 7px 3px #DDD; }
   .main-content h1 {
-    font-size: 1.1em;
     margin: 0;
+    font-size: 1.1em;
     text-align: center; }
   .main-content dl {
     margin: 0 auto;
     width: 50%; }
+  .main-content dt {
+    margin-top: 0.5em; }
   .main-content input[type='submit'] {
     margin-top: 1em; }
+  .main-content p {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.7rem; }
 
 form {
   width: 100%;
@@ -90,6 +99,7 @@ h1 {
       font-size: 1.2em; } }
 
 .main-title {
+  margin: 0;
   text-align: left; }
 
 fieldset {
@@ -121,7 +131,8 @@ input[type='checkbox'] {
   color: white;
   width: 45%;
   min-width: 110px;
-  background-color: #3242ef; }
+  background-color: #3242ef;
+  box-shadow: 0.3em 0.3em 0.3em #DDD; }
   .interval-selection label:last-child {
     margin-top: 2em; }
 .interval-selection input[type='checkbox']:checked + label {
