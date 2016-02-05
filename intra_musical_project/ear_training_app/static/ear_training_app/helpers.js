@@ -172,7 +172,7 @@
             currentId,
             name;
         try {
-            var checkedBoxes = document.querySelectorAll("input[type='checkbox']:checked");
+            var checkedBoxes = document.querySelectorAll("input.interval:checked");
             for (var i = 0; i < checkedBoxes.length; i++) {
                 currentId = checkedBoxes[i].id;
                 name = currentId.replace("-", " ")
