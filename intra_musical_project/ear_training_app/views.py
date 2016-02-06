@@ -191,7 +191,7 @@ def results(request, username):
             logging.debug('exercise answer: {}'.format(str(exercise.exercise.answer)))
             exercise_index = interval_names.index(str(exercise.exercise.answer).split(',')[0])
             nums_completed[exercise_index] += 1
-            logging.debug('{} is now {}'.format(exercise.exercise.answer, nums_completed[exercise_index]))
+            logging.debug('{} completed {} times'.format(exercise.exercise.answer, nums_completed[exercise_index]))
         except ValueError:
             logging.debug('ValueError in "results"')
             continue
