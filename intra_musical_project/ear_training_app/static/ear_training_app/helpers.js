@@ -180,9 +180,9 @@
             }
         }
         catch(e) {
-            var allBoxes = document.querySelectorAll("input");
+            var allBoxes = document.querySelectorAll("input.interval");
             for(var i = 0; i < checkedBoxes.length; i++) {
-                if (allBoxes[i].type == 'checkbox' && allBoxes[i].checked) {
+                if (allBoxes[i].checked) {
                     currentId = allBoxes[i].id;
                     name = currentId.replace("-", " ");
                     checkedNames.push(name);
