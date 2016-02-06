@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Exercise, Course, Student, StudentExercise, IntervalType
 
 
-logging.basicConfig(level=logging.DEBUG,
+logging.basicConfig(level=logging.DEBUG, filename='views.log',
                     format=' %(asctime)s - %(levelname)s - %(message)s')
 
 
