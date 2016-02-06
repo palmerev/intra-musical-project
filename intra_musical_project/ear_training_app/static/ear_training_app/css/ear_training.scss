@@ -1,8 +1,10 @@
 /* MAIN STYLES */
 
+@import 'colors';
 @import 'buttons';
 
-$top-btm-padding: 3px;
+
+$topBottomPadding: 3px;
 
 * {
     box-sizing: border-box;
@@ -10,7 +12,6 @@ $top-btm-padding: 3px;
 }
 
 body {
-  background-color: $softPeach;
   width: 100%;
   height: 100%;
   font-family: 'Arvo', Helvetica, sans-serif;
@@ -18,12 +19,17 @@ body {
   padding-right: 10px;
 }
 
+header {
+    border-bottom: 2px solid $darkAccent;
+    padding: 0.75rem;
+}
+
 .main-content {
     width: 33%;
     min-width: 150px;
     margin: 3em auto 0 auto;
     border: 2px solid #AAA;
-    border-radius: $border-rad;
+    border-radius: $borderRad;
     padding: 20px;
     box-shadow: 7px 7px 3px #DDD;
     h1 {
@@ -102,21 +108,24 @@ input[type='checkbox'] {
     label {
         font-size: 0.8em;
         margin: 5px auto;
-        padding-top: $top-btm-padding;
-        padding-bottom: $top-btm-padding;
-        border-radius: $border-rad;
+        padding-top: $topBottomPadding;
+        padding-bottom: $topBottomPadding;
+        border-radius: $borderRad;
         display: block;
         color: white;
         width: 45%;
         min-width: 110px;
-        background-color: lighten($play-bg, 10%);
+        background-color: lighten($lazyRiverBlue, 3%);
         box-shadow: 0.3em 0.3em 0.3em #DDD;
         &:last-child {
             margin-top: 2em;
         }
+        &:hover {
+            background-color: darken($lazyRiverBlue, 3%);
+        }
     }
     input[type='checkbox']:checked + label {
-        background-color: $play-bg;
+        background-color: darken($lazyRiverBlue, 5%);
     }
 }
 
@@ -126,7 +135,6 @@ input[type='checkbox'] {
 
 div > a {
     color: black;
-    font-weight: bold;
     text-decoration: none;
 }
 

@@ -1,8 +1,4 @@
-$play-bg: rgb(15, 139, 147);
-$answer-bg: #E38900;
-$build-bg: rgb(252, 193, 57);
-$border-rad: 0.4em;
-$softPeach: rgb(247, 238, 179);
+$borderRad: 0.4em;
 
 .button-container {
   margin: 35px;
@@ -16,7 +12,7 @@ $softPeach: rgb(247, 238, 179);
   text-align: center;
   margin-left: 5px;
   padding: 15px;
-  border-radius: $border-rad;
+  border-radius: $borderRad;
   border: none;
   color: white;
   box-shadow: 3px 3px 3px #DDD;
@@ -36,35 +32,35 @@ $softPeach: rgb(247, 238, 179);
 }
 
 #build-course-button {
-    background-color: $build-bg;
+    background-color: $hottyOrange;
     &:hover {
-        background-color: darken($build-bg, 1%);
+        background-color: darken($hottyOrange, 3%);
     }
 }
 
 .play-button {
-  background-color: $play-bg;
+  background-color: $lazyRiverBlue;
 }
 
 .answer-button {
-  background-color: $answer-bg;
+  background-color: $answerBG;
 }
 
-.pushed-button {
-    background-color: darken($answer-bg, 5%);
+.pushed-answer-button {
+    background-color: darken($answerBG, 5%);
 }
 
 .state-change-button {
-    background-color: $build-bg;
+    background-color: $hottyOrange;
 }
 
 .login-button {
-    background-color: $build-bg;
+    background-color: $hottyOrange;
     padding: 8px 12px;
-    border-radius: $border-rad;
+    border-radius: $borderRad;
     border: none;
     color: white;
     &:hover {
-        background-color: darken($build-bg, 5%);
+        background-color: darken($hottyOrange, 5%);
     }
 }
