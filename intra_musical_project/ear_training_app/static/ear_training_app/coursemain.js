@@ -42,7 +42,7 @@ function getCourseExercises() {
 function getResult() {
     "use strict";
     // TODO: change alerts to custom error dialogues
-    var selectedButton = document.getElementsByClassName("pushed-button")[0];
+    var selectedButton = document.getElementsByClassName("pushed-answer-button")[0];
     if (selectedButton !== undefined) {
         if (selectedButton.textContent === IM.course.currentExercise().interval.name) {
             alert("correct");
@@ -110,8 +110,8 @@ function resetStyles(answerButtons) {
         result = document.getElementById("answer-result");
     result.textContent = "";
     for (i = 0; i < answerButtons.length; i += 1) {
-        if (answerButtons[i].classList.contains("pushed-button")) {
-            answerButtons[i].classList.remove("pushed-button");
+        if (answerButtons[i].classList.contains("pushed-answer-button")) {
+            answerButtons[i].classList.remove("pushed-answer-button");
         }
     }
 }
@@ -179,12 +179,13 @@ function setupPlayButtonListeners() {
 
 function markButtonPushed(event) {
     var answerButtons = document.getElementsByClassName("answer-button");
+    // clear all previously pushed buttons
     for (var i = 0; i < answerButtons.length; i++) {
-        if(answerButtons[i].classList.contains("pushed-button")) {
-            answerButtons[i].classList.remove("pushed-button");
+        if(answerButtons[i].classList.contains("pushed-answer-button")) {
+            answerButtons[i].classList.remove("pushed-answer-button");
         }
     }
-    event.target.classList.add("pushed-button");
+    event.target.classList.add("pushed-answer-button");
 }
 
 
