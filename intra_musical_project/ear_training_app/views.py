@@ -62,7 +62,6 @@ def registration_page(request):
 
 @csrf_exempt
 def save_student_exercise(request):
-    import pdb; pdb.set_trace()
     logging.debug('in save_student_exercise for {}'.format(request.user))
     if request.POST:
         exercise_id = request.POST["exercise_id"]
