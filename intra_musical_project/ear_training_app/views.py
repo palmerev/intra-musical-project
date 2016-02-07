@@ -62,6 +62,7 @@ def registration_page(request):
 
 @csrf_exempt
 def save_student_exercise(request):
+    import pdb; pdb.set_trace()
     logging.debug('in save_student_exercise for {}'.format(request.user))
     if request.POST:
         exercise_id = request.POST["exercise_id"]
@@ -70,25 +71,21 @@ def save_student_exercise(request):
         result = request.POST["result"]
         user_exercise = StudentExercise.objects.filter(
             student__student_user=request.user, exercise__id=exercise_id)
-        # if the student has already seen this exercise
-        if len(user_exercise) > 0:
+        # the student has already seen this exercise
+        if len(user_exercise) == 1:
             logging.debug(
                 'result is for exercise {} is {}'.format(exercise_id, result))
-            logging.debug(
-                'request.user.student: {}'.format(request.user.student))
             student_exercise = user_exercise[0]
-        else:
+        # the student hasn't seen this exercise
+        elif len(user_exercise) == 0:
             logging.debug(
                 'request.user.student: {}'.format(request.user.student))
-            curr_student = Student()
-            curr_student.student_user = request.user
-            student_exercise = StudentExercise()
-            student_exercise.student = curr_student
-            # student_exercise.student.student_user = request.user
-            student_exercise.exercise = Exercise.objects.order_by('-id').filter(
-                id=exercise_id)[0]
+            student_exercise = StudentExercise(
+                student=Student(student_user=request.user),
+                exercise=Exercise.objects.get(pk=exercise_id))
             # update result or if newly created, set it
-            logging.debug('saved result as {}'.format())
+        logging.debug(
+            'request.user.student: {}'.format(request.user.student))
 
         if result == 'skipped':
             student_exercise.times_skipped += 1
@@ -97,10 +94,11 @@ def save_student_exercise(request):
         elif result == 'incorrect':
             student_exercise.times_incorrect += 1
         else:
-            logging.debug(
+            logging.warning(
                 'result is not "skipped", "correct", or "incorrect"')
         student_exercise.status = result
         student_exercise.save()
+        logging.debug('saved result as %s, id: %s', student_exercise, student_exercise.id)
         return JsonResponse({"id": student_exercise.id})
     else:
         return JsonResponse(json.dumps("{ error: please use POST }"))
@@ -185,18 +183,23 @@ def results(request, username):
         student=request.user.student
     )
     nums_completed = [0 for x in interval_names]
-    logging.debug('inside "results": building number of exercises completed')
-    for exercise in exercises:
+    logging.debug(
+        'inside "results": building exercises completed for %s', request.user.student
+    )
+    for ex in exercises:
         try:
-            logging.debug('exercise answer: {}'.format(str(exercise.exercise.answer)))
-            exercise_index = interval_names.index(str(exercise.exercise.answer).split(',')[0])
-            nums_completed[exercise_index] += 1
-            logging.debug('{} completed {} times'.format(exercise.exercise.answer, nums_completed[exercise_index]))
+            # logging.debug('exercise answer: {}'.format(str(ex.exercise.answer)))
+            exercise_index = interval_names.index(str(ex.exercise.answer).split(',')[0])
+            nums_completed[exercise_index] += ex.total_times_given()
+            logging.debug('{} completed {} times'.format(
+                ex.exercise.answer, nums_completed[exercise_index])
+            )
         except ValueError:
             logging.debug('ValueError in "results"')
             continue
+    logging.debug("\n-------\n")
     results = list(zip(interval_names, nums_completed))
-    context = { "results": results, "exercises": exercises}
+    context = {"results": results, "exercises": exercises}
     return render(request, 'ear_training_app/results.html', context)
 
 # -----------------------------------------------------------------------------
