@@ -21,6 +21,7 @@ function getCourseExercises() {
     var data,
         request,
         checkedIds = helpers.getCheckedNames();
+    // should never happen
     if (checkedIds.length < 2) {
         alert('You must choose at least two intervals');
         return false;
@@ -44,12 +45,13 @@ function getResult() {
     // TODO: change alerts to custom error dialogues
     var selectedButton = document.getElementsByClassName("pushed-answer-button")[0];
     if (selectedButton !== undefined) {
-        if (selectedButton.textContent === IM.course.currentExercise().interval.name) {
-            alert("correct");
+        var answer = IM.course.currentExercise().interval.name;
+        if (selectedButton.textContent === answer) {
+            showAnswerDialogue("correct", answer);
             return "correct";
         }
         else {
-            alert("incorrect");
+            showAnswerDialogue("incorrect", answer);
             return "incorrect";
         }
     }

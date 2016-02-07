@@ -98,3 +98,14 @@
     else {
         alert("error: dialogue ok-button not found by id");
     }
+
+    function showAnswerDialogue(result, answer) {
+        var resultString;
+        if (answer === "octave") {
+            resultString = result + ", it's an octave.";
+        }
+        else {
+            resultString = result + ", it's a " + answer + ".";
+        }
+        alert(resultString);
+    }
