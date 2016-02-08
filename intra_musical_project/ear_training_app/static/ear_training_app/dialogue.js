@@ -107,5 +107,11 @@
         else {
             resultString = result + ", it's a " + answer + ".";
         }
-        alert(resultString);
+        var answerDialogue = document.getElementById("answer-dialogue");
+        document.getElementById("result-text").innerText = resultString;
+        answerDialogue.classList.remove("hidden");
+    }
+
+    function hideAnswerDialogue() {
+        document.getElementById("answer-dialogue").classList.add("hidden");
     }

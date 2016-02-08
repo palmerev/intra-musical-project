@@ -97,6 +97,9 @@ header {
 input.invalid {
   border: 2px solid red; }
 
+a {
+  text-decoration: none; }
+
 form {
   width: 100%;
   margin-left: auto;
@@ -153,10 +156,6 @@ input[type='checkbox'] {
 
 .container {
   margin-left: 25px; }
-
-div > a {
-  color: black;
-  text-decoration: none; }
 
 #login-status-wrapper {
   position: absolute;

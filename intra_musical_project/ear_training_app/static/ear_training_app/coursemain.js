@@ -42,7 +42,6 @@ function getCourseExercises() {
 
 function getResult() {
     "use strict";
-    // TODO: change alerts to custom error dialogues
     var selectedButton = document.getElementsByClassName("pushed-answer-button")[0];
     if (selectedButton !== undefined) {
         var answer = IM.course.currentExercise().interval.name;
@@ -215,7 +214,10 @@ function confirmIntervalSelectionDialogue() {
     if (getCourseExercises()) {
         hideIntervalSelectionDialogue();
         showExerciseContent();
+        // show the progess counter
         document.getElementById("course-progress").classList.remove("hidden");
+        // initialize the answer dialogue button
+        document.getElementById("answer-dialogue-ok").addEventListener("click", hideAnswerDialogue);
     }
 }
 

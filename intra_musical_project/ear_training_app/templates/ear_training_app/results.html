@@ -4,6 +4,8 @@
   <head>
     <meta charset="utf-8">
     <title>Results</title>
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Arvo:400,700'>
+    <link rel="stylesheet" href="{% static 'ear_training_app/css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'ear_training_app/css/ear_training.css' %}" media="screen" charset="utf-8">
   </head>
   <body>
@@ -15,6 +17,6 @@
       {{ i.1 }} {{ i.0 }}s
     </p>
     {% endfor %}
-    <a href="/" id="dialogue-ok"><button type="button" class="state-change-button" name="homepage">Return to Homepage</button></a>
+    <a href="/" id="dialogue-homepage"><button type="button" class="state-change-button" name="homepage">Return to Homepage</button></a>
   </body>
 </html>
