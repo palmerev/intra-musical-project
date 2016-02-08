@@ -175,6 +175,7 @@ def interval_selection(request):
         return JsonResponse({"data": interval_data})
 
 
+@login_required
 def results(request, username):
     interval_names = [i[0] for i in IntervalType.INTERVAL_TYPES]
     # get all exercises for student
