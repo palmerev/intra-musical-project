@@ -108,8 +108,10 @@ function resetStyles(answerButtons) {
     "use strict";
     //reset styles that have changed
     var i,
-        result = document.getElementById("answer-result");
-    result.textContent = "";
+        result = document.getElementById("answer-result"),
+        saveButton = document.getElementById("save");
+    saveButton.innerText = "Skip";
+    result.innerText = "";
     for (i = 0; i < answerButtons.length; i += 1) {
         if (answerButtons[i].classList.contains("pushed-answer-button")) {
             answerButtons[i].classList.remove("pushed-answer-button");
@@ -179,7 +181,8 @@ function setupPlayButtonListeners() {
 }
 
 function markButtonPushed(event) {
-    var answerButtons = document.getElementsByClassName("answer-button");
+    var answerButtons = document.getElementsByClassName("answer-button"),
+        saveButton = document.getElementById("save");
     // clear all previously pushed buttons
     for (var i = 0; i < answerButtons.length; i++) {
         if(answerButtons[i].classList.contains("pushed-answer-button")) {
@@ -187,6 +190,7 @@ function markButtonPushed(event) {
         }
     }
     event.target.classList.add("pushed-answer-button");
+    saveButton.innerText = "Save and Continue";
 }
 
 
