@@ -199,7 +199,11 @@ def results(request, username):
             continue
     logging.debug("\n-------\n")
     results = list(zip(interval_names, nums_completed))
-    context = {"results": results, "exercises": exercises}
+    context = {
+        "results": results,
+        "exercises": exercises,
+        "results_private": request.user.student.results_private
+        }
     return render(request, 'ear_training_app/results.html', context)
 
 # -----------------------------------------------------------------------------

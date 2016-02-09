@@ -17,6 +17,15 @@
       {{ i.1 }} {{ i.0 }}s
     </p>
     {% endfor %}
+    {% if results_private %}
+        <p>This page is private by default. Only you can see this page.</p>
+        <label for="results-visibility">Make it publicly visible</label>
+        <input id="results-visibility" type="checkbox" name="results-visibility">
+    {% else %}
+        <p>This page is publicly visible. Anyone with your username can see this page.</p>
+        <label for="results-visibility">Make it private</label>
+        <input id="results-visibility" type="checkbox" name="results-visibility" checked>
+    {% endif %}
     <a href="/" id="dialogue-homepage"><button type="button" class="state-change-button" name="homepage">Return to Homepage</button></a>
   </body>
 </html>
