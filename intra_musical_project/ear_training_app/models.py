@@ -73,8 +73,8 @@ class Exercise(models.Model):
 
 class Student(models.Model):
     student_user = models.OneToOneField(User, primary_key=True)
-    total_exercises_completed = models.PositiveIntegerField(default=0, null=True, blank=True)
-    courses_completed = models.PositiveSmallIntegerField(default=0, null=True, blank=True)
+    total_exercises_completed = models.PositiveIntegerField(default=0)
+    results_private = models.BooleanField(default=True)
 
     def __str__(self):  # __str__ in python3
         return str(self.student_user)
