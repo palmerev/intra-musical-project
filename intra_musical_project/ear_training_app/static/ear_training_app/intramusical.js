@@ -85,7 +85,7 @@ var intramusical = (function () {
                     courseExercise = this.createIntervalExercise(
                         this.createInterval(
                             this.createNote(ex.topNote.letterName, ex.topNote.octave),
-                            this.createNote(ex.bottomNote.letterName, ex.topNote.octave),
+                            this.createNote(ex.bottomNote.letterName, ex.bottomNote.octave),
                             ex.intervalName
                         ),
                         ex.exerciseId
