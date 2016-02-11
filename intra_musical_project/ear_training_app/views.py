@@ -177,6 +177,17 @@ def interval_selection(request):
 
 @login_required
 def results(request, username):
+    # get user's results visibility
+    private = request.user.student.results_private
+    # check if the user's username matches the URL's username parameter
+    # TODO: add inherited templates for results
+    if private:
+        if username != request.user.username:
+            return render('ear_training_app/results_private.html')  # FIXME
+        else:
+            return render('ear_training_app/results.html')  # FIXME
+    else:
+        return render('ear_training_app/results.html')  # FIXME
     interval_names = [i[0] for i in IntervalType.INTERVAL_TYPES]
     # get all exercises for student
     exercises = StudentExercise.objects.filter(
