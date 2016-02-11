@@ -1,0 +1,18 @@
+{% extends "ear_training_app/base_results.html" %}
+{% load staticfiles %}
+{% block description %}
+<p>
+    You are viewing results for {{ request.user.username }}.
+</p>
+{% endblock description %}
+{% block visibility %}
+{% if results_private %}
+<p>
+    This should never happen
+</p>
+{% else %}
+<p>
+    This page is public. Anyone with the user's username may view it.
+</p>
+{% endif %}
+{% endblock visibility %}

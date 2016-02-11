@@ -3,7 +3,7 @@ import logging
 from random import shuffle
 from collections import defaultdict
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -176,18 +176,26 @@ def interval_selection(request):
 
 
 @login_required
+def private(request, username):
+    return render(request, 'ear_training_app/results_private.html', {'username': username})
+
+
+@login_required
 def results(request, username):
     # get user's results visibility
     private = request.user.student.results_private
     # check if the user's username matches the URL's username parameter
     # TODO: add inherited templates for results
-    if private:
-        if username != request.user.username:
-            return render(request, 'ear_training_app/results_private.html')  # FIXME
-        else:
-            return render(request, 'ear_training_app/self_results.html')  # FIXME
+    if username == request.user.username:
+        return render(request,
+            'ear_training_app/self_results.html', {'username': username})
+    # a user is trying to view someone else's results page
     else:
-        return render(request, 'ear_training_app/results.html')  # FIXME
+        if private:
+            return redirect('results_private', username)  # FIXME
+        else:
+            return render(request,
+            'ear_training_app/other_user_results.html', {'username': username})  # FIXME
     interval_names = [i[0] for i in IntervalType.INTERVAL_TYPES]
     # get all exercises for student
     exercises = StudentExercise.objects.filter(
