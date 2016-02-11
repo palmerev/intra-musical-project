@@ -183,11 +183,11 @@ def results(request, username):
     # TODO: add inherited templates for results
     if private:
         if username != request.user.username:
-            return render('ear_training_app/results_private.html')  # FIXME
+            return render(request, 'ear_training_app/results_private.html')  # FIXME
         else:
-            return render('ear_training_app/results.html')  # FIXME
+            return render(request, 'ear_training_app/self_results.html')  # FIXME
     else:
-        return render('ear_training_app/results.html')  # FIXME
+        return render(request, 'ear_training_app/results.html')  # FIXME
     interval_names = [i[0] for i in IntervalType.INTERVAL_TYPES]
     # get all exercises for student
     exercises = StudentExercise.objects.filter(
@@ -215,7 +215,7 @@ def results(request, username):
         "exercises": exercises,
         "results_private": request.user.student.results_private
         }
-    return render(request, 'ear_training_app/results.html', context)
+    return render(request, 'ear_training_app/self_results.html', context)
 
 # -----------------------------------------------------------------------------
 # test views for AJAX post
