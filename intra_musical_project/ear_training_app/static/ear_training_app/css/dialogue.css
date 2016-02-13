@@ -31,3 +31,7 @@
 .course-complete-content, .interval-selection-wrapper {
   color: black;
 }
+
+#dialogue-homepage {
+    display: block;
+}
