@@ -220,8 +220,6 @@ function confirmIntervalSelectionDialogue() {
         showExerciseContent();
         // show the progess counter
         document.getElementById("course-progress").classList.remove("hidden");
-        // initialize the answer dialogue button
-        document.getElementById("answer-dialogue-ok").addEventListener("click", hideAnswerDialogue);
     }
 }
 

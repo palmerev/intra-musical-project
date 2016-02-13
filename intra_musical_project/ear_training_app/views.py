@@ -47,7 +47,8 @@ def logout_page(request):
 
 
 def registration_page(request):
-    # TODO: validate registration against existing users?
+    # TODO: validate registration against existing users
+    # TODO: clean input
     if request.POST:
         user = User()
         user.username = request.POST['username']

@@ -112,6 +112,7 @@
         answerDialogue.classList.remove("hidden");
     }
 
-    function hideAnswerDialogue() {
-        document.getElementById("answer-dialogue").classList.add("hidden");
+    // handler for click event on "Next" button
+    function hideAnswerDialogue(event) {
+        document.getElementById("result-text").classList.add("hidden");
     }
