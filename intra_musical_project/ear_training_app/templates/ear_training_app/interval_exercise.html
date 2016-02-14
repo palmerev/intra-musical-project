@@ -1,17 +1,9 @@
+{% extends "ear_training_app/base.html" %}
 {% load staticfiles %}
 <!DOCTYPE html>
-<head>
-  <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>
-       Intervals
-  </title>
-  <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Arvo:400,700'>
-  <link rel="stylesheet" href="{% static 'ear_training_app/css/normalize.css' %}">
-  <link rel="stylesheet" href="{% static 'ear_training_app/css/dialogue.css' %}">
-  <link rel="stylesheet" href="{% static 'ear_training_app/css/ear_training.css' %}">
-</head>
+{% block title %}Intramusical{% endblock title %}
 <body>
+{% block content %}
   <header>
     <h1 class="main-title">Intramusical</h1>
   {% if user.is_authenticated %}
@@ -125,6 +117,7 @@
 </div>
 <span id="result-text"></span>
 </body>
+{% endblock content %}
 <script src="{% static 'ear_training_app/underscore-min.js' %}"></script>
 <script src="{% static 'ear_training_app/tones.js' %}"></script>
 <script src="{% static 'ear_training_app/helpers.js' %}"></script>
