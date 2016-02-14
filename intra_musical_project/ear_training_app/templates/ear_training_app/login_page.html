@@ -1,11 +1,15 @@
+{% extends "ear_training_app/base.html" %}
 {% load staticfiles %}
 <head>
+{% block head %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static 'ear_training_app/css/normalize.css' %}">
   <link rel="stylesheet" href="{% static 'ear_training_app/css/ear_training.css' %}">
+{% endblock head %}
 </head>
 <body>
+{% block content %}
     <div class="main-content">
         <h1>
           Login
@@ -25,5 +29,6 @@
     </div>
 
     <script src="{% static 'ear_training_app/underscore-min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'ear_training_app/form_validation.js' %}"></script>
+    <script src="{% static 'ear_training_app/form_validation.js' %}"></script>
+{% endblock content %}
 </body>
