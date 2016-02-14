@@ -67,6 +67,7 @@ function saveResult(result) {
     request = new XMLHttpRequest();
     request.onload = function () {
         responseData = JSON.parse(this.responseText);
+        // TODO: confirm success response
     };
     request.open('POST', '/courses/intervals/exercises/save-student-exercise/');
     formData.append("exercise_id", IM.course.currentExercise().exerciseId);
@@ -82,6 +83,7 @@ function updateUserInterface() {
     updateProgressCounter();
 }
 
+//TODO: move this to answer button click handler
 function goToNextExercise() {
     "use strict";
     var result;
@@ -190,7 +192,7 @@ function markButtonPushed(event) {
         }
     }
     event.target.classList.add("pushed-answer-button");
-    saveButton.innerText = "Save and Continue";
+    saveButton.innerText = "Next";
 }
 
 
@@ -198,7 +200,12 @@ function setupAnswerButtonListeners() {
     "use strict";
     var i, answers = document.getElementsByClassName("answer-button");
     for (i = 0; i < answers.length; i++) {
-        answers[i].addEventListener("click", markButtonPushed);
+        answers[i].addEventListener("click",
+        function() {
+            var result = getResult(); // also shows result
+            markButtonPushed();
+            saveResult(result);
+        });
     }
 }
 
