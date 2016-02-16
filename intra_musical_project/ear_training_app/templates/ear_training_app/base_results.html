@@ -4,7 +4,7 @@
 {% block content %}
     <h1>Results</h1>
     {% block description %}
-    <p>Here are your results for the course you've completed.</p>
+    <p>Welcome, <span id="username">{{ user.username }}</span>. Here are your results for the course you've completed.</p>
     {% endblock description %}
     {% block results_list %}
     {% if results %}

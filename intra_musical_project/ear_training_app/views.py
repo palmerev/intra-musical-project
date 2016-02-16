@@ -226,6 +226,8 @@ def results(request, username):
         }
     return render(request, 'ear_training_app/self_results.html', context)
 
+def update_visibility(request, username):
+    return HttpResponse("YAY!");
 # -----------------------------------------------------------------------------
 # test views for AJAX post
 # -----------------------------------------------------------------------------
