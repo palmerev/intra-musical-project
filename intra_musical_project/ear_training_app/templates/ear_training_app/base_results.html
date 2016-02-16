@@ -22,14 +22,15 @@
     {% endblock results_list %}
     {% block visibility %}
     {% if results_private %}
-        <p>This page is private by default. Only you can see this page.</p>
+        <p id="visibility-description">This page is private. Only you can see this page.</p>
         <label for="results-visibility">Uncheck to make it publicly visible</label>
         <input id="results-visibility" type="checkbox" name="results-visibility" checked>
     {% else %}
-        <p>This page is publicly visible. Anyone with your username can see this page.</p>
+        <p id="visibility-description">This page is publicly visible. Anyone with your username can see this page.</p>
         <label for="results-visibility">Check to make it private</label>
         <input id="results-visibility" type="checkbox" name="results-visibility">
     {% endif %}
     {% endblock visibility %}
     <a href="/" id="dialogue-homepage"><button type="button" class="state-change-button" name="homepage">Return to Homepage</button></a>
+    <script src="{% static 'ear_training_app/results.js' %}" charset="utf-8"></script>
 {% endblock content %}
