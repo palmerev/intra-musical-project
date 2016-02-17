@@ -223,11 +223,28 @@ def results(request, username):
         "results": results,
         "exercises": exercises,
         "results_private": request.user.student.results_private
-        }
+    }
     return render(request, 'ear_training_app/self_results.html', context)
 
+
 def update_visibility(request, username):
-    return HttpResponse("YAY!");
+    # get visibility value from POST
+    visibility_value = json.loads(request.POST["visibility"])
+    # get student by username
+    student = Student.objects.get(student_user__username=username)
+    if visibility_value in (True, False):
+        # set new visibility value and save
+        # if visibility_value is True, the checkbox is checked, so results should be made private
+        # the checkbox is unchecked, so results should be made public
+        logging.debug("results_private before save: %s", student.results_private)
+        student.results_private = visibility_value
+        student.save()
+        logging.debug("results_private after save: %s", student.results_private)
+    else:
+        print("unexpected visibility_value")
+    private = student.results_private
+    # return JSON response with new value
+    return JsonResponse({"private": private})
 # -----------------------------------------------------------------------------
 # test views for AJAX post
 # -----------------------------------------------------------------------------

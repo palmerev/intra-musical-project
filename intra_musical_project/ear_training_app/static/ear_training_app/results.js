@@ -3,17 +3,17 @@ var csrftoken = Cookies.get('csrftoken');
 /* success handler for ajax update to results visibility */
 function updateDone(result) {
     console.log("SUCCESS", result);
-    var description = document.getElementById("visibility-description"),
-        label = document.getElementsByTagName("label")[0];
+    var $description = $("#visibility-description"),
+        $label = $("#visibility-label");
     /* If you change the text of the description or label, don't forget to match
     it to the text in the template. */
-    if (result.visibility === true) {
-        description.innerText = "This page is private. Only you can see this page.";
-        label.innerText = "Uncheck to make it publicly visible";
+    if (result.private === true) {
+        $description.text("This page is private. Only you can see this page.");
+        $label.text("Uncheck to make it publicly visible");
     }
     else {
-        description.innerText = "This page is publicly visible. Anyone with your username can see this page.";
-        label.innerText = "Check to make it private";
+        $description.text("This page is publicly visible. Anyone with your username can see this page.");
+        $label.text("Check to make it private");
     }
 }
 
@@ -25,7 +25,8 @@ checked.
 */
 function changeResultsVisibility (evt) {
     "use strict";
-    var username = document.getElementById("username").innerText,
+    console.log("changeResultsVisibility running");
+    var username = $("#username").text(),
         url = "/" + username + "/update-visibility/",
         data = {};
 
@@ -39,10 +40,12 @@ function changeResultsVisibility (evt) {
         "dataType": "json",
         "url": url,
         "data": data,
-        "done": updateDone(result),
-        "fail": function (result) {
-            console.log("FAIL", result);
-        }
+    }).done(function (result) {
+        updateDone(result);
+    }).fail(function (result) {
+        console.log("FAIL", result);
+    }).always(function (result) {
+        console.log("request completed");
     });
 }
 
@@ -53,4 +56,4 @@ function init() {
     }
 }
 
-window.addEventListener("DOMContentLoaded" init);
+window.addEventListener("DOMContentLoaded", init);
