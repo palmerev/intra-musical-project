@@ -27,10 +27,14 @@
         <input id="results-visibility" type="checkbox" name="results-visibility" checked>
     {% else %}
         <p id="visibility-description">This page is publicly visible. Anyone with your username can see this page.</p>
-        <label for="results-visibility">Check to make it private</label>
-        <input id="results-visibility" type="checkbox" name="results-visibility">
+        <form method="post">{% csrf_token %}
+            <label for="results-visibility">Check to make it private</label>
+            <input id="results-visibility" type="checkbox" name="results-visibility">
+        </form>
     {% endif %}
     {% endblock visibility %}
     <a href="/" id="dialogue-homepage"><button type="button" class="state-change-button" name="homepage">Return to Homepage</button></a>
+    <script src="{% static 'ear_training_app/js.cookie.js' %}" charset="utf-8"></script>
+    <script src="{% static 'ear_training_app/set_ajax_header.js' %}" charset="utf-8"></script>
     <script src="{% static 'ear_training_app/results.js' %}" charset="utf-8"></script>
 {% endblock content %}

@@ -1,3 +1,22 @@
+var csrftoken = Cookies.get('csrftoken');
+// requires jQuery and js-cookie
+/* success handler for ajax update to results visibility */
+function updateDone(result) {
+    console.log("SUCCESS", result);
+    var description = document.getElementById("visibility-description"),
+        label = document.getElementsByTagName("label")[0];
+    /* If you change the text of the description or label, don't forget to match
+    it to the text in the template. */
+    if (result.visibility === true) {
+        description.innerText = "This page is private. Only you can see this page.";
+        label.innerText = "Uncheck to make it publicly visible";
+    }
+    else {
+        description.innerText = "This page is publicly visible. Anyone with your username can see this page.";
+        label.innerText = "Check to make it private";
+    }
+}
+
 /*
 When the "make results page public/private" checkbox is clicked, send an AJAX
 POST request to the server to update the visibility value in the database. The
@@ -6,41 +25,32 @@ checked.
 */
 function changeResultsVisibility (evt) {
     "use strict";
-    var formData = new FormData(),
-        request = new XMLHttpRequest(),
-        description = document.getElementById("visibility-description");
-        label = document.getElementsByTagName("label")[0];
+    var username = document.getElementById("username").innerText,
+        url = "/" + username + "/update-visibility/",
+        data = {};
+
     if(evt.target.type !== "checkbox") {
         throw "Error: target was not checkbox";
     }
-    /* If you change the text of the description or label, don't forget to match
-    it to the text in the template. */
-    if(evt.target.checked) {
-        formData.append("visibility", true);
-        description.innerText = "This page is private. Only you can see this page.";
-        label.innerText = "Uncheck to make it publicly visible";
-    }
-    else {
-        formData.append("visibility", false);
-        description.innerText = "This page is publicly visible. Anyone with your username can see this page.";
-        label.innerText = "Check to make it private";
-    }
-    request.onload = function () {
-        console.log(JSON.parse(this.responseText));
-        if(this.status === 200) {
-            console.log("SUCCESS: changed visibility");
+
+    data["visibility"] = evt.target.checked ? true : false;
+    $.ajax({
+        "type": "POST",
+        "dataType": "json",
+        "url": url,
+        "data": data,
+        "done": updateDone(result),
+        "fail": function (result) {
+            console.log("FAIL", result);
         }
-        else {
-            console.log("WARNING: possible error updating visibility");
-        }
-    }
-    request.open("POST", "/update-results/");
-    request.send(formData);
+    });
 }
 
 function init() {
     var visibilityCheckbox = document.getElementById("results-visibility");
-    visibilityCheckbox.addEventListener("click", changeResultsVisibility);
+    if (visibilityCheckbox) {
+        visibilityCheckbox.addEventListener("click", changeResultsVisibility);
+    }
 }
 
-init();
+window.addEventListener("DOMContentLoaded" init);
