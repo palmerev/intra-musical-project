@@ -231,18 +231,15 @@ def update_visibility(request, username):
     # get visibility value from POST
     visibility_value = json.loads(request.POST["visibility"])
     # get student by username
-    student = Student.objects.get(student_user__username=username)
-    if visibility_value in (True, False):
-        # set new visibility value and save
-        # if visibility_value is True, the checkbox is checked, so results should be made private
-        # the checkbox is unchecked, so results should be made public
-        logging.debug("results_private before save: %s", student.results_private)
-        student.results_private = visibility_value
-        student.save()
-        logging.debug("results_private after save: %s", student.results_private)
+    updated = Student.objects.filter(student_user__username=username).update(
+        results_private=visibility_value)
+    # set new visibility value and save
+    # if visibility_value is True, the checkbox is checked, so results should be made private
+    # the checkbox is unchecked, so results should be made public
+    if updated == 1:
+        private = visibility_value
     else:
-        print("unexpected visibility_value")
-    private = student.results_private
+        return JsonResponse({"error": "error during update"})
     # return JSON response with new value
     return JsonResponse({"private": private})
 # -----------------------------------------------------------------------------

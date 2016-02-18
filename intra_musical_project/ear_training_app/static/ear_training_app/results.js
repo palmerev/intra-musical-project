@@ -2,16 +2,25 @@ var csrftoken = Cookies.get('csrftoken');
 // requires jQuery and js-cookie
 /* success handler for ajax update to results visibility */
 function updateDone(result) {
-    console.log("SUCCESS", result);
+    console.log("request successful", result);
     var $description = $("#visibility-description"),
-        $label = $("#visibility-label");
+        $label = $("#visibility-label"),
+        $errorContainer = $("#error-container");
+    if(result.error) {
+        console.log(result.error);
+        $errorContainer.text("Error during update");
+        $label.after($errorContainer);
+    }
+    else if ($errorContainer.text() !== "") {
+        $errorContainer.text("");
+    }
     /* If you change the text of the description or label, don't forget to match
     it to the text in the template. */
     if (result.private === true) {
         $description.text("This page is private. Only you can see this page.");
         $label.text("Uncheck to make it publicly visible");
     }
-    else {
+    else if (result.private === false) {
         $description.text("This page is publicly visible. Anyone with your username can see this page.");
         $label.text("Check to make it private");
     }
