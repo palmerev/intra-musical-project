@@ -189,4 +189,8 @@ input[type='checkbox'] {
   position: static;
   opacity: 1; }
 
+#error-container {
+  color: red;
+  font-size: 0.9em; }
+
 /*# sourceMappingURL=ear_training.css.map */

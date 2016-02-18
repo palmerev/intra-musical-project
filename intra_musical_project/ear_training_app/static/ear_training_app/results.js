@@ -52,9 +52,7 @@ function changeResultsVisibility (evt) {
     }).done(function (result) {
         updateDone(result);
     }).fail(function (result) {
-        console.log("FAIL", result);
-    }).always(function (result) {
-        console.log("request completed");
+        $("#error-container").text("request failed");
     });
 }
 
