@@ -42,32 +42,37 @@ function getCourseExercises() {
 
 function getResult() {
     "use strict";
-    var selectedButton = document.getElementsByClassName("pushed-answer-button")[0];
+    var selectedButton = document.getElementsByClassName("pushed-answer-button")[0],
+        answer,
+        result
     if (selectedButton !== undefined) {
-        var answer = IM.course.currentExercise().interval.name;
-        if (selectedButton.textContent === answer) {
-            showAnswerDialogue("correct", answer);
-            return "correct";
-        }
-        else {
-            showAnswerDialogue("incorrect", answer);
-            return "incorrect";
-        }
+        answer = IM.course.currentExercise().interval.name,
+        result = selectedButton.textContent === answer ? "correct" : "incorrect";
     }
     else { // no answer given, default to skipped
-        return "skipped";
+        result = "skipped";
     }
+
+    return result;
 }
 
 
 function saveResult(result) {
     "use strict";
-    var formData, responseData, request;
+    var formData, responseData, request,
+    answer = IM.course.currentExercise().interval.name;
     formData = new FormData();
     request = new XMLHttpRequest();
     request.onload = function () {
         responseData = JSON.parse(this.responseText);
         // TODO: confirm success response
+        if (this.status === 200) {
+            showAnswerDialogue(result, answer);
+        }
+        else {
+            var resultElem = document.getElementById("answer-result");
+            resultElem.textContent = "Error saving answer.";
+        }
     };
     request.open('POST', '/courses/intervals/exercises/save-student-exercise/');
     formData.append("exercise_id", IM.course.currentExercise().exerciseId);
@@ -86,8 +91,7 @@ function updateUserInterface() {
 //TODO: move this to answer button click handler
 function goToNextExercise() {
     "use strict";
-    var result;
-        result = getResult(); // also shows result
+    var result = getResult();
         if (IM.userLoggedIn) {
             saveResult(result);
             IM.course.markCurrentExercise(result);
@@ -202,7 +206,7 @@ function setupAnswerButtonListeners() {
     for (i = 0; i < answers.length; i++) {
         answers[i].addEventListener("click",
         function(evt) {
-            var result = getResult(); // also shows result
+            var result = getResult();
             markButtonPushed(evt);
             saveResult(result);
         });
@@ -261,10 +265,6 @@ function createAnswerButtons(numButtonLimit) {
     }
     return document.getElementsByClassName('answer-button');
 }
-
-
-
-
 
 function init() {
     "use strict";
