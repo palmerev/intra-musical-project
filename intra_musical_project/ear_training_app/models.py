@@ -71,7 +71,10 @@ class Exercise(models.Model):
     course = models.ForeignKey(Course, null=True)
 
     def __str__(self):  # __str__ in python3
-        return str(self.name) + " " + str(self.answer) 
+        return str(self.name) + " " + str(self.answer)
+        
+    class Meta:
+        ordering = ["answer"]
 
 
 class Student(models.Model):
