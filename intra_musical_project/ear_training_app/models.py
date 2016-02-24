@@ -71,7 +71,7 @@ class Exercise(models.Model):
     course = models.ForeignKey(Course, null=True)
 
     def __str__(self):  # __str__ in python3
-        return str(self.name) + " " + str(self.answer.name)
+        return str(self.name) + " " + str(self.answer) 
 
 
 class Student(models.Model):
