@@ -45,6 +45,9 @@ class Interval(models.Model):
     def __str__(self):  # __str__ in python3
         return str(self.name) + ", bottom: " + str(self.bottom_note) + ", top: " + str(self.top_note)
 
+    class Meta:
+        ordering = ['name']
+
 
 class CourseType(models.Model):
     title = models.CharField(max_length=50, default='untitled')
