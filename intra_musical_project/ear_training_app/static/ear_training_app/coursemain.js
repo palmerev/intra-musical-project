@@ -201,9 +201,9 @@ function setupAnswerButtonListeners() {
     var i, answers = document.getElementsByClassName("answer-button");
     for (i = 0; i < answers.length; i++) {
         answers[i].addEventListener("click",
-        function() {
+        function(evt) {
             var result = getResult(); // also shows result
-            markButtonPushed();
+            markButtonPushed(evt);
             saveResult(result);
         });
     }
