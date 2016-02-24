@@ -107,12 +107,12 @@
         else {
             resultString = result + ", it's a " + answer + ".";
         }
-        var answerDialogue = document.getElementById("answer-dialogue");
+        var answerDialogue = document.getElementById("answer-result");
         document.getElementById("result-text").innerText = resultString;
         answerDialogue.classList.remove("hidden");
     }
 
     // handler for click event on "Next" button
     function hideAnswerDialogue(event) {
-        document.getElementById("result-text").classList.add("hidden");
+        document.getElementById("answer-result").classList.add("hidden");
     }
