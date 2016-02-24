@@ -66,13 +66,13 @@ class Course(models.Model):
 
 
 class Exercise(models.Model):
-    name = models.CharField(max_length=30, null=True)
+    name = models.CharField(max_length=30, default="", blank=True)
     answer = models.ForeignKey(Interval, null=True)
     course = models.ForeignKey(Course, null=True)
 
     def __str__(self):  # __str__ in python3
         return str(self.name) + " " + str(self.answer)
-        
+
     class Meta:
         ordering = ["answer"]
 
