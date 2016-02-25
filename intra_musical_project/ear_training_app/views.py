@@ -1,7 +1,6 @@
 import json
 import logging
 from random import shuffle
-from collections import defaultdict
 
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -48,7 +47,7 @@ def logout_page(request):
 
 def registration_page(request):
     # TODO: validate registration against existing users
-    # TODO: clean input
+    # TODO: clean input. Basically, use a model form.
     if request.POST:
         user = User()
         user.username = request.POST['username']
@@ -212,7 +211,7 @@ def results(request, username):
                 ex.exercise.answer, nums_completed[exercise_index])
             )
         except ValueError:
-            logging.debug('ValueError in "results"')
+            logging.warning('ValueError in "results"')
             continue
     logging.debug("\n-------\n")
     results = list(zip(interval_names, nums_completed))
