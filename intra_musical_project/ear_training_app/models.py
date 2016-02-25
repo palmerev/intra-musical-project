@@ -4,11 +4,10 @@ from django.contrib.auth.models import User
 
 class Note(models.Model):
     OCTAVE_CHOICES = [(i, i) for i in range(1, 10)]
-
     name = models.CharField(max_length=3, default='C')
     octave = models.PositiveSmallIntegerField(choices=OCTAVE_CHOICES, default=0)
 
-    def __str__(self):  # __str__ in python3
+    def __str__(self):
         return str(self.name) + str(self.octave)
 
 
@@ -33,7 +32,7 @@ class Interval(models.Model):
     top_note = models.ForeignKey(Note, related_name="top_note", null=True)
     bottom_note = models.ForeignKey(Note, related_name="bottom_note", null=True)
 
-    def __str__(self):  # __str__ in python3
+    def __str__(self):
         return str(self.name) + ", bottom: " + str(self.bottom_note) + ", top: " + str(self.top_note)
 
     class Meta:
@@ -45,7 +44,7 @@ class Student(models.Model):
     total_exercises_completed = models.PositiveIntegerField(default=0)
     results_private = models.BooleanField(default=True)
 
-    def __str__(self):  # __str__ in python3
+    def __str__(self):
         return str(self.student_user)
 
 
@@ -63,7 +62,7 @@ class StudentExercise(models.Model):
     times_correct = models.PositiveIntegerField(default=0)
     times_incorrect = models.PositiveIntegerField(default=0)
 
-    def __str__(self):  # __str__ in python3
+    def __str__(self):
         return "".join([str(self.student), ", ", str(self.exercise), ", ", str(self.status)])
 
     def total_times_given(self):
