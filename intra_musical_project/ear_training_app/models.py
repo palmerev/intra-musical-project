@@ -28,7 +28,7 @@ class Interval(models.Model):
         ('major seventh', 'major seventh'),
         ('octave', 'octave')
     )
-    name = models.CharField(choices=INTERVAL_TYPES, default='unison')
+    name = models.CharField(choices=INTERVAL_TYPES, blank=True, max_length=20)
     top_note = models.ForeignKey(Note, related_name="top_note", null=True)
     bottom_note = models.ForeignKey(Note, related_name="bottom_note", null=True)
 
