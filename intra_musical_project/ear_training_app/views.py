@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 
-from .models import Exercise, Course, Student, StudentExercise, IntervalType
+from .models import Student, StudentExercise, Interval
 
 
 logging.basicConfig(level=logging.DEBUG, filename='views.log',
@@ -66,7 +66,6 @@ def save_student_exercise(request):
     logging.debug('in save_student_exercise for {}'.format(request.user))
     if request.POST:
         exercise_id = request.POST["exercise_id"]
-        # result should be formatted to match STATUSES in ExerciseStatus model
         # e.g. all lowercase "correct", "incorrect", or "skipped"
         result = request.POST["result"]
         user_exercise = StudentExercise.objects.filter(
@@ -82,7 +81,7 @@ def save_student_exercise(request):
                 'request.user.student: {}'.format(request.user.student))
             student_exercise = StudentExercise(
                 student=Student(student_user=request.user),
-                exercise=Exercise.objects.get(pk=exercise_id))
+                exercise=Interval.objects.get(pk=exercise_id))
             # update result or if newly created, set it
         logging.debug(
             'request.user.student: {}'.format(request.user.student))
@@ -111,14 +110,14 @@ def exercise_page(request):
 def construct_interval_exercises(req, exercise_list):
     exercises = [
         {
-            "intervalName": exercise.answer.name.quality.lower(),
+            "intervalName": exercise.name.lower(),
             "topNote": {
-                "octave": exercise.answer.top_note.octave,
-                "letterName": exercise.answer.top_note.name.lower()
+                "octave": exercise.top_note.octave,
+                "letterName": exercise.top_note.name.lower()
             },
             "bottomNote": {
-                "octave": exercise.answer.bottom_note.octave,
-                "letterName": exercise.answer.bottom_note.name.lower()
+                "octave": exercise.bottom_note.octave,
+                "letterName": exercise.bottom_note.name.lower()
             },
             "exerciseId": exercise.id
         } for exercise in exercise_list]
@@ -130,10 +129,9 @@ def construct_interval_exercises(req, exercise_list):
     }
 
 
-# TODO: currently only works for interval exercises
+# TODO: update URL for this view (-course_title)
 def get_course_exercises(request, course_title):
-    course_title = course_title.capitalize()
-    exercises = Exercise.objects.filter(course__course_type__title=course_title)
+    exercises = Interval.objects.all()
     exercise_json = construct_interval_exercises(request, exercises)
     return JsonResponse(exercise_json)
 
@@ -168,8 +166,7 @@ def interval_selection(request):
         # interval_names = to_interval_names(selected)
         interval_names = request.POST["html_names"].split(",")
         print("interval_names", interval_names)
-        exercises = Exercise.objects.filter(
-            answer__name__quality__in=interval_names)
+        exercises = Interval.objects.filter(name__in=interval_names)
         print("Exercise.objects.filter: ", exercises)
         interval_data = construct_interval_exercises(request, exercises)
         print("interval data: ", interval_data)
@@ -197,7 +194,7 @@ def results(request, username):
         else:
             return render(request,
             'ear_training_app/other_user_results.html', {'username': username})  # FIXME
-    interval_names = [i[0] for i in IntervalType.INTERVAL_TYPES]
+    interval_names = [i[0] for i in Interval.INTERVAL_TYPES]
     # get all exercises for student
     exercises = StudentExercise.objects.filter(
         student=request.user.student
