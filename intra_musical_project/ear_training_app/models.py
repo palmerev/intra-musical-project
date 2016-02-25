@@ -12,8 +12,8 @@ class Note(models.Model):
         return str(self.name) + str(self.octave)
 
 
-class IntervalType(models.Model):
-    '''A list of predefined interval types / qualities'''
+class Interval(models.Model):
+    '''Two notes a specific distance (interval) apart.'''
     INTERVAL_TYPES = (
         ('unison', 'unison'),
         ('minor second', 'minor second'),
@@ -29,16 +29,7 @@ class IntervalType(models.Model):
         ('major seventh', 'major seventh'),
         ('octave', 'octave')
     )
-    quality = models.CharField(max_length=20, choices=INTERVAL_TYPES, default='unison')
-
-    def __str__(self):  # __str__ in python3
-        return str(self.quality)
-
-
-class Interval(models.Model):
-    '''Two notes a specific distance (interval) apart.'''
-    # TODO:??? make function to generate name based on top_note and bottom_note values
-    name = models.ForeignKey(IntervalType, null=True, default='unison')
+    name = models.CharField(choices=INTERVAL_TYPES, default='unison')
     top_note = models.ForeignKey(Note, related_name="top_note", null=True)
     bottom_note = models.ForeignKey(Note, related_name="bottom_note", null=True)
 
@@ -47,34 +38,6 @@ class Interval(models.Model):
 
     class Meta:
         ordering = ['name']
-
-
-class CourseType(models.Model):
-    title = models.CharField(max_length=50, default='untitled')
-
-    def __str__(self):  # __str__ in python3
-        return str(self.title)
-
-
-class Course(models.Model):
-    ''' Page showing a list of all exercises in a course. '''
-    course_type = models.ForeignKey(CourseType, null=True)
-    num_exercises = models.PositiveSmallIntegerField(default=10)
-
-    def __str__(self):  # __str__ in python3
-        return "course on " + str(self.course_type)
-
-
-class Exercise(models.Model):
-    name = models.CharField(max_length=30, default="", blank=True)
-    answer = models.ForeignKey(Interval, null=True)
-    course = models.ForeignKey(Course, null=True)
-
-    def __str__(self):  # __str__ in python3
-        return str(self.name) + " " + str(self.answer)
-
-    class Meta:
-        ordering = ["answer"]
 
 
 class Student(models.Model):
@@ -93,7 +56,7 @@ class StudentExercise(models.Model):
         ('incorrect', 'incorrect')
     )
     student = models.ForeignKey(Student)
-    exercise = models.ForeignKey(Exercise)
+    exercise = models.ForeignKey(Interval)
     # the student's most recent result
     status = models.CharField(choices=STATUSES, default='skipped', max_length=10)
     times_skipped = models.PositiveIntegerField(default=0)
