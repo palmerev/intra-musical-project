@@ -1,4 +1,4 @@
-"""intra_musical_site URL Configuration
+"""intramusical URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from ear_training_app import views
+from ear_training import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -32,7 +32,7 @@ urlpatterns = [
     url(r'^(?P<username>\w{3,})/update-visibility/$', views.update_visibility, name='update-visibility'),
 
     # ---------------------------------- FOR TESTING AJAX POST -------------------------------------
-    # url(r'^test/$', 'ear_training_app.views.show_test_page'),
-    # url(r'^result/$', 'ear_training_app.views.test'),
-    # url(r'^checkbox-page/$', 'ear_training_app.views.checkbox_page'),
+    # url(r'^test/$', 'ear_training.views.show_test_page'),
+    # url(r'^result/$', 'ear_training.views.test'),
+    # url(r'^checkbox-page/$', 'ear_training.views.checkbox_page'),
 ]

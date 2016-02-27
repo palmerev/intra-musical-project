@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).ancestor(3)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 STATIC_URL = "/static/"
 
-ROOT_URLCONF = 'intra_musical_site.urls'
+ROOT_URLCONF = 'config.urls'
 
 # Application definition
 
@@ -21,7 +21,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ear_training_app',
+    'ear_training',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -51,7 +51,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'intra_musical_site.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
@@ -80,6 +80,3 @@ def get_secret(setting, secrets=secrets):
         raise ImproperlyConfigured(error_msg)
 
 SECRET_KEY = get_secret("SECRET_KEY")
-# Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-DATABASES = get_secret("DATABASES")

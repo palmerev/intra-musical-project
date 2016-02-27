@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.DEBUG, filename='views.log',
 
 def index(request):
     if request.user.is_authenticated():
-        return render(request, 'ear_training_app/interval_exercise.html')
+        return render(request, 'ear_training/interval_exercise.html')
     else:
         return HttpResponseRedirect('/login/')
 
@@ -37,7 +37,7 @@ def login_page(request):
         else:
             return HttpResponseRedirect("/register/")
 
-    return render(request, 'ear_training_app/login_page.html')
+    return render(request, 'ear_training/login_page.html')
 
 
 def logout_page(request):
@@ -57,7 +57,7 @@ def registration_page(request):
         student.student_user = user
         student.save()
         return HttpResponseRedirect("/login/")
-    return render(request, 'ear_training_app/registration_page.html')
+    return render(request, 'ear_training/registration_page.html')
 
 
 @csrf_exempt
@@ -103,7 +103,7 @@ def save_student_exercise(request):
 
 
 def exercise_page(request):
-    return render(request, 'ear_training_app/interval_exercise.html')
+    return render(request, 'ear_training/interval_exercise.html')
 
 
 def construct_interval_exercises(req, exercise_list):
@@ -174,7 +174,7 @@ def interval_selection(request):
 
 @login_required
 def private(request, username):
-    return render(request, 'ear_training_app/results_private.html', {'username': username})
+    return render(request, 'ear_training/results_private.html', {'username': username})
 
 
 @login_required
@@ -185,14 +185,14 @@ def results(request, username):
     # TODO: add inherited templates for results
     if username == request.user.username:
         return render(request,
-            'ear_training_app/self_results.html', {'username': username})
+            'ear_training/self_results.html', {'username': username})
     # a user is trying to view someone else's results page
     else:
         if private:
             return redirect('results_private', username)  # FIXME
         else:
             return render(request,
-            'ear_training_app/other_user_results.html', {'username': username})  # FIXME
+            'ear_training/other_user_results.html', {'username': username})  # FIXME
     interval_names = [i[0] for i in Interval.INTERVAL_TYPES]
     # get all exercises for student
     exercises = StudentExercise.objects.filter(
@@ -220,7 +220,7 @@ def results(request, username):
         "exercises": exercises,
         "results_private": request.user.student.results_private
     }
-    return render(request, 'ear_training_app/self_results.html', context)
+    return render(request, 'ear_training/self_results.html', context)
 
 
 def update_visibility(request, username):
@@ -242,7 +242,7 @@ def update_visibility(request, username):
 # test views for AJAX post
 # -----------------------------------------------------------------------------
 # def show_test_page(request):
-#     return render(request, 'ear_training_app/test.html')
+#     return render(request, 'ear_training/test.html')
 #
 # @csrf_exempt
 # def test_checkboxes(request):

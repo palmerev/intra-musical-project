@@ -1,18 +1,18 @@
-{% extends "ear_training_app/base.html" %}
+{% extends "ear_training/base.html" %}
 {% load staticfiles %}
 <head>
 {% block head %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="{% static 'ear_training_app/css/normalize.css' %}">
-  <link rel="stylesheet" href="{% static 'ear_training_app/css/ear_training.css' %}">
+  <link rel="stylesheet" href="{% static 'ear_training/css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'ear_training/css/ear_training.css' %}">
 {% endblock head %}
 </head>
 <body>
 {% block content %}
     <div class="main-content">
         <h1>
-          Register for an Account
+          Login
         </h1>
       <form method="post">
         {% csrf_token %}
@@ -26,7 +26,9 @@
                 <input class="login-button" type="submit" value="Go">
             </fieldset>
       </form>
-      <p>Already have an account? <a href="/login/">Login here.</a></p>
     </div>
+
+    <script src="{% static 'ear_training/underscore-min.js' %}"></script>
+    <script src="{% static 'ear_training/form_validation.js' %}"></script>
 {% endblock content %}
 </body>
