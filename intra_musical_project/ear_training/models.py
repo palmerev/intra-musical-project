@@ -36,7 +36,7 @@ class Interval(models.Model):
         return str(self.name) + ", bottom: " + str(self.bottom_note) + ", top: " + str(self.top_note)
 
     class Meta:
-        ordering = ['name']
+        ordering = ['id']
 
 
 class Student(models.Model):
