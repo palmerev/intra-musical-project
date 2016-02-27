@@ -98,10 +98,11 @@ form {
   padding: 15px;
 }
 
-input[type='checkbox'] {
+input[type='checkbox'],
+input[type='radio'] {
     position: absolute;
-    top: -10px;
-    left: -10px;
+    // top: -10px;
+    left: -500px;
     opacity: 0;
 }
 
@@ -123,7 +124,7 @@ input[type='checkbox'] {
         min-width: 110px;
         background-color: lighten($lazyRiverBlue, 3%);
         box-shadow: 0.3em 0.3em 0.3em #DDD;
-        &:last-child {
+        &.select-all {
             margin-top: 2em;
         }
         &:hover {
@@ -140,11 +141,23 @@ input[type='checkbox'] {
 }
 
 .course-length {
+    text-align: center;
+    h3 {
+        font-size: inherit;
+        font-weight: normal;
+    }
     label {
         padding: 0.35em;
         background: $hottyOrange;
-
+        margin: 5px auto;
+        &:hover {
+            background: $hottyOrange;
+        }
     }
+}
+
+input[type="radio"]:checked + label {
+    background: darken($hottyOrange, 5%);
 }
 
 #login-status-wrapper {
