@@ -1,0 +1,1298 @@
+[
+    {
+        "model": "ear_training.interval",
+        "pk": 1,
+        "fields": {
+            "name": "minor second",
+            "top_note": 2,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 2,
+        "fields": {
+            "name": "minor second",
+            "top_note": 3,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 3,
+        "fields": {
+            "name": "minor second",
+            "top_note": 4,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 4,
+        "fields": {
+            "name": "minor second",
+            "top_note": 5,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 5,
+        "fields": {
+            "name": "minor second",
+            "top_note": 6,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 6,
+        "fields": {
+            "name": "minor second",
+            "top_note": 7,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 7,
+        "fields": {
+            "name": "minor second",
+            "top_note": 8,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 8,
+        "fields": {
+            "name": "minor second",
+            "top_note": 9,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 9,
+        "fields": {
+            "name": "minor second",
+            "top_note": 10,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 10,
+        "fields": {
+            "name": "minor second",
+            "top_note": 11,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 11,
+        "fields": {
+            "name": "minor second",
+            "top_note": 12,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 12,
+        "fields": {
+            "name": "minor second",
+            "top_note": 13,
+            "bottom_note": 12
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 13,
+        "fields": {
+            "name": "major second",
+            "top_note": 3,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 14,
+        "fields": {
+            "name": "major second",
+            "top_note": 4,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 15,
+        "fields": {
+            "name": "major second",
+            "top_note": 5,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 16,
+        "fields": {
+            "name": "major second",
+            "top_note": 6,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 17,
+        "fields": {
+            "name": "major second",
+            "top_note": 7,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 18,
+        "fields": {
+            "name": "major second",
+            "top_note": 8,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 19,
+        "fields": {
+            "name": "major second",
+            "top_note": 9,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 20,
+        "fields": {
+            "name": "major second",
+            "top_note": 10,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 21,
+        "fields": {
+            "name": "major second",
+            "top_note": 11,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 22,
+        "fields": {
+            "name": "major second",
+            "top_note": 12,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 23,
+        "fields": {
+            "name": "major second",
+            "top_note": 13,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 24,
+        "fields": {
+            "name": "major second",
+            "top_note": 14,
+            "bottom_note": 12
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 25,
+        "fields": {
+            "name": "minor third",
+            "top_note": 4,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 26,
+        "fields": {
+            "name": "minor third",
+            "top_note": 5,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 27,
+        "fields": {
+            "name": "minor third",
+            "top_note": 6,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 28,
+        "fields": {
+            "name": "minor third",
+            "top_note": 7,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 29,
+        "fields": {
+            "name": "minor third",
+            "top_note": 8,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 30,
+        "fields": {
+            "name": "minor third",
+            "top_note": 9,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 31,
+        "fields": {
+            "name": "minor third",
+            "top_note": 10,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 32,
+        "fields": {
+            "name": "minor third",
+            "top_note": 11,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 33,
+        "fields": {
+            "name": "minor third",
+            "top_note": 12,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 34,
+        "fields": {
+            "name": "minor third",
+            "top_note": 13,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 35,
+        "fields": {
+            "name": "minor third",
+            "top_note": 14,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 36,
+        "fields": {
+            "name": "minor third",
+            "top_note": 15,
+            "bottom_note": 12
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 37,
+        "fields": {
+            "name": "major third",
+            "top_note": 5,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 38,
+        "fields": {
+            "name": "major third",
+            "top_note": 6,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 39,
+        "fields": {
+            "name": "major third",
+            "top_note": 7,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 40,
+        "fields": {
+            "name": "major third",
+            "top_note": 8,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 41,
+        "fields": {
+            "name": "major third",
+            "top_note": 9,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 42,
+        "fields": {
+            "name": "major third",
+            "top_note": 10,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 43,
+        "fields": {
+            "name": "major third",
+            "top_note": 11,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 44,
+        "fields": {
+            "name": "major third",
+            "top_note": 12,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 45,
+        "fields": {
+            "name": "major third",
+            "top_note": 13,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 46,
+        "fields": {
+            "name": "major third",
+            "top_note": 14,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 47,
+        "fields": {
+            "name": "major third",
+            "top_note": 15,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 48,
+        "fields": {
+            "name": "major third",
+            "top_note": 16,
+            "bottom_note": 12
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 49,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 6,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 50,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 7,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 51,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 8,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 52,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 9,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 53,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 10,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 54,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 11,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 55,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 12,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 56,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 13,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 57,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 14,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 58,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 15,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 59,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 16,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 60,
+        "fields": {
+            "name": "perfect fourth",
+            "top_note": 17,
+            "bottom_note": 12
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 61,
+        "fields": {
+            "name": "tritone",
+            "top_note": 7,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 62,
+        "fields": {
+            "name": "tritone",
+            "top_note": 8,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 63,
+        "fields": {
+            "name": "tritone",
+            "top_note": 9,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 64,
+        "fields": {
+            "name": "tritone",
+            "top_note": 10,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 65,
+        "fields": {
+            "name": "tritone",
+            "top_note": 11,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 66,
+        "fields": {
+            "name": "tritone",
+            "top_note": 12,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 67,
+        "fields": {
+            "name": "tritone",
+            "top_note": 13,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 68,
+        "fields": {
+            "name": "tritone",
+            "top_note": 14,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 69,
+        "fields": {
+            "name": "tritone",
+            "top_note": 15,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 70,
+        "fields": {
+            "name": "tritone",
+            "top_note": 16,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 71,
+        "fields": {
+            "name": "tritone",
+            "top_note": 17,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 72,
+        "fields": {
+            "name": "tritone",
+            "top_note": 18,
+            "bottom_note": 12
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 73,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 8,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 74,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 9,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 75,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 10,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 76,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 11,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 77,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 12,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 78,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 13,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 79,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 14,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 80,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 15,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 81,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 16,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 82,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 17,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 83,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 18,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 84,
+        "fields": {
+            "name": "perfect fifth",
+            "top_note": 19,
+            "bottom_note": 12
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 85,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 9,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 86,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 10,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 87,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 11,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 88,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 12,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 89,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 13,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 90,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 14,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 91,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 15,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 92,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 16,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 93,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 17,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 94,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 18,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 95,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 19,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 96,
+        "fields": {
+            "name": "minor sixth",
+            "top_note": 20,
+            "bottom_note": 12
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 97,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 10,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 98,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 11,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 99,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 12,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 100,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 13,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 101,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 14,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 102,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 15,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 103,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 16,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 104,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 17,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 105,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 18,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 106,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 19,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 107,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 20,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 108,
+        "fields": {
+            "name": "major sixth",
+            "top_note": 21,
+            "bottom_note": 12
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 109,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 11,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 110,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 12,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 111,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 13,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 112,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 14,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 113,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 15,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 114,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 16,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 115,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 17,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 116,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 18,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 117,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 19,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 118,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 20,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 119,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 21,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 120,
+        "fields": {
+            "name": "minor seventh",
+            "top_note": 22,
+            "bottom_note": 12
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 121,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 12,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 122,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 13,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 123,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 14,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 124,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 15,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 125,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 16,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 126,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 17,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 127,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 18,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 128,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 19,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 129,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 20,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 130,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 21,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 131,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 22,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 132,
+        "fields": {
+            "name": "major seventh",
+            "top_note": 23,
+            "bottom_note": 12
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 133,
+        "fields": {
+            "name": "octave",
+            "top_note": 13,
+            "bottom_note": 1
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 134,
+        "fields": {
+            "name": "octave",
+            "top_note": 14,
+            "bottom_note": 2
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 135,
+        "fields": {
+            "name": "octave",
+            "top_note": 15,
+            "bottom_note": 3
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 136,
+        "fields": {
+            "name": "octave",
+            "top_note": 16,
+            "bottom_note": 4
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 137,
+        "fields": {
+            "name": "octave",
+            "top_note": 17,
+            "bottom_note": 5
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 138,
+        "fields": {
+            "name": "octave",
+            "top_note": 18,
+            "bottom_note": 6
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 139,
+        "fields": {
+            "name": "octave",
+            "top_note": 19,
+            "bottom_note": 7
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 140,
+        "fields": {
+            "name": "octave",
+            "top_note": 20,
+            "bottom_note": 8
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 141,
+        "fields": {
+            "name": "octave",
+            "top_note": 21,
+            "bottom_note": 9
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 142,
+        "fields": {
+            "name": "octave",
+            "top_note": 22,
+            "bottom_note": 10
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 143,
+        "fields": {
+            "name": "octave",
+            "top_note": 23,
+            "bottom_note": 11
+        }
+    },
+    {
+        "model": "ear_training.interval",
+        "pk": 144,
+        "fields": {
+            "name": "octave",
+            "top_note": 24,
+            "bottom_note": 12
+        }
+    }
+]

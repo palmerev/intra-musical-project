@@ -1,0 +1,290 @@
+[
+    {
+        "model": "ear_training.note",
+        "pk": 1,
+        "fields": {
+            "octave": 4,
+            "name": "C"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 2,
+        "fields": {
+            "octave": 4,
+            "name": "C#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 3,
+        "fields": {
+            "octave": 4,
+            "name": "D"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 4,
+        "fields": {
+            "octave": 4,
+            "name": "D#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 5,
+        "fields": {
+            "octave": 4,
+            "name": "E"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 6,
+        "fields": {
+            "octave": 4,
+            "name": "F"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 7,
+        "fields": {
+            "octave": 4,
+            "name": "F#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 8,
+        "fields": {
+            "octave": 4,
+            "name": "G"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 9,
+        "fields": {
+            "octave": 4,
+            "name": "G#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 10,
+        "fields": {
+            "octave": 4,
+            "name": "A"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 11,
+        "fields": {
+            "octave": 4,
+            "name": "A#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 12,
+        "fields": {
+            "octave": 4,
+            "name": "B"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 13,
+        "fields": {
+            "octave": 5,
+            "name": "C"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 14,
+        "fields": {
+            "octave": 5,
+            "name": "C#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 15,
+        "fields": {
+            "octave": 5,
+            "name": "D"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 16,
+        "fields": {
+            "octave": 5,
+            "name": "D#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 17,
+        "fields": {
+            "octave": 5,
+            "name": "E"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 18,
+        "fields": {
+            "octave": 5,
+            "name": "F"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 19,
+        "fields": {
+            "octave": 5,
+            "name": "F#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 20,
+        "fields": {
+            "octave": 5,
+            "name": "G"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 21,
+        "fields": {
+            "octave": 5,
+            "name": "G#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 22,
+        "fields": {
+            "octave": 5,
+            "name": "A"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 23,
+        "fields": {
+            "octave": 5,
+            "name": "A#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 24,
+        "fields": {
+            "octave": 5,
+            "name": "B"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 25,
+        "fields": {
+            "octave": 6,
+            "name": "C"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 26,
+        "fields": {
+            "octave": 6,
+            "name": "C#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 27,
+        "fields": {
+            "octave": 6,
+            "name": "D"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 28,
+        "fields": {
+            "octave": 6,
+            "name": "D#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 29,
+        "fields": {
+            "octave": 6,
+            "name": "E"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 30,
+        "fields": {
+            "octave": 6,
+            "name": "F"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 31,
+        "fields": {
+            "octave": 6,
+            "name": "F#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 32,
+        "fields": {
+            "octave": 6,
+            "name": "G"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 33,
+        "fields": {
+            "octave": 6,
+            "name": "G#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 34,
+        "fields": {
+            "octave": 6,
+            "name": "A"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 35,
+        "fields": {
+            "octave": 6,
+            "name": "A#"
+        }
+    },
+    {
+        "model": "ear_training.note",
+        "pk": 36,
+        "fields": {
+            "octave": 6,
+            "name": "B"
+        }
+    }
+]
