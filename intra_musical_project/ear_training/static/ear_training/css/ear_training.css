@@ -157,6 +157,10 @@ input[type='checkbox'] {
 .container {
   margin-left: 25px; }
 
+.course-length label {
+  padding: 0.35em;
+  background: #f86015; }
+
 #login-status-wrapper {
   position: absolute;
   right: 3%;

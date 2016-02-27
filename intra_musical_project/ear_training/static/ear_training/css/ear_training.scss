@@ -139,7 +139,13 @@ input[type='checkbox'] {
     margin-left: 25px;
 }
 
+.course-length {
+    label {
+        padding: 0.35em;
+        background: $hottyOrange;
 
+    }
+}
 
 #login-status-wrapper {
   position: absolute;
