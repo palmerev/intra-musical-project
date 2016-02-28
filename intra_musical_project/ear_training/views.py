@@ -159,16 +159,18 @@ def to_interval_names(html_names):
 @csrf_exempt
 def interval_selection(request):
     if request.POST:
-        print("POST to interval_selection:", request.POST)
+        logging.debug("POST to interval_selection: %s", request.POST)
         # get list of intervals that match names in list
         # selected = request.POST["html_names"].split(" ")
         # interval_names = to_interval_names(selected)
+        course_length = int(request.POST["course_length"])
+        logging.debug("course_length: %d", course_length)
         interval_names = request.POST["html_names"].split(",")
-        print("interval_names", interval_names)
-        exercises = Interval.objects.filter(name__in=interval_names)
-        print("Exercise.objects.filter: ", exercises)
+        logging.debug("interval_names: %s", interval_names)
+        exercises = Interval.objects.filter(name__in=interval_names)[:course_length]
+        logging.debug("Exercise.objects.filter: %s", exercises)
         interval_data = construct_interval_exercises(request, exercises)
-        print("interval data: ", interval_data)
+        logging.debug("interval data: %s", interval_data)
         return JsonResponse({"data": interval_data})
 
 

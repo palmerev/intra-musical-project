@@ -163,6 +163,18 @@
     },
 
     /*
+    Get the value of the radio button for the course length.
+    */
+    getCourseLength: function () {
+        var radios = document.getElementsByClassName("course-length");
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                return radios[i].id;
+            }
+        }
+    },
+
+    /*
     Gets the ids of the checkboxes that are checked,
     which should be interval names in the form "foo-bar",
     and returns the names in the form "foo bar"

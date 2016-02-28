@@ -20,11 +20,22 @@ function getCourseExercises() {
     "use strict";
     var data,
         request,
-        checkedIds = helpers.getCheckedNames();
+        checkedIds = helpers.getCheckedNames(),
+        lengthId = helpers.getCourseLength(),
+        len;
     // should never happen
     if (checkedIds.length < 2) {
         alert('You must choose at least two intervals');
         return false;
+    }
+    if (lengthId === "short") {
+        len = 6;
+    }
+    else if (lengthId === "long") {
+        len = 12;
+    }
+    else {
+        throw new Error("bad course length!");
     }
     request = new XMLHttpRequest();
     request.onload = function () {
@@ -33,6 +44,7 @@ function getCourseExercises() {
     };
     data = new FormData();
     data.append('html_names', checkedIds);
+    data.append('course_length', len);
     request.open('POST', '/interval-selection/', true);
     request.send(data);
     return true;
