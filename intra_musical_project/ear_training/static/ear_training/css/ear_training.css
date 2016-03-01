@@ -157,16 +157,16 @@ input[type='radio'] {
 .container {
   margin-left: 25px; }
 
-.course-length {
+.course-length-wrapper {
   text-align: center; }
-  .course-length h3 {
+  .course-length-wrapper h3 {
     font-size: inherit;
     font-weight: normal; }
-  .course-length label {
+  .course-length-wrapper label {
     padding: 0.35em;
     background: #f86015;
     margin: 5px auto; }
-    .course-length label:hover {
+    .course-length-wrapper label:hover {
       background: #f86015; }
 
 input[type="radio"]:checked + label {
