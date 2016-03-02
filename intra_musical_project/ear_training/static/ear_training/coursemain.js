@@ -216,7 +216,7 @@ function markButtonPushed(event) {
         }
     }
     event.target.classList.add("pushed-answer-button");
-    saveButton.innerText = "Next";
+    saveButton.textContent = "Next";
 }
 
 
@@ -226,8 +226,9 @@ function setupAnswerButtonListeners() {
     for (i = 0; i < answers.length; i++) {
         answers[i].addEventListener("click",
         function(evt) {
-            var result = getResult();
+            var result;
             markButtonPushed(evt);
+            result = getResult();
             saveResult(result);
         });
     }
