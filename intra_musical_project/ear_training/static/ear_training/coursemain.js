@@ -166,14 +166,22 @@ function updateProgressCounter() {
 
 function playTopNote() {
     "use strict";
-    var topNote = IM.course.currentExercise().interval.topNote;
-    tones.play(topNote.letterName, topNote.octave);
+    var topNote = IM.course.currentExercise().interval.topNote,
+        noteName = [topNote.letterName, topNote.octave.toString()].join(""),
+        //create one of Tone's built-in synthesizers and connect it to the master output
+        synth = new Tone.SimpleSynth().toMaster();
+    //play the note for the duration of a quarter note
+    synth.triggerAttackRelease(noteName, "4n");
 }
 
 function playBottomNote() {
     "use strict";
-    var bottomNote = IM.course.currentExercise().interval.bottomNote;
-    tones.play(bottomNote.letterName, bottomNote.octave);
+    var bottomNote = IM.course.currentExercise().interval.bottomNote,
+        noteName = [bottomNote.letterName, bottomNote.octave.toString()].join(""),
+        //create one of Tone's built-in synthesizers and connect it to the master output
+        synth = new Tone.SimpleSynth().toMaster();
+    //play the note for the duration of a quarter note
+    synth.triggerAttackRelease(noteName, "4n");
 }
 
 function setupSaveButtonListener() {
