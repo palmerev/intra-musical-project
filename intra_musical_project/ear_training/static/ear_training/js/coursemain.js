@@ -207,8 +207,7 @@ function setupPlayButtonListeners() {
 }
 
 function markButtonPushed(event) {
-    var answerButtons = document.getElementsByClassName("answer-button"),
-        saveButton = document.getElementById("save");
+    var answerButtons = document.getElementsByClassName("answer-button");
     // clear all previously pushed buttons
     for (var i = 0; i < answerButtons.length; i++) {
         if(answerButtons[i].classList.contains("pushed-answer-button")) {
@@ -216,7 +215,6 @@ function markButtonPushed(event) {
         }
     }
     event.target.classList.add("pushed-answer-button");
-    saveButton.textContent = "Next";
 }
 
 
@@ -226,10 +224,12 @@ function setupAnswerButtonListeners() {
     for (i = 0; i < answers.length; i++) {
         answers[i].addEventListener("click",
         function(evt) {
-            var result;
+            var result,
+                saveButton = document.getElementById("save");
             markButtonPushed(evt);
             result = getResult();
             saveResult(result);
+            saveButton.textContent = IM.course.courseComplete() ? "Get Results" : "Next";
         });
     }
 }
