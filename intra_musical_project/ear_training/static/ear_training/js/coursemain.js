@@ -56,9 +56,9 @@ function getResult() {
     "use strict";
     var selectedButton = document.getElementsByClassName("pushed-answer-button")[0],
         answer,
-        result
+        result;
     if (selectedButton !== undefined) {
-        answer = IM.course.currentExercise().interval.name,
+        answer = IM.course.currentExercise().interval.name;
         result = selectedButton.textContent === answer ? "correct" : "incorrect";
     }
     else { // no answer given, default to skipped
