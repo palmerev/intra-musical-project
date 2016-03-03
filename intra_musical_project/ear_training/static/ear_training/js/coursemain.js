@@ -128,8 +128,8 @@ function resetStyles(answerButtons) {
     var i,
         result = document.getElementById("answer-result"),
         saveButton = document.getElementById("save");
-    saveButton.innerText = "Skip";
-    result.innerText = "";
+    saveButton.textContent = "Skip";
+    result.textContent = "";
     for (i = 0; i < answerButtons.length; i += 1) {
         if (answerButtons[i].classList.contains("pushed-answer-button")) {
             answerButtons[i].classList.remove("pushed-answer-button");
