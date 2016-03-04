@@ -108,7 +108,7 @@ var intramusical = (function () {
                     if (!currentExercise) {
                         throw "couldn't get current incomplete exercise";
                     }
-                    currentExercise.answer = result || currentExercise.answer;
+                    currentExercise.answer = result;
                     this.exercises.complete.push(currentExercise);
                 }
 
