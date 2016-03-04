@@ -72,8 +72,8 @@ function getResult() {
 function saveResult(result) {
     "use strict";
     var formData, responseData, request,
-    answer = IM.course.currentExercise().interval.name;
-    formData = new FormData();
+    answer = IM.course.currentExercise().interval.name,
+    formData = new FormData(),
     request = new XMLHttpRequest();
     request.onload = function () {
         responseData = JSON.parse(this.responseText);
