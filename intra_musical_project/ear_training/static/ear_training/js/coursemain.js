@@ -127,7 +127,7 @@ function resetStyles(answerButtons) {
     //reset styles that have changed
     var i,
         result = document.getElementById("answer-result"),
-        saveButton = document.getElementById("save");
+        saveButton = document.getElementById("show-answer-btn");
     saveButton.textContent = "Skip";
     result.textContent = "";
     for (i = 0; i < answerButtons.length; i += 1) {
