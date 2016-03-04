@@ -237,6 +237,16 @@
         var outputString = checkedString.slice(0,-1);
         return outputString;
     },
+
+    disable: function (btn) {
+        btn.setAttribute("disabled", "");
+        btn.classList.add("disabled");
+    },
+
+    enable: function (btn) {
+        btn.removeAttribute("disabled");
+        btn.classList.remove("disabled");
+    },
     // -------- THESE FUNCTIONS MAY BE USEFUL FOR TESTING PURPOSES ----------
     _displayChecked: function (){
         var checkedStr = getIdsOfChecked();
