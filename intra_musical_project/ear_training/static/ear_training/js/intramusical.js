@@ -66,11 +66,9 @@ var intramusical = (function () {
         //TODO: add more error checking
         createCourse: function (exercisesArray) {
             helpers.assert(exercisesArray !== undefined);
-            var exercises = exercisesArray.slice();
-            // console.log("exercises: ", exercises);
-            var course = {};
-            course.prototype = Object.prototype; // seems hacky
-            var courseExercises = [];
+            var course,
+                exercises = exercisesArray.slice(),
+                courseExercises = [];
             var i, ex, courseExercise, note, exercise;
             if (!Array.isArray(exercises)) {
                 throw 'ERROR: exercises should be an Array';
@@ -93,42 +91,37 @@ var intramusical = (function () {
                     // console.log("courseExercise: ", courseExercise)
                     courseExercises.push(courseExercise);
                 }
-                course.exercises = {
-                    complete: [],
-                    incomplete: courseExercises
-                };
-
-                //TODO: test this!
-                course.prototype.markCurrentExercise = function (result) {
-                    var currentExercise;
-                    if (!this.courseComplete()) {
-                        currentExercise = this.exercises.incomplete.splice(0, 1)[0];
-                        console.log("markCurrentExercise:currentExercise", currentExercise);
-                    }
-                    if (!currentExercise) {
-                        throw "couldn't get current incomplete exercise";
-                    }
-                    currentExercise.answer = result;
-                    this.exercises.complete.push(currentExercise);
-                }
-
-                //TODO: test this!
-                course.prototype.courseComplete = function () {
-                    return (this.exercises.incomplete.length === 0);
-                }
-
-                course.prototype.currentExercise = function () {
-                    if(!this.CourseComplete) {
-                        var firstIncomplete = this.exercises.incomplete[0];
-                        helpers.assert(firstIncomplete, "no firstIncomplete");
-                        return firstIncomplete;
-                    }
-                    else {
-                        return null;
+                course = {
+                    exercises: {
+                        complete: [],
+                        incomplete: courseExercises
+                    },
+                    markCurrentExercise: function (result) {
+                        var currentExercise;
+                        if (!this.courseComplete()) {
+                            currentExercise = this.exercises.incomplete.splice(0, 1)[0];
+                            console.log("markCurrentExercise:currentExercise", currentExercise);
+                        }
+                        if (!currentExercise) {
+                            throw "couldn't get current incomplete exercise";
+                        }
+                        currentExercise.answer = result;
+                        this.exercises.complete.push(currentExercise);
+                    },
+                    courseComplete: function () {
+                        return (this.exercises.incomplete.length === 0);
+                    },
+                    currentExercise: function () {
+                        if(!this.CourseComplete) {
+                            var firstIncomplete = this.exercises.incomplete[0];
+                            helpers.assert(firstIncomplete, "no firstIncomplete");
+                            return firstIncomplete;
+                        }
                     }
                 }
-              }
-              return course;
+
+                return course;
             }
         }
+    }
 }());
