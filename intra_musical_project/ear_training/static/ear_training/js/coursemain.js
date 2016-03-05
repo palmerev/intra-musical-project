@@ -71,12 +71,11 @@ function getResult() {
 
 function saveResult(result) {
     "use strict";
-    var formData, responseData, request,
-    answer = IM.course.currentExercise().interval.name,
-    formData = new FormData(),
-    request = new XMLHttpRequest();
+    var answer = IM.course.currentExercise().interval.name,
+        nextButton = document.getElementById("next-btn"),
+        formData = new FormData(),
+        request = new XMLHttpRequest();
     request.onload = function () {
-        responseData = JSON.parse(this.responseText);
         // TODO: confirm success response
         if (this.status === 200) {
             showAnswerDialogue(result, answer);
@@ -85,6 +84,7 @@ function saveResult(result) {
             var resultElem = document.getElementById("answer-result");
             resultElem.textContent = "Error saving answer.";
         }
+        helpers.enable(nextButton);
     };
     request.open('POST', '/courses/intervals/exercises/save-student-exercise/');
     formData.append("exercise_id", IM.course.currentExercise().exerciseId);
