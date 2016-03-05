@@ -259,11 +259,12 @@ function resetAnswerButtons(answerButtons) {
 
 function updateAnswerButtons(answerButtons) {
     "use strict";
-    var correctAnswer, options, incorrectAnswers, numButtons, i;
-    correctAnswer = IM.course.currentExercise().interval.name;
-    numButtons = answerButtons.length;
+    var options, incorrectAnswers, i,
+    correctAnswer = IM.course.currentExercise().interval.name,
+    numButtons = answerButtons.length,
     // sample from nameSet with intervalAnswer excluded
-    var incorrectNames = _.without(IM.course.nameSet, correctAnswer);
+    incorrectNames = _.without(IM.course.nameSet, correctAnswer);
+    resetAnswerButtons(answerButtons);
     helpers.assert(IM.course.nameSet.length === incorrectNames.length + 1);
     incorrectAnswers = _.sample(incorrectNames, numButtons);
     helpers.assert(!_.contains(incorrectAnswers, correctAnswer));
