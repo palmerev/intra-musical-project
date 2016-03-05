@@ -50,8 +50,6 @@ function getCourseExercises() {
     return true;
 }
 
-
-
 function getResult() {
     "use strict";
     var selectedButton = document.getElementsByClassName("pushed-answer-button")[0],
@@ -90,6 +88,27 @@ function saveResult(result) {
     formData.append("exercise_id", IM.course.currentExercise().exerciseId);
     formData.append("result", result);
     request.send(formData);
+}
+
+
+function playTopNote() {
+    "use strict";
+    var topNote = IM.course.currentExercise().interval.topNote,
+        noteName = [topNote.letterName, topNote.octave.toString()].join(""),
+        //create one of Tone's built-in synthesizers and connect it to the master output
+        synth = new Tone.SimpleSynth().toMaster();
+    //play the note for the duration of a quarter note
+    synth.triggerAttackRelease(noteName, "4n");
+}
+
+function playBottomNote() {
+    "use strict";
+    var bottomNote = IM.course.currentExercise().interval.bottomNote,
+        noteName = [bottomNote.letterName, bottomNote.octave.toString()].join(""),
+        //create one of Tone's built-in synthesizers and connect it to the master output
+        synth = new Tone.SimpleSynth().toMaster();
+    //play the note for the duration of a quarter note
+    synth.triggerAttackRelease(noteName, "4n");
 }
 
 // click handler for next-btn
@@ -149,14 +168,12 @@ function markButtonPushed(event) {
     }
 }
 
-
 function initProgressCounter(curr, total) {
     "use strict";
     var numExercises = IM.course.exercises.incomplete.length;
     total.innerHTML = numExercises;
     curr.innerHTML = 1;
 }
-
 
 function updateProgressCounter() {
     "use strict";
@@ -176,30 +193,13 @@ function updateProgressCounter() {
     }
 }
 
-function playTopNote() {
+function setupShowAndNextButtons() {
     "use strict";
-    var topNote = IM.course.currentExercise().interval.topNote,
-        noteName = [topNote.letterName, topNote.octave.toString()].join(""),
-        //create one of Tone's built-in synthesizers and connect it to the master output
-        synth = new Tone.SimpleSynth().toMaster();
-    //play the note for the duration of a quarter note
-    synth.triggerAttackRelease(noteName, "4n");
-}
-
-function playBottomNote() {
-    "use strict";
-    var bottomNote = IM.course.currentExercise().interval.bottomNote,
-        noteName = [bottomNote.letterName, bottomNote.octave.toString()].join(""),
-        //create one of Tone's built-in synthesizers and connect it to the master output
-        synth = new Tone.SimpleSynth().toMaster();
-    //play the note for the duration of a quarter note
-    synth.triggerAttackRelease(noteName, "4n");
-}
-
-function setupSaveButtonListener() {
-    "use strict";
-    var save = document.getElementById("save");
-    save.addEventListener("click", goToNextExercise);
+    var showBtn = document.getElementById("show-answer-btn"),
+        nextBtn = document.getElementById("next-btn");
+    showBtn.addEventListener("click", processAnswer);
+    nextBtn.addEventListener("click", goToNext);
+    helpers.disable(nextBtn);
 }
 
 
@@ -226,7 +226,6 @@ function setupAnswerButtonListeners() {
     }
 }
 
-
 function setupUserInterface() {
     "use strict";
     var numButtons = Math.min(IM.course.nameSet.length, 4);
@@ -244,6 +243,17 @@ function confirmIntervalSelectionDialogue() {
         showExerciseContent();
         // show the progess counter
         document.getElementById("course-progress").classList.remove("hidden");
+    }
+}
+
+function resetAnswerButtons(answerButtons) {
+    "use strict";
+    var i;
+    for (i = 0; i < answerButtons.length; i += 1) {
+        if (answerButtons[i].classList.contains("pushed-answer-button")) {
+            answerButtons[i].classList.remove("pushed-answer-button");
+        }
+        helpers.enable(answerButtons[i]);
     }
 }
 
