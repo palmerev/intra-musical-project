@@ -32,18 +32,18 @@ POST request to the server to update the visibility value in the database. The
 request sends "true" if the target checkbox is checked, and false if it is not
 checked.
 */
-function changeResultsVisibility (evt) {
+function changeResultsVisibility (event) {
     "use strict";
     console.log("changeResultsVisibility running");
     var username = $("#username").text(),
         url = "/" + username + "/update-visibility/",
         data = {};
 
-    if(evt.target.type !== "checkbox") {
+    if(event.target.type !== "checkbox") {
         throw "Error: target was not checkbox";
     }
 
-    data["visibility"] = evt.target.checked ? true : false;
+    data["visibility"] = event.target.checked ? true : false;
     $.ajax({
         "type": "POST",
         "dataType": "json",
