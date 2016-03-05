@@ -100,15 +100,21 @@
     }
 
     function showAnswerDialogue(result, answer) {
-        var resultString, answerDialogue;
+        var resultString, answerDialogue, message;
         if (answer === "octave") {
-            resultString = result + ", it's an octave.";
+            resultString = "it's an octave.";
         }
         else {
-            resultString = result + ", it's a " + answer + ".";
+            resultString = "it's a " + answer + ".";
+        }
+        if (result === "skipped") {
+            message = resultString;
+        }
+        else {
+            message = result + ", " + resultString;
         }
         answerDialogue = document.getElementById("answer-result");
-        answerDialogue.textContent = resultString;
+        answerDialogue.textContent = message;
         answerDialogue.classList.remove("hidden");
     }
 
