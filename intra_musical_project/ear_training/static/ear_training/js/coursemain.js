@@ -1,5 +1,5 @@
-/*jslint browser: true, devel: true, todo: true */
-/*global helpers, intramusical, tones */
+/*jslint browser: true, devel: true, todo: true, white: true */
+/*global helpers, intramusical, tones, Tone, _ */
 //namespace for globals
 var IM = {
     userLoggedIn: null,
