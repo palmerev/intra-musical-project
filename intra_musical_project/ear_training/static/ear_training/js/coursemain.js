@@ -130,9 +130,10 @@ function updateProgressCounter() {
 
 function setupPlayButtonListeners() {
     "use strict";
-    var topButton = document.getElementById("top-note-button");
-    var bottomButton = document.getElementById("bottom-note-button");
-    var bothButton = document.getElementById("both-notes-button");
+    var topButton = document.getElementById("top-note-button"),
+        bottomButton = document.getElementById("bottom-note-button"),
+        bothButton = document.getElementById("both-notes-button");
+
     topButton.addEventListener("click", playTopNote);
     bottomButton.addEventListener("click", playBottomNote);
     bothButton.addEventListener("click", function playBothNotes() {
