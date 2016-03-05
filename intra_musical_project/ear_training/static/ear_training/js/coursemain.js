@@ -92,48 +92,60 @@ function saveResult(result) {
     request.send(formData);
 }
 
-function updateUserInterface() {
+// click handler for next-btn
+function goToNext(event) {
     "use strict";
-    var answerButtons = document.getElementsByClassName("answer-button");
-    updateAnswerButtons(answerButtons);
-    resetStyles(answerButtons);
-    updateProgressCounter();
+    var result, resultElem, answerButtons, showAnswerButton, nextButton;
+    if (IM.course.courseComplete()) {
+        hideExerciseContent();
+        showCourseCompleteDialogue();
+    }
+    else {
+        resultElem = document.getElementById("answer-result");
+        answerButtons = document.getElementsByClassName("answer-button");
+        showAnswerButton = document.getElementById("show-answer-btn");
+        nextButton = document.getElementById("next-btn");
+        resultElem.textContent = ""; // clear/hide result
+        updateProgressCounter(); // update progress counter
+        updateAnswerButtons(answerButtons); // clear answer buttons
+        helpers.enable(showAnswerButton);
+        helpers.disable(nextButton);
+    }
 }
 
-//TODO: move this to answer button click handler
-function goToNextExercise() {
+// click handler for answer-button(s) and show-answer-btn
+function processAnswer (event) {
     "use strict";
-    var result = getResult();
-        if (IM.userLoggedIn) {
-            saveResult(result);
-            IM.course.markCurrentExercise(result);
-        }
-        else {
-            IM.course.markCurrentExercise(); // default to "skipped" for anonymous users
-        }
-        // last exercise
-        if(IM.course.exercises.incomplete.length === 1) {
-            document.getElementById("save").textContent = "Get Results";
-        }
-        if (IM.course.courseComplete()) {
-            hideExerciseContent();
-            showCourseCompleteDialogue();
-        }
-    updateUserInterface();
+    var result,
+        showAnswerButton;
+    markButtonPushed(event);
+    result = getResult();
+    saveResult(result); // currently displays answer result
+    IM.course.markCurrentExercise(result); // load next exercise
+    if(event.target.id === "show-answer-btn") {
+        showAnswerButton = event.target;
+    }
+    else {
+        showAnswerButton = document.getElementById("show-answer-btn");
+    }
+    // TODO: add CSS for .disabled
+    helpers.disable(showAnswerButton);
 }
 
-function resetStyles(answerButtons) {
+function markButtonPushed(event) {
     "use strict";
-    //reset styles that have changed
     var i,
-        result = document.getElementById("answer-result"),
-        saveButton = document.getElementById("show-answer-btn");
-    saveButton.textContent = "Skip";
-    result.textContent = "";
-    for (i = 0; i < answerButtons.length; i += 1) {
-        if (answerButtons[i].classList.contains("pushed-answer-button")) {
+        answerButtons = document.getElementsByClassName("answer-button");
+    // clear all previously pushed buttons
+    for (i = 0; i < answerButtons.length; i++) {
+        if(answerButtons[i].classList.contains("pushed-answer-button")) {
             answerButtons[i].classList.remove("pushed-answer-button");
         }
+        // an answer was already given, so disable the buttons for now
+        helpers.disable(answerButtons[i]);
+    }
+    if (event.target.id !== "show-answer-btn") {
+        event.target.classList.add("pushed-answer-button");
     }
 }
 
@@ -206,31 +218,11 @@ function setupPlayButtonListeners() {
     });
 }
 
-function markButtonPushed(event) {
-    var answerButtons = document.getElementsByClassName("answer-button");
-    // clear all previously pushed buttons
-    for (var i = 0; i < answerButtons.length; i++) {
-        if(answerButtons[i].classList.contains("pushed-answer-button")) {
-            answerButtons[i].classList.remove("pushed-answer-button");
-        }
-    }
-    event.target.classList.add("pushed-answer-button");
-}
-
-
 function setupAnswerButtonListeners() {
     "use strict";
     var i, answers = document.getElementsByClassName("answer-button");
     for (i = 0; i < answers.length; i++) {
-        answers[i].addEventListener("click",
-        function(evt) {
-            var result,
-                saveButton = document.getElementById("save");
-            markButtonPushed(evt);
-            result = getResult();
-            saveResult(result);
-            saveButton.textContent = IM.course.courseComplete() ? "Get Results" : "Next";
-        });
+        answers[i].addEventListener("click", processAnswer);
     }
 }
 
@@ -239,7 +231,7 @@ function setupUserInterface() {
     "use strict";
     var numButtons = Math.min(IM.course.nameSet.length, 4);
     updateAnswerButtons(createAnswerButtons(numButtons));
-    setupSaveButtonListener();
+    setupShowAndNextButtons();
     setupPlayButtonListeners();
     setupAnswerButtonListeners();
     updateProgressCounter();
