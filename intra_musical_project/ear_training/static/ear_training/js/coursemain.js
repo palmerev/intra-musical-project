@@ -6,50 +6,6 @@ var IM = {
     course: null
 };
 
-function initCourseWithData(responseData) {
-    "use strict";
-    helpers.assert(responseData !== undefined);
-    IM.userLoggedIn = responseData.userAuthenticated;
-    helpers.assert(responseData.exercises.length > 0, "responseData.exercises has length zero");
-    IM.course = intramusical.createCourse(responseData.exercises);
-    IM.course.nameSet = helpers.getCheckedNames();
-    setupUserInterface();
-}
-
-function getCourseExercises() {
-    "use strict";
-    var data,
-        request,
-        checkedIds = helpers.getCheckedNames(),
-        lengthId = helpers.getCourseLength(),
-        len;
-    // should never happen
-    if (checkedIds.length < 2) {
-        alert('You must choose at least two intervals');
-        return false;
-    }
-    if (lengthId === "short") {
-        len = 6;
-    }
-    else if (lengthId === "long") {
-        len = 12;
-    }
-    else {
-        throw new Error("bad course length!");
-    }
-    request = new XMLHttpRequest();
-    request.onload = function () {
-        var response = JSON.parse(this.responseText);
-        initCourseWithData(response.data);
-    };
-    data = new FormData();
-    data.append('html_names', checkedIds);
-    data.append('course_length', len);
-    request.open('POST', '/interval-selection/', true);
-    request.send(data);
-    return true;
-}
-
 function getResult() {
     "use strict";
     var selectedButton = document.getElementsByClassName("pushed-answer-button")[0],
@@ -65,7 +21,6 @@ function getResult() {
 
     return result;
 }
-
 
 function saveResult(result) {
     "use strict";
@@ -90,7 +45,6 @@ function saveResult(result) {
     request.send(formData);
 }
 
-
 function playTopNote() {
     "use strict";
     var topNote = IM.course.currentExercise().interval.topNote,
@@ -111,24 +65,21 @@ function playBottomNote() {
     synth.triggerAttackRelease(noteName, "4n");
 }
 
-// click handler for next-btn
-function goToNext(event) {
+
+function markButtonPushed(event) {
     "use strict";
-    var result, resultElem, answerButtons, showAnswerButton, nextButton;
-    if (IM.course.courseComplete()) {
-        hideExerciseContent();
-        showCourseCompleteDialogue();
-    }
-    else {
-        resultElem = document.getElementById("answer-result");
+    var i,
         answerButtons = document.getElementsByClassName("answer-button");
-        showAnswerButton = document.getElementById("show-answer-btn");
-        nextButton = document.getElementById("next-btn");
-        resultElem.textContent = ""; // clear/hide result
-        updateProgressCounter(); // update progress counter
-        updateAnswerButtons(answerButtons); // clear answer buttons
-        helpers.enable(showAnswerButton);
-        helpers.disable(nextButton);
+    // clear all previously pushed buttons
+    for (i = 0; i < answerButtons.length; i++) {
+        if(answerButtons[i].classList.contains("pushed-answer-button")) {
+            answerButtons[i].classList.remove("pushed-answer-button");
+        }
+        // an answer was already given, so disable the buttons for now
+        helpers.disable(answerButtons[i]);
+    }
+    if (event.target.id !== "show-answer-btn") {
+        event.target.classList.add("pushed-answer-button");
     }
 }
 
@@ -149,23 +100,6 @@ function processAnswer (event) {
     }
     // TODO: add CSS for .disabled
     helpers.disable(showAnswerButton);
-}
-
-function markButtonPushed(event) {
-    "use strict";
-    var i,
-        answerButtons = document.getElementsByClassName("answer-button");
-    // clear all previously pushed buttons
-    for (i = 0; i < answerButtons.length; i++) {
-        if(answerButtons[i].classList.contains("pushed-answer-button")) {
-            answerButtons[i].classList.remove("pushed-answer-button");
-        }
-        // an answer was already given, so disable the buttons for now
-        helpers.disable(answerButtons[i]);
-    }
-    if (event.target.id !== "show-answer-btn") {
-        event.target.classList.add("pushed-answer-button");
-    }
 }
 
 function initProgressCounter(curr, total) {
@@ -193,15 +127,6 @@ function updateProgressCounter() {
     }
 }
 
-function setupShowAndNextButtons() {
-    "use strict";
-    var showBtn = document.getElementById("show-answer-btn"),
-        nextBtn = document.getElementById("next-btn");
-    showBtn.addEventListener("click", processAnswer);
-    nextBtn.addEventListener("click", goToNext);
-    helpers.disable(nextBtn);
-}
-
 
 function setupPlayButtonListeners() {
     "use strict";
@@ -216,34 +141,6 @@ function setupPlayButtonListeners() {
             playBottomNote();
         }, 200);
     });
-}
-
-function setupAnswerButtonListeners() {
-    "use strict";
-    var i, answers = document.getElementsByClassName("answer-button");
-    for (i = 0; i < answers.length; i++) {
-        answers[i].addEventListener("click", processAnswer);
-    }
-}
-
-function setupUserInterface() {
-    "use strict";
-    var numButtons = Math.min(IM.course.nameSet.length, 4);
-    updateAnswerButtons(createAnswerButtons(numButtons));
-    setupShowAndNextButtons();
-    setupPlayButtonListeners();
-    setupAnswerButtonListeners();
-    updateProgressCounter();
-}
-
-function confirmIntervalSelectionDialogue() {
-    "use strict";
-    if (getCourseExercises()) {
-        hideIntervalSelectionDialogue();
-        showExerciseContent();
-        // show the progess counter
-        document.getElementById("course-progress").classList.remove("hidden");
-    }
 }
 
 function resetAnswerButtons(answerButtons) {
@@ -288,6 +185,108 @@ function createAnswerButtons(numButtonLimit) {
         answerButtonContainer.appendChild(newButton);
     }
     return document.getElementsByClassName('answer-button');
+}
+
+// click handler for next-btn
+function goToNext(event) {
+    "use strict";
+    var resultElem, answerButtons, showAnswerButton, nextButton;
+    if (IM.course.courseComplete()) {
+        hideExerciseContent();
+        showCourseCompleteDialogue();
+    }
+    else {
+        resultElem = document.getElementById("answer-result");
+        answerButtons = document.getElementsByClassName("answer-button");
+        showAnswerButton = document.getElementById("show-answer-btn");
+        nextButton = document.getElementById("next-btn");
+        resultElem.textContent = ""; // clear/hide result
+        updateProgressCounter(); // update progress counter
+        updateAnswerButtons(answerButtons); // clear answer buttons
+        helpers.enable(showAnswerButton);
+        helpers.disable(nextButton);
+    }
+}
+
+function setupShowAndNextButtons() {
+    "use strict";
+    var showBtn = document.getElementById("show-answer-btn"),
+        nextBtn = document.getElementById("next-btn");
+    showBtn.addEventListener("click", processAnswer);
+    nextBtn.addEventListener("click", goToNext);
+    helpers.disable(nextBtn);
+}
+
+function setupAnswerButtonListeners() {
+    "use strict";
+    var i, answers = document.getElementsByClassName("answer-button");
+    for (i = 0; i < answers.length; i++) {
+        answers[i].addEventListener("click", processAnswer);
+    }
+}
+
+function setupUserInterface() {
+    "use strict";
+    var numButtons = Math.min(IM.course.nameSet.length, 4);
+    updateAnswerButtons(createAnswerButtons(numButtons));
+    setupShowAndNextButtons();
+    setupPlayButtonListeners();
+    setupAnswerButtonListeners();
+    updateProgressCounter();
+}
+
+function initCourseWithData(responseData) {
+    "use strict";
+    helpers.assert(responseData !== undefined);
+    IM.userLoggedIn = responseData.userAuthenticated;
+    helpers.assert(responseData.exercises.length > 0, "responseData.exercises has length zero");
+    IM.course = intramusical.createCourse(responseData.exercises);
+    IM.course.nameSet = helpers.getCheckedNames();
+    setupUserInterface();
+}
+
+function getCourseExercises() {
+    "use strict";
+    var data,
+        request,
+        checkedIds = helpers.getCheckedNames(),
+        lengthId = helpers.getCourseLength(),
+        len;
+    // should never happen
+    if (checkedIds.length < 2) {
+        alert('You must choose at least two intervals');
+        return false;
+    }
+    if (lengthId === "short") {
+        len = 6;
+    }
+    else if (lengthId === "long") {
+        len = 12;
+    }
+    else {
+        throw new Error("bad course length!");
+    }
+    request = new XMLHttpRequest();
+    request.onload = function () {
+        var response = JSON.parse(this.responseText);
+        initCourseWithData(response.data);
+    };
+    data = new FormData();
+    data.append('html_names', checkedIds);
+    data.append('course_length', len);
+    request.open('POST', '/interval-selection/', true);
+    request.send(data);
+    return true;
+}
+
+function confirmIntervalSelectionDialogue() {
+    "use strict";
+    if (getCourseExercises()) {
+        hideIntervalSelectionDialogue();
+        showExerciseContent();
+        // show the progess counter
+        document.getElementById("course-progress").classList.remove("hidden");
+    }
 }
 
 function init() {
