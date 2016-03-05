@@ -44,25 +44,26 @@
         document.getElementById("course-complete-dialogue").classList.add("hidden");
     }
 
+    function toggleBuildCourseButton () {
+        var button = document.getElementById("build-course-button");
+        console.log("numChecked", helpers.getNumChecked());
+        if (helpers.getNumChecked() >= 2) {
+            if (button.classList.contains('hidden')) {
+                button.classList.remove('hidden');
+            }
+        }
+        else {
+            if (!button.classList.contains('hidden')) {
+                button.classList.add('hidden');
+            }
+        }
+    }
+
     function showIntervalSelectionDialogue() {
         document.getElementById("interval-selection-wrapper").classList.remove("hidden");
         var box = document.getElementById("interval-selection-dialogue");
         box.classList.remove("hidden");
-        box.addEventListener("click", function () {
-            var button = document.getElementById("build-course-button");
-            console.log("clicked on box");
-            console.log("numChecked", helpers.getNumChecked());
-            if (helpers.getNumChecked() >= 2) {
-                if (button.classList.contains('hidden')) {
-                    button.classList.remove('hidden');
-                }
-            }
-            else {
-                if (!button.classList.contains('hidden')) {
-                    button.classList.add('hidden');
-                }
-            }
-        });
+        box.addEventListener("click", toggleBuildCourseButton);
         document.getElementById('select-all').addEventListener('click', helpers.checkOrUncheckAll);
     }
 
