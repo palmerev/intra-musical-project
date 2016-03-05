@@ -1,29 +1,28 @@
 (function (window) {
     var helpers = {
     assert: function (condition, message) {
-      var message = message || "assertion failed";
-      if (!condition) {
-        throw message;
-      }
+        "use strict";
+        var message = message || "assertion failed";
+        if (!condition) {
+            throw message;
+        }
     },
+
     /*
       returns true if an array is empty, otherwise false
     */
     isEmptyArray: function (arr) {
-       if(arr.length === 0) {
-         return true;
-       }
-       else {
-         return false;
-       }
+        "use strict";
+        return (arr.length === 0);
     },
 
     /*
       checks or unchecks all checkboxes based on the 'select all' checkbox
     */
     checkOrUncheckAll: function () {
-        var selectedAll = document.getElementById("select-all").checked;
-        var checkboxes = document.querySelectorAll("input[type=checkbox]");
+        "use strict";
+        var selectedAll = document.getElementById("select-all").checked,
+            checkboxes = document.querySelectorAll("input[type=checkbox]");
         if (selectedAll) {
             for(var i = 0; i < checkboxes.length; i++) {
                 checkboxes[i].checked = true;
@@ -34,12 +33,13 @@
                 checkboxes[i].checked = false;
             }
         }
-
     },
+
     /*
     Get the value of the radio button for the course length.
     */
     getCourseLength: function () {
+        "use strict";
         var radios = document.getElementsByClassName("course-length");
         for (var i = 0; i < radios.length; i++) {
             if (radios[i].checked) {
@@ -54,6 +54,7 @@
     and returns the names in the form "foo bar"
     */
     getCheckedNames: function () {
+        "use strict";
         var checkedNames = [],
             currentId,
             name;
@@ -79,6 +80,7 @@
     },
 
     getNumChecked: function () {
+        "use strict";
         try {
             var checkedBoxes = document.querySelectorAll("input[type='checkbox']:checked");
             return checkedBoxes.length;
@@ -100,6 +102,7 @@
     string, separated by spaces, and returns that string.
     */
     getIdsOfChecked: function () {
+        "use strict";
         var boxes = document.querySelectorAll("input[type='checkbox']");
         var checkedString = "";
         for (var i = 0; i < boxes.length; i++) {
@@ -113,11 +116,13 @@
     },
 
     disable: function (btn) {
+        "use strict";
         btn.setAttribute("disabled", "");
         btn.classList.add("disabled");
     },
 
     enable: function (btn) {
+        "use strict";
         btn.removeAttribute("disabled");
         btn.classList.remove("disabled");
     }
