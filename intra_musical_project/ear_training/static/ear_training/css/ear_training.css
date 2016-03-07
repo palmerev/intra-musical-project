@@ -30,9 +30,9 @@ button {
     display: block; } }
 
 #build-course-button {
-  background-color: #f86015; }
+  background-color: #733a3a; }
   #build-course-button:hover {
-    background-color: #f65607; }
+    background-color: #512929; }
 
 .play-button {
   background-color: #0f8b93; }
@@ -152,7 +152,7 @@ input[type='radio'] {
   .interval-selection label:hover {
     background-color: #0e7e85; }
 .interval-selection input[type='checkbox']:checked + label {
-  background-color: #0d757c; }
+  background-color: #0b686e; }
 
 .container {
   margin-left: 25px; }
@@ -170,7 +170,7 @@ input[type='radio'] {
       background: #f86015; }
 
 input[type="radio"]:checked + label {
-  background: #ec5307; }
+  background: #de4e07; }
 
 #login-status-wrapper {
   position: absolute;

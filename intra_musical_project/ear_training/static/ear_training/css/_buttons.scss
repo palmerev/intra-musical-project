@@ -32,9 +32,9 @@ $borderRad: 0.4em;
 }
 
 #build-course-button {
-    background-color: $hottyOrange;
+    background-color: lighten($darkAccent, 10%);
     &:hover {
-        background-color: darken($hottyOrange, 3%);
+        background-color: $darkAccent;
     }
 }
 

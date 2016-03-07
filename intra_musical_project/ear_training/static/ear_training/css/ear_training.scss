@@ -132,7 +132,7 @@ input[type='radio'] {
         }
     }
     input[type='checkbox']:checked + label {
-        background-color: darken($lazyRiverBlue, 5%);
+        background-color: darken($lazyRiverBlue, 8%);
     }
 }
 
@@ -157,7 +157,7 @@ input[type='radio'] {
 }
 
 input[type="radio"]:checked + label {
-    background: darken($hottyOrange, 5%);
+    background: darken($hottyOrange, 8%);
 }
 
 #login-status-wrapper {
