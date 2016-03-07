@@ -48,13 +48,13 @@
         var button = document.getElementById("build-course-button");
         console.log("numChecked", helpers.getNumChecked());
         if (helpers.getNumChecked() >= 2) {
-            if (button.classList.contains('hidden')) {
-                button.classList.remove('hidden');
+            if (button.hasAttribute('disabled')) {
+                helpers.enable(button);
             }
         }
         else {
-            if (!button.classList.contains('hidden')) {
-                button.classList.add('hidden');
+            if (!button.hasAttribute('disabled')) {
+                helpers.disable(button);
             }
         }
     }
