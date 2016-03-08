@@ -29,9 +29,9 @@ button {
     margin-bottom: 5px;
     display: block; } }
 
-#build-course-button {
+.build-button {
   background-color: #733a3a; }
-  #build-course-button:hover {
+  .build-button:hover {
     background-color: #512929; }
 
 .play-button {

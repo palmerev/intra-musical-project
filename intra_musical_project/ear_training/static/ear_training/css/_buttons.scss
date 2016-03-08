@@ -31,7 +31,7 @@ $borderRad: 0.4em;
   }
 }
 
-#build-course-button {
+.build-button {
     background-color: lighten($darkAccent, 10%);
     &:hover {
         background-color: $darkAccent;
