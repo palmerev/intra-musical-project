@@ -14,7 +14,6 @@ class Note(models.Model):
 class Interval(models.Model):
     '''Two notes a specific distance (interval) apart.'''
     INTERVAL_TYPES = (
-        ('unison', 'unison'),
         ('minor second', 'minor second'),
         ('major second', 'major second'),
         ('minor third', 'minor third'),
