@@ -184,48 +184,44 @@ def private(request, username):
 
 @login_required
 def results(request, username):
-    # get user's results visibility
-    private = request.user.student.results_private
-    # check if the user's username matches the URL's username parameter
-    # TODO: add inherited templates for results
-    if username == request.user.username:
-        return render(request,
-            'ear_training/self_results.html', {'username': username})
-    # a user is trying to view someone else's results page
-    else:
-        if private:
-            return redirect('results_private', username)  # FIXME
-        else:
-            return render(request,
-            'ear_training/other_user_results.html', {'username': username})  # FIXME
+    results_private = request.user.student.results_private
+    if username != request.user.username and results_private:
+        return redirect('results_private', username)
+    # build up context
     interval_names = [i[0] for i in Interval.INTERVAL_TYPES]
-    # get all exercises for student
     exercises = StudentExercise.objects.filter(
-        student=request.user.student
-    )
+        student=request.user.student)
     nums_completed = [0 for x in interval_names]
     logging.debug(
-        'inside "results": building exercises completed for %s', request.user.student
-    )
+        'inside "results": building exercises completed for %s',
+        request.user.student)
     for ex in exercises:
         try:
-            # logging.debug('exercise answer: {}'.format(str(ex.exercise.answer)))
-            exercise_index = interval_names.index(str(ex.exercise.answer).split(',')[0])
+            exercise_index = interval_names.index(
+                str(ex.exercise.name).split(',')[0])
             nums_completed[exercise_index] += ex.total_times_given()
-            logging.debug('{} completed {} times'.format(
-                ex.exercise.answer, nums_completed[exercise_index])
-            )
+            # logging.debug('{} completed {} times'.format(
+            #     ex.exercise.answer, nums_completed[exercise_index]))
         except ValueError:
             logging.warning('ValueError in "results"')
             continue
-    logging.debug("\n-------\n")
-    results = list(zip(interval_names, nums_completed))
-    context = {
-        "results": results,
-        "exercises": exercises,
-        "results_private": request.user.student.results_private
-    }
-    return render(request, 'ear_training/self_results.html', context)
+        logging.debug("\n-------\n")
+        results = list(zip(interval_names, nums_completed))
+        context = {
+            "username": username,
+            "results": results,
+            "exercises": exercises,
+            "results_private": request.user.student.results_private
+        }
+        logging.debug("'results' context: %s", context)
+    # a user is viewing their own results page
+    if username == request.user.username:
+        return render(request,
+            'ear_training/self_results.html', context)
+    # a user is viewing someone else's public results page
+    else:
+        return render(request,
+            'ear_training/other_users_results.html', context)
 
 
 def update_visibility(request, username):
@@ -235,13 +231,15 @@ def update_visibility(request, username):
     updated = Student.objects.filter(student_user__username=username).update(
         results_private=visibility_value)
     # set new visibility value and save
-    # if visibility_value is True, the checkbox is checked, so results should be made private
+    # if visibility_value is True, the checkbox is checked,
+    # so results should be made private
     # the checkbox is unchecked, so results should be made public
     if updated == 1:
         private = visibility_value
     else:
         return JsonResponse({"error": "error during update"})
     # return JSON response with new value
+    logging.debug("user's results should now be: %s", private)
     return JsonResponse({"private": private})
 # -----------------------------------------------------------------------------
 # test views for AJAX post
