@@ -1,7 +1,7 @@
 import json
 import logging
-from random import shuffle
-
+import random
+from itertools import chain
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib.auth import authenticate, login, logout
@@ -120,7 +120,7 @@ def construct_interval_exercises(req, exercise_list):
             },
             "exerciseId": exercise.id
         } for exercise in exercise_list]
-    shuffle(exercises)
+    random.shuffle(exercises)
 
     return {
         "userAuthenticated": req.user.is_authenticated(),
@@ -160,16 +160,19 @@ def to_interval_names(html_names):
 def interval_selection(request):
     if request.POST:
         logging.debug("POST to interval_selection: %s", request.POST)
-        # get list of intervals that match names in list
-        # selected = request.POST["html_names"].split(" ")
-        # interval_names = to_interval_names(selected)
         course_length = int(request.POST["course_length"])
         logging.debug("course_length: %d", course_length)
         interval_names = request.POST["html_names"].split(",")
         logging.debug("interval_names: %s", interval_names)
-        exercises = Interval.objects.filter(name__in=interval_names)[:course_length]
-        logging.debug("Exercise.objects.filter: %s", exercises)
-        interval_data = construct_interval_exercises(request, exercises)
+        # for each interval:
+        # get all objects and slice to limit to course length
+        interval_querysets = [Interval.objects.filter(
+            name=name)[:course_length] for name in interval_names]
+        # combine intervals and random shuffle
+        course_queryset = list(chain.from_iterable(interval_querysets))
+        logging.debug("course_queryset: %s", course_queryset)
+        random.shuffle(course_queryset)
+        interval_data = construct_interval_exercises(request, course_queryset)
         logging.debug("interval data: %s", interval_data)
         return JsonResponse({"data": interval_data})
 
