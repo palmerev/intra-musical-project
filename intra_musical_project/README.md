@@ -20,6 +20,5 @@ Authenticated users can:
 
 ### Some Known Issues
 - **NOTE**: Login system is insecure and is for demonstration purposes only
-- Query that generates results currently fails to return the results list
 - Audio for playing both notes in an interval could be improved with Tone.js polysynth instead of overlapping notes
-- Only tested on Chrome and Firefox, Web Audio API support varies
+- Only tested on recent versions of Chrome and Firefox, Web Audio API support varies across browsers
