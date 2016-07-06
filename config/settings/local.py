@@ -15,12 +15,19 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 DEBUG = True
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "intramusical",
-        "USER": "intramusical_user",
-        "PASSWORD": "intramusicalpassword",
-        "HOST": "localhost",
-        "PORT": "5432"
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "intramusical",
+#         "USER": "intramusical_user",
+#         "PASSWORD": "intramusicalpassword",
+#         "HOST": "localhost",
+#         "PORT": "5432"
+#     }
+# }
